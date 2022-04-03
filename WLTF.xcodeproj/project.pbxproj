@@ -1,0 +1,605 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6A1AAAE227F920280084D06D /* WLTFApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1AAAE127F920280084D06D /* WLTFApp.swift */; };
+		6A1AAAE427F920280084D06D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1AAAE327F920280084D06D /* ContentView.swift */; };
+		6A1AAAE627F9202A0084D06D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A1AAAE527F9202A0084D06D /* Assets.xcassets */; };
+		6A1AAAE927F9202A0084D06D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A1AAAE827F9202A0084D06D /* Preview Assets.xcassets */; };
+		6A1AAAEB27F9202A0084D06D /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1AAAEA27F9202A0084D06D /* Persistence.swift */; };
+		6A1AAAEE27F9202A0084D06D /* WLTF.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6A1AAAEC27F9202A0084D06D /* WLTF.xcdatamodeld */; };
+		6A1AAAF827F9202A0084D06D /* WLTFTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1AAAF727F9202A0084D06D /* WLTFTests.swift */; };
+		6A1AAB0227F9202A0084D06D /* WLTFUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1AAB0127F9202A0084D06D /* WLTFUITests.swift */; };
+		6A1AAB0427F9202A0084D06D /* WLTFUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1AAB0327F9202A0084D06D /* WLTFUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		6A1AAAF427F9202A0084D06D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6A1AAAD627F920280084D06D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6A1AAADD27F920280084D06D;
+			remoteInfo = WLTF;
+		};
+		6A1AAAFE27F9202A0084D06D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6A1AAAD627F920280084D06D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6A1AAADD27F920280084D06D;
+			remoteInfo = WLTF;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		6A1AAADE27F920280084D06D /* WLTF.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WLTF.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A1AAAE127F920280084D06D /* WLTFApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLTFApp.swift; sourceTree = "<group>"; };
+		6A1AAAE327F920280084D06D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		6A1AAAE527F9202A0084D06D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6A1AAAE827F9202A0084D06D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		6A1AAAEA27F9202A0084D06D /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		6A1AAAED27F9202A0084D06D /* WLTF.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WLTF.xcdatamodel; sourceTree = "<group>"; };
+		6A1AAAF327F9202A0084D06D /* WLTFTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WLTFTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A1AAAF727F9202A0084D06D /* WLTFTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLTFTests.swift; sourceTree = "<group>"; };
+		6A1AAAFD27F9202A0084D06D /* WLTFUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WLTFUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A1AAB0127F9202A0084D06D /* WLTFUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLTFUITests.swift; sourceTree = "<group>"; };
+		6A1AAB0327F9202A0084D06D /* WLTFUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLTFUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6A1AAADB27F920280084D06D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6A1AAAF027F9202A0084D06D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6A1AAAFA27F9202A0084D06D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6A1AAAD527F920280084D06D = {
+			isa = PBXGroup;
+			children = (
+				6A1AAAE027F920280084D06D /* WLTF */,
+				6A1AAAF627F9202A0084D06D /* WLTFTests */,
+				6A1AAB0027F9202A0084D06D /* WLTFUITests */,
+				6A1AAADF27F920280084D06D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		6A1AAADF27F920280084D06D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6A1AAADE27F920280084D06D /* WLTF.app */,
+				6A1AAAF327F9202A0084D06D /* WLTFTests.xctest */,
+				6A1AAAFD27F9202A0084D06D /* WLTFUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6A1AAAE027F920280084D06D /* WLTF */ = {
+			isa = PBXGroup;
+			children = (
+				6A1AAAE127F920280084D06D /* WLTFApp.swift */,
+				6A1AAAE327F920280084D06D /* ContentView.swift */,
+				6A1AAAE527F9202A0084D06D /* Assets.xcassets */,
+				6A1AAAEA27F9202A0084D06D /* Persistence.swift */,
+				6A1AAAEC27F9202A0084D06D /* WLTF.xcdatamodeld */,
+				6A1AAAE727F9202A0084D06D /* Preview Content */,
+			);
+			path = WLTF;
+			sourceTree = "<group>";
+		};
+		6A1AAAE727F9202A0084D06D /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				6A1AAAE827F9202A0084D06D /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		6A1AAAF627F9202A0084D06D /* WLTFTests */ = {
+			isa = PBXGroup;
+			children = (
+				6A1AAAF727F9202A0084D06D /* WLTFTests.swift */,
+			);
+			path = WLTFTests;
+			sourceTree = "<group>";
+		};
+		6A1AAB0027F9202A0084D06D /* WLTFUITests */ = {
+			isa = PBXGroup;
+			children = (
+				6A1AAB0127F9202A0084D06D /* WLTFUITests.swift */,
+				6A1AAB0327F9202A0084D06D /* WLTFUITestsLaunchTests.swift */,
+			);
+			path = WLTFUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6A1AAADD27F920280084D06D /* WLTF */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6A1AAB0727F9202A0084D06D /* Build configuration list for PBXNativeTarget "WLTF" */;
+			buildPhases = (
+				6A1AAADA27F920280084D06D /* Sources */,
+				6A1AAADB27F920280084D06D /* Frameworks */,
+				6A1AAADC27F920280084D06D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WLTF;
+			productName = WLTF;
+			productReference = 6A1AAADE27F920280084D06D /* WLTF.app */;
+			productType = "com.apple.product-type.application";
+		};
+		6A1AAAF227F9202A0084D06D /* WLTFTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6A1AAB0A27F9202A0084D06D /* Build configuration list for PBXNativeTarget "WLTFTests" */;
+			buildPhases = (
+				6A1AAAEF27F9202A0084D06D /* Sources */,
+				6A1AAAF027F9202A0084D06D /* Frameworks */,
+				6A1AAAF127F9202A0084D06D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6A1AAAF527F9202A0084D06D /* PBXTargetDependency */,
+			);
+			name = WLTFTests;
+			productName = WLTFTests;
+			productReference = 6A1AAAF327F9202A0084D06D /* WLTFTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		6A1AAAFC27F9202A0084D06D /* WLTFUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6A1AAB0D27F9202A0084D06D /* Build configuration list for PBXNativeTarget "WLTFUITests" */;
+			buildPhases = (
+				6A1AAAF927F9202A0084D06D /* Sources */,
+				6A1AAAFA27F9202A0084D06D /* Frameworks */,
+				6A1AAAFB27F9202A0084D06D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6A1AAAFF27F9202A0084D06D /* PBXTargetDependency */,
+			);
+			name = WLTFUITests;
+			productName = WLTFUITests;
+			productReference = 6A1AAAFD27F9202A0084D06D /* WLTFUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6A1AAAD627F920280084D06D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1320;
+				LastUpgradeCheck = 1320;
+				TargetAttributes = {
+					6A1AAADD27F920280084D06D = {
+						CreatedOnToolsVersion = 13.2.1;
+					};
+					6A1AAAF227F9202A0084D06D = {
+						CreatedOnToolsVersion = 13.2.1;
+						TestTargetID = 6A1AAADD27F920280084D06D;
+					};
+					6A1AAAFC27F9202A0084D06D = {
+						CreatedOnToolsVersion = 13.2.1;
+						TestTargetID = 6A1AAADD27F920280084D06D;
+					};
+				};
+			};
+			buildConfigurationList = 6A1AAAD927F920280084D06D /* Build configuration list for PBXProject "WLTF" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 6A1AAAD527F920280084D06D;
+			productRefGroup = 6A1AAADF27F920280084D06D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6A1AAADD27F920280084D06D /* WLTF */,
+				6A1AAAF227F9202A0084D06D /* WLTFTests */,
+				6A1AAAFC27F9202A0084D06D /* WLTFUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6A1AAADC27F920280084D06D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6A1AAAE927F9202A0084D06D /* Preview Assets.xcassets in Resources */,
+				6A1AAAE627F9202A0084D06D /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6A1AAAF127F9202A0084D06D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6A1AAAFB27F9202A0084D06D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6A1AAADA27F920280084D06D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6A1AAAEB27F9202A0084D06D /* Persistence.swift in Sources */,
+				6A1AAAE427F920280084D06D /* ContentView.swift in Sources */,
+				6A1AAAEE27F9202A0084D06D /* WLTF.xcdatamodeld in Sources */,
+				6A1AAAE227F920280084D06D /* WLTFApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6A1AAAEF27F9202A0084D06D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6A1AAAF827F9202A0084D06D /* WLTFTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6A1AAAF927F9202A0084D06D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6A1AAB0227F9202A0084D06D /* WLTFUITests.swift in Sources */,
+				6A1AAB0427F9202A0084D06D /* WLTFUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6A1AAAF527F9202A0084D06D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6A1AAADD27F920280084D06D /* WLTF */;
+			targetProxy = 6A1AAAF427F9202A0084D06D /* PBXContainerItemProxy */;
+		};
+		6A1AAAFF27F9202A0084D06D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6A1AAADD27F920280084D06D /* WLTF */;
+			targetProxy = 6A1AAAFE27F9202A0084D06D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		6A1AAB0527F9202A0084D06D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		6A1AAB0627F9202A0084D06D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		6A1AAB0827F9202A0084D06D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"WLTF/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = FridgeBoys.WLTF;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		6A1AAB0927F9202A0084D06D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"WLTF/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = FridgeBoys.WLTF;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		6A1AAB0B27F9202A0084D06D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = FridgeBoys.WLTFTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WLTF.app/WLTF";
+			};
+			name = Debug;
+		};
+		6A1AAB0C27F9202A0084D06D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = FridgeBoys.WLTFTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WLTF.app/WLTF";
+			};
+			name = Release;
+		};
+		6A1AAB0E27F9202A0084D06D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = FridgeBoys.WLTFUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = WLTF;
+			};
+			name = Debug;
+		};
+		6A1AAB0F27F9202A0084D06D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = FridgeBoys.WLTFUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = WLTF;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6A1AAAD927F920280084D06D /* Build configuration list for PBXProject "WLTF" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6A1AAB0527F9202A0084D06D /* Debug */,
+				6A1AAB0627F9202A0084D06D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6A1AAB0727F9202A0084D06D /* Build configuration list for PBXNativeTarget "WLTF" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6A1AAB0827F9202A0084D06D /* Debug */,
+				6A1AAB0927F9202A0084D06D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6A1AAB0A27F9202A0084D06D /* Build configuration list for PBXNativeTarget "WLTFTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6A1AAB0B27F9202A0084D06D /* Debug */,
+				6A1AAB0C27F9202A0084D06D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6A1AAB0D27F9202A0084D06D /* Build configuration list for PBXNativeTarget "WLTFUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6A1AAB0E27F9202A0084D06D /* Debug */,
+				6A1AAB0F27F9202A0084D06D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		6A1AAAEC27F9202A0084D06D /* WLTF.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				6A1AAAED27F9202A0084D06D /* WLTF.xcdatamodel */,
+			);
+			currentVersion = 6A1AAAED27F9202A0084D06D /* WLTF.xcdatamodel */;
+			path = WLTF.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 6A1AAAD627F920280084D06D /* Project object */;
+}

@@ -32,7 +32,7 @@
     </entity>
     <elements>
         <element name="Food" positionX="-63" positionY="-18" width="128" height="104"/>
-        <element name="Units" positionX="-63" positionY="27" width="128" height="179"/>
         <element name="FoodCategories" positionX="-45" positionY="99" width="128" height="164"/>
+        <element name="Units" positionX="-63" positionY="27" width="128" height="179"/>
     </elements>
 </model>

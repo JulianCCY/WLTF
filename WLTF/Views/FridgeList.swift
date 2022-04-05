@@ -9,8 +9,10 @@ import SwiftUI
 
 struct FridgeList: View {
     var body: some View {
-        List(foodArr, id: \.name) { food in
-            FoodRow(food: food)
+        NavigationView {
+            List(foodArr, id: \.name) { food in
+                FoodRow(food: food)
+            }
         }
     }
 }

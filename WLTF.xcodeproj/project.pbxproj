@@ -24,6 +24,7 @@
 		6A1AAB0427F9202A0084D06D /* WLTFUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1AAB0327F9202A0084D06D /* WLTFUITestsLaunchTests.swift */; };
 		6AB93E6127FC808A003D601F /* FridgeList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB93E6027FC808A003D601F /* FridgeList.swift */; };
 		6AB93E6327FC88A6003D601F /* FoodDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB93E6227FC88A6003D601F /* FoodDetail.swift */; };
+		6ADB2E9027FCA32900A8E475 /* FridgeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADB2E8F27FCA32900A8E475 /* FridgeScreen.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,7 @@
 		6A1AAB0327F9202A0084D06D /* WLTFUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLTFUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		6AB93E6027FC808A003D601F /* FridgeList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FridgeList.swift; sourceTree = "<group>"; };
 		6AB93E6227FC88A6003D601F /* FoodDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodDetail.swift; sourceTree = "<group>"; };
+		6ADB2E8F27FCA32900A8E475 /* FridgeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FridgeScreen.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +110,7 @@
 				6A1830B227FC4907005FF721 /* FoodRow.swift */,
 				6AB93E6027FC808A003D601F /* FridgeList.swift */,
 				6AB93E6227FC88A6003D601F /* FoodDetail.swift */,
+				6ADB2E8F27FCA32900A8E475 /* FridgeScreen.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -314,6 +317,7 @@
 			files = (
 				6AB93E6327FC88A6003D601F /* FoodDetail.swift in Sources */,
 				6A1830A727FC4291005FF721 /* FoodStorage.swift in Sources */,
+				6ADB2E9027FCA32900A8E475 /* FridgeScreen.swift in Sources */,
 				6A1830B027FC47AB005FF721 /* FoodModelData.swift in Sources */,
 				6A1AAAEB27F9202A0084D06D /* Persistence.swift in Sources */,
 				6A1830A127FB8DA9005FF721 /* MapView.swift in Sources */,

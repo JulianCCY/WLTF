@@ -10,7 +10,19 @@ import CoreData
 
 struct ContentView: View {
     var body: some View {
-        Text("Hello fridge")
+        VStack (alignment: .leading) {
+            Text("What Left The Fridge")
+                .font(.title)
+                .foregroundColor(.black)
+            HStack {
+                Text("Your personal fridge manager")
+                    .font(.subheadline)
+                Spacer()
+                Text("Swift UI test")
+                    .font(.subheadline)
+            }
+        }
+        .padding()
     }
 }
 

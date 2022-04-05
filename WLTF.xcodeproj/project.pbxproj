@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6A18309F27FB8713005FF721 /* CircleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A18309E27FB8713005FF721 /* CircleImage.swift */; };
+		6A1830A127FB8DA9005FF721 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1830A027FB8DA9005FF721 /* MapView.swift */; };
 		6A1AAAE227F920280084D06D /* WLTFApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1AAAE127F920280084D06D /* WLTFApp.swift */; };
 		6A1AAAE427F920280084D06D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1AAAE327F920280084D06D /* ContentView.swift */; };
 		6A1AAAE627F9202A0084D06D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A1AAAE527F9202A0084D06D /* Assets.xcassets */; };
@@ -36,6 +38,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6A18309E27FB8713005FF721 /* CircleImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImage.swift; sourceTree = "<group>"; };
+		6A1830A027FB8DA9005FF721 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		6A1AAADE27F920280084D06D /* WLTF.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WLTF.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A1AAAE127F920280084D06D /* WLTFApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLTFApp.swift; sourceTree = "<group>"; };
 		6A1AAAE327F920280084D06D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -101,6 +105,8 @@
 				6A1AAAE127F920280084D06D /* WLTFApp.swift */,
 				6A1AAAE327F920280084D06D /* ContentView.swift */,
 				6A1AAAE527F9202A0084D06D /* Assets.xcassets */,
+				6A18309E27FB8713005FF721 /* CircleImage.swift */,
+				6A1830A027FB8DA9005FF721 /* MapView.swift */,
 				6A1AAAEA27F9202A0084D06D /* Persistence.swift */,
 				6A1AAAEC27F9202A0084D06D /* WLTF.xcdatamodeld */,
 				6A1AAAE727F9202A0084D06D /* Preview Content */,
@@ -264,9 +270,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				6A1AAAEB27F9202A0084D06D /* Persistence.swift in Sources */,
+				6A1830A127FB8DA9005FF721 /* MapView.swift in Sources */,
 				6A1AAAE427F920280084D06D /* ContentView.swift in Sources */,
 				6A1AAAEE27F9202A0084D06D /* WLTF.xcdatamodeld in Sources */,
 				6A1AAAE227F920280084D06D /* WLTFApp.swift in Sources */,
+				6A18309F27FB8713005FF721 /* CircleImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

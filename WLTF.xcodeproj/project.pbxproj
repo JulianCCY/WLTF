@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		6A18309F27FB8713005FF721 /* CircleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A18309E27FB8713005FF721 /* CircleImage.swift */; };
 		6A1830A127FB8DA9005FF721 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1830A027FB8DA9005FF721 /* MapView.swift */; };
+		6A1830A327FC4239005FF721 /* foodData.json in Resources */ = {isa = PBXBuildFile; fileRef = 6A1830A227FC4239005FF721 /* foodData.json */; };
+		6A1830A727FC4291005FF721 /* FoodStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1830A627FC4291005FF721 /* FoodStorage.swift */; };
+		6A1830B027FC47AB005FF721 /* FoodModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1830AF27FC47AB005FF721 /* FoodModelData.swift */; };
+		6A1830B327FC4907005FF721 /* FoodRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1830B227FC4907005FF721 /* FoodRow.swift */; };
 		6A1AAAE227F920280084D06D /* WLTFApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1AAAE127F920280084D06D /* WLTFApp.swift */; };
 		6A1AAAE427F920280084D06D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1AAAE327F920280084D06D /* ContentView.swift */; };
 		6A1AAAE627F9202A0084D06D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A1AAAE527F9202A0084D06D /* Assets.xcassets */; };
@@ -18,6 +22,8 @@
 		6A1AAAF827F9202A0084D06D /* WLTFTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1AAAF727F9202A0084D06D /* WLTFTests.swift */; };
 		6A1AAB0227F9202A0084D06D /* WLTFUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1AAB0127F9202A0084D06D /* WLTFUITests.swift */; };
 		6A1AAB0427F9202A0084D06D /* WLTFUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1AAB0327F9202A0084D06D /* WLTFUITestsLaunchTests.swift */; };
+		6AB93E6127FC808A003D601F /* FridgeList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB93E6027FC808A003D601F /* FridgeList.swift */; };
+		6AB93E6327FC88A6003D601F /* FoodDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB93E6227FC88A6003D601F /* FoodDetail.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +46,10 @@
 /* Begin PBXFileReference section */
 		6A18309E27FB8713005FF721 /* CircleImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImage.swift; sourceTree = "<group>"; };
 		6A1830A027FB8DA9005FF721 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		6A1830A227FC4239005FF721 /* foodData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = foodData.json; sourceTree = "<group>"; };
+		6A1830A627FC4291005FF721 /* FoodStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodStorage.swift; sourceTree = "<group>"; };
+		6A1830AF27FC47AB005FF721 /* FoodModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodModelData.swift; sourceTree = "<group>"; };
+		6A1830B227FC4907005FF721 /* FoodRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodRow.swift; sourceTree = "<group>"; };
 		6A1AAADE27F920280084D06D /* WLTF.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WLTF.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A1AAAE127F920280084D06D /* WLTFApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLTFApp.swift; sourceTree = "<group>"; };
 		6A1AAAE327F920280084D06D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -52,6 +62,8 @@
 		6A1AAAFD27F9202A0084D06D /* WLTFUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WLTFUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A1AAB0127F9202A0084D06D /* WLTFUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLTFUITests.swift; sourceTree = "<group>"; };
 		6A1AAB0327F9202A0084D06D /* WLTFUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLTFUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		6AB93E6027FC808A003D601F /* FridgeList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FridgeList.swift; sourceTree = "<group>"; };
+		6AB93E6227FC88A6003D601F /* FoodDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodDetail.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +91,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6A1830AD27FC467D005FF721 /* JsonData */ = {
+			isa = PBXGroup;
+			children = (
+				6A1830A227FC4239005FF721 /* foodData.json */,
+			);
+			path = JsonData;
+			sourceTree = "<group>";
+		};
+		6A1830AE27FC4696005FF721 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				6A1AAAE327F920280084D06D /* ContentView.swift */,
+				6A18309E27FB8713005FF721 /* CircleImage.swift */,
+				6A1830A027FB8DA9005FF721 /* MapView.swift */,
+				6A1830B227FC4907005FF721 /* FoodRow.swift */,
+				6AB93E6027FC808A003D601F /* FridgeList.swift */,
+				6AB93E6227FC88A6003D601F /* FoodDetail.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		6A1830B127FC48A9005FF721 /* FoodModel */ = {
+			isa = PBXGroup;
+			children = (
+				6A1830A627FC4291005FF721 /* FoodStorage.swift */,
+				6A1830AF27FC47AB005FF721 /* FoodModelData.swift */,
+			);
+			path = FoodModel;
+			sourceTree = "<group>";
+		};
 		6A1AAAD527F920280084D06D = {
 			isa = PBXGroup;
 			children = (
@@ -102,11 +144,11 @@
 		6A1AAAE027F920280084D06D /* WLTF */ = {
 			isa = PBXGroup;
 			children = (
+				6A1830AE27FC4696005FF721 /* Views */,
+				6A1830B127FC48A9005FF721 /* FoodModel */,
+				6A1830AD27FC467D005FF721 /* JsonData */,
 				6A1AAAE127F920280084D06D /* WLTFApp.swift */,
-				6A1AAAE327F920280084D06D /* ContentView.swift */,
 				6A1AAAE527F9202A0084D06D /* Assets.xcassets */,
-				6A18309E27FB8713005FF721 /* CircleImage.swift */,
-				6A1830A027FB8DA9005FF721 /* MapView.swift */,
 				6A1AAAEA27F9202A0084D06D /* Persistence.swift */,
 				6A1AAAEC27F9202A0084D06D /* WLTF.xcdatamodeld */,
 				6A1AAAE727F9202A0084D06D /* Preview Content */,
@@ -245,6 +287,7 @@
 			files = (
 				6A1AAAE927F9202A0084D06D /* Preview Assets.xcassets in Resources */,
 				6A1AAAE627F9202A0084D06D /* Assets.xcassets in Resources */,
+				6A1830A327FC4239005FF721 /* foodData.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,11 +312,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6AB93E6327FC88A6003D601F /* FoodDetail.swift in Sources */,
+				6A1830A727FC4291005FF721 /* FoodStorage.swift in Sources */,
+				6A1830B027FC47AB005FF721 /* FoodModelData.swift in Sources */,
 				6A1AAAEB27F9202A0084D06D /* Persistence.swift in Sources */,
 				6A1830A127FB8DA9005FF721 /* MapView.swift in Sources */,
+				6AB93E6127FC808A003D601F /* FridgeList.swift in Sources */,
 				6A1AAAE427F920280084D06D /* ContentView.swift in Sources */,
 				6A1AAAEE27F9202A0084D06D /* WLTF.xcdatamodeld in Sources */,
 				6A1AAAE227F920280084D06D /* WLTFApp.swift in Sources */,
+				6A1830B327FC4907005FF721 /* FoodRow.swift in Sources */,
 				6A18309F27FB8713005FF721 /* CircleImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

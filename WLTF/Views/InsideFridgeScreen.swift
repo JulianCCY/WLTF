@@ -42,7 +42,7 @@ struct InsideFridgeScreen: View {
                     }
                     .padding(.horizontal)
                 }
-                .frame(height: 230)
+                .frame(maxHeight: 140)
             }
             .navigationBarTitle("All food")
 //            ScrollView {

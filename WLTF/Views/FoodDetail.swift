@@ -8,6 +8,11 @@
 import SwiftUI
 
 struct FoodDetail: View {
+    
+    func deleteFood() {
+        
+    }
+    
     var body: some View {
         VStack {
             CircleImage()
@@ -32,12 +37,14 @@ struct FoodDetail: View {
                     Text("Expiration date")
                         .font(.title2)
                     Text("Descriptive text goes here.")
+                        .padding(.bottom)
                 }
-                
+                Button("Delete food", action: deleteFood)
             }
             .padding()
         Spacer()
         }
+        .navigationBarHidden(true)
     }
 }
 

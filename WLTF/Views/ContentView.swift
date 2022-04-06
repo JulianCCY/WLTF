@@ -10,7 +10,7 @@ import CoreData
 
 struct ContentView: View {
     
-    @State private var navBoolean = false
+//    @State private var navBoolean = false
     
     var body: some View {
         NavigationView {
@@ -27,15 +27,21 @@ struct ContentView: View {
                             .foregroundColor(.white)
                     }
                     .offset(y: -100)
-                    NavigationLink(destination: FridgeScreen(), isActive: $navBoolean) {
-                        Button(action: {self.navBoolean = true}) {
-                            Image("Landing page logo")
-                                .renderingMode(.original)
-                                .clipShape(Circle())
-                        }
+//                    NavigationLink(destination: FridgeScreen(), isActive: $navBoolean) {
+//                        Button(action: {self.navBoolean = true}) {
+//                            Image("Landing page logo")
+//                                .renderingMode(.original)
+//                                .clipShape(Circle())
+//                        }
+//                    }
+                    NavigationLink(destination: ClosedFridgeScreen()) {
+                        Image("Landing page logo")
+                            .renderingMode(.original)
+                            .clipShape(Circle())
                     }
                 }
             }
+            .navigationBarHidden(true)
         }
     }
 }

@@ -9,7 +9,25 @@ import SwiftUI
 
 struct FridgeScreen: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Rectangle()
+                .fill(Color("PrimaryPink"))
+                .frame(height: 110)
+                .overlay(
+                    Text("Fridge name")
+                        .font(.largeTitle)
+                        .offset(y: 10)
+                        .foregroundColor(Color.white)
+                )
+                .cornerRadius(10)
+                .shadow(radius: 5)
+                .edgesIgnoringSafeArea(.top)
+            Image("Closed fridge")
+                .resizable()
+                .offset(y: -25)
+                .ignoresSafeArea()
+                .padding([.leading, .trailing])
+        }
     }
 }
 

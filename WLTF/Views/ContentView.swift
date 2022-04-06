@@ -27,7 +27,7 @@ struct ContentView: View {
                             .foregroundColor(.white)
                     }
                     .offset(y: -100)
-                    NavigationLink(destination: FridgeList(), isActive: $navBoolean) {
+                    NavigationLink(destination: FridgeScreen(), isActive: $navBoolean) {
                         Button(action: {self.navBoolean = true}) {
                             Image("Landing page logo")
                                 .renderingMode(.original)

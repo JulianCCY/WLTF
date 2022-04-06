@@ -38,6 +38,6 @@ struct FoodRow_Previews: PreviewProvider {
             FoodRow(food: foodArr[0])
             FoodRow(food: foodArr[1])
         }
-//        .previewLayout(.fixed(width: 500, height: 100))
+        .previewLayout(.fixed(width: 500, height: 100))
     }
 }

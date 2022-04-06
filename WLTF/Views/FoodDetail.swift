@@ -44,7 +44,6 @@ struct FoodDetail: View {
             .padding()
         Spacer()
         }
-        .navigationBarHidden(true)
     }
 }
 

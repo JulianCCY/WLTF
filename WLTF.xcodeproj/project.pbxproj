@@ -27,6 +27,7 @@
 		6ADB2E9227FDDCCC00A8E475 /* InsideFridgeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADB2E9127FDDCCC00A8E475 /* InsideFridgeScreen.swift */; };
 		6ADB2E9427FDDD9500A8E475 /* CircleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADB2E9327FDDD9500A8E475 /* CircleImage.swift */; };
 		6ADB2E9627FDE01700A8E475 /* AddFoodScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADB2E9527FDE01700A8E475 /* AddFoodScreen.swift */; };
+		6ADB2E9827FE090500A8E475 /* FoodGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADB2E9727FE090500A8E475 /* FoodGrid.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,7 @@
 		6ADB2E9127FDDCCC00A8E475 /* InsideFridgeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsideFridgeScreen.swift; sourceTree = "<group>"; };
 		6ADB2E9327FDDD9500A8E475 /* CircleImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleImage.swift; sourceTree = "<group>"; };
 		6ADB2E9527FDE01700A8E475 /* AddFoodScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFoodScreen.swift; sourceTree = "<group>"; };
+		6ADB2E9727FE090500A8E475 /* FoodGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodGrid.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,15 +110,16 @@
 		6A1830AE27FC4696005FF721 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				6ADB2E9327FDDD9500A8E475 /* CircleImage.swift */,
 				6A1AAAE327F920280084D06D /* ContentView.swift */,
-				6A1830A027FB8DA9005FF721 /* MapView.swift */,
-				6A1830B227FC4907005FF721 /* FoodRow.swift */,
-				6AB93E6027FC808A003D601F /* FridgeList.swift */,
-				6AB93E6227FC88A6003D601F /* FoodDetail.swift */,
 				6ADB2E8F27FCA32900A8E475 /* ClosedFridgeScreen.swift */,
 				6ADB2E9127FDDCCC00A8E475 /* InsideFridgeScreen.swift */,
+				6AB93E6227FC88A6003D601F /* FoodDetail.swift */,
 				6ADB2E9527FDE01700A8E475 /* AddFoodScreen.swift */,
+				6ADB2E9327FDDD9500A8E475 /* CircleImage.swift */,
+				6A1830A027FB8DA9005FF721 /* MapView.swift */,
+				6A1830B227FC4907005FF721 /* FoodRow.swift */,
+				6ADB2E9727FE090500A8E475 /* FoodGrid.swift */,
+				6AB93E6027FC808A003D601F /* FridgeList.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -335,6 +338,7 @@
 				6A1AAAEE27F9202A0084D06D /* WLTF.xcdatamodeld in Sources */,
 				6A1AAAE227F920280084D06D /* WLTFApp.swift in Sources */,
 				6A1830B327FC4907005FF721 /* FoodRow.swift in Sources */,
+				6ADB2E9827FE090500A8E475 /* FoodGrid.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

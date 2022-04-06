@@ -15,7 +15,7 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Color("PrimaryPink")
+                Color("PrimaryColor")
                     .ignoresSafeArea()
                 VStack {
                     Group {

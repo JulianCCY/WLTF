@@ -28,6 +28,7 @@
 		6ADB2E9427FDDD9500A8E475 /* CircleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADB2E9327FDDD9500A8E475 /* CircleImage.swift */; };
 		6ADB2E9627FDE01700A8E475 /* AddFoodScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADB2E9527FDE01700A8E475 /* AddFoodScreen.swift */; };
 		6ADB2E9827FE090500A8E475 /* FoodGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADB2E9727FE090500A8E475 /* FoodGrid.swift */; };
+		6ADB2E9A27FF721900A8E475 /* FoodImgFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADB2E9927FF721900A8E475 /* FoodImgFunc.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,7 @@
 		6ADB2E9327FDDD9500A8E475 /* CircleImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleImage.swift; sourceTree = "<group>"; };
 		6ADB2E9527FDE01700A8E475 /* AddFoodScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFoodScreen.swift; sourceTree = "<group>"; };
 		6ADB2E9727FE090500A8E475 /* FoodGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodGrid.swift; sourceTree = "<group>"; };
+		6ADB2E9927FF721900A8E475 /* FoodImgFunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodImgFunc.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +129,7 @@
 		6A1830B127FC48A9005FF721 /* FoodModel */ = {
 			isa = PBXGroup;
 			children = (
+				6ADB2E9927FF721900A8E475 /* FoodImgFunc.swift */,
 				6A1830A627FC4291005FF721 /* FoodStorage.swift */,
 				6A1830AF27FC47AB005FF721 /* FoodModelData.swift */,
 			);
@@ -327,6 +330,7 @@
 				6AB93E6327FC88A6003D601F /* FoodDetail.swift in Sources */,
 				6A1830A727FC4291005FF721 /* FoodStorage.swift in Sources */,
 				6ADB2E9027FCA32900A8E475 /* ClosedFridgeScreen.swift in Sources */,
+				6ADB2E9A27FF721900A8E475 /* FoodImgFunc.swift in Sources */,
 				6ADB2E9627FDE01700A8E475 /* AddFoodScreen.swift in Sources */,
 				6ADB2E9427FDDD9500A8E475 /* CircleImage.swift in Sources */,
 				6A1830B027FC47AB005FF721 /* FoodModelData.swift in Sources */,

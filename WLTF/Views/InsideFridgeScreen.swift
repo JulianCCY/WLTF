@@ -29,20 +29,25 @@ struct InsideFridgeScreen: View {
 //                }
 //            }
             List(categoryArr, id: \.self) { category in
-                Text("\(category)")
-                ScrollView {
-                    LazyVGrid(columns: columns, spacing: 20) {
-                        ForEach(foodArr.filter{$0.category == category}, id: \.self) { food in
-                            NavigationLink {
-                                FoodDetail()
-                            } label: {
-                                FoodGrid(food: food)
+                VStack {
+                    Text("\(category)")
+                        .font(.headline)
+                    ScrollView {
+                        LazyVGrid(columns: columns, spacing: 20) {
+                            ForEach(foodArr.filter{$0.category == category}, id: \.self) { food in
+                                NavigationLink {
+                                    FoodDetail(food: food)
+                                }
+                                label: {
+                                    FoodGrid(food: food)
+                                }
+                                .buttonStyle(PlainButtonStyle())
                             }
                         }
+                        .padding(.horizontal)
                     }
-                    .padding(.horizontal)
+                    .frame(maxHeight: 200)
                 }
-                .frame(maxHeight: 140)
             }
             .navigationBarTitle("All food")
 //            ScrollView {

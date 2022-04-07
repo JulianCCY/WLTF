@@ -87,5 +87,29 @@
         "amount": 5,
         "unit": "Boxes",
     },
+    {
+        "name": "Hamburger",
+        "category": "Snack",
+        "enterDate": "05/05/2022",
+        "expireDate": "05/05/2022",
+        "amount": 2,
+        "unit": "Pieces",
+    },
+    {
+        "name": "CheesebuRger",
+        "category": "Snack",
+        "enterDate": "05/05/2022",
+        "expireDate": "05/05/2022",
+        "amount": 1,
+        "unit": "Pieces",
+    },
+    {
+        "name": "Bellpepper",
+        "category": "Veg",
+        "enterDate": "05/05/2022",
+        "expireDate": "05/05/2022",
+        "amount": 700,
+        "unit": "Gram",
+    },
 ]
     

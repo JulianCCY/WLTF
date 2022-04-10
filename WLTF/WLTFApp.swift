@@ -10,11 +10,12 @@ import SwiftUI
 @main
 struct WLTFApp: App {
 //    let persistenceController = PersistenceController.shared
-
+    @StateObject private var datacontroller = DataController()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
-//                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .environment(\.managedObjectContext, datacontroller.container.viewContext)
         }
     }
 }

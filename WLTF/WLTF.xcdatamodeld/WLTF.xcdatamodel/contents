@@ -1,38 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21E258" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Food" representedClassName="Food" syncable="YES" codeGenerationType="class">
+    <entity name="FoodItem" representedClassName="FoodItem" syncable="YES">
         <attribute name="amount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="category" optional="YES" attributeType="String"/>
         <attribute name="expiryDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="unit" optional="YES" attributeType="String"/>
     </entity>
-    <entity name="FoodCategories" representedClassName="FoodCategories" syncable="YES" codeGenerationType="class">
-        <attribute name="cooked" optional="YES" attributeType="String"/>
-        <attribute name="dairy" optional="YES" attributeType="String"/>
-        <attribute name="dessert" optional="YES" attributeType="String"/>
-        <attribute name="drinks" optional="YES" attributeType="String"/>
-        <attribute name="fish" optional="YES" attributeType="String"/>
-        <attribute name="fruit" optional="YES" attributeType="String"/>
-        <attribute name="grains" optional="YES" attributeType="String"/>
-        <attribute name="meat" optional="YES" attributeType="String"/>
-        <attribute name="seasoning" optional="YES" attributeType="String"/>
-    </entity>
-    <entity name="Units" representedClassName="Units" syncable="YES" codeGenerationType="class">
-        <attribute name="bowl" optional="YES" attributeType="String"/>
-        <attribute name="box" optional="YES" attributeType="String"/>
-        <attribute name="can" optional="YES" attributeType="String"/>
-        <attribute name="cartoon" optional="YES" attributeType="String"/>
-        <attribute name="cup" optional="YES" attributeType="String"/>
-        <attribute name="g" optional="YES" attributeType="String"/>
-        <attribute name="kg" optional="YES" attributeType="String"/>
-        <attribute name="litter" optional="YES" attributeType="String"/>
-        <attribute name="plate" optional="YES" attributeType="String"/>
-        <attribute name="pound" optional="YES" attributeType="String"/>
-    </entity>
     <elements>
-        <element name="Food" positionX="-63" positionY="-18" width="128" height="104"/>
-        <element name="FoodCategories" positionX="-45" positionY="99" width="128" height="164"/>
-        <element name="Units" positionX="-63" positionY="27" width="128" height="179"/>
+        <element name="FoodItem" positionX="-63" positionY="-18" width="128" height="118"/>
     </elements>
 </model>

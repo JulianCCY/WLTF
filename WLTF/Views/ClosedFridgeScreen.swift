@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ClosedFridgeScreen: View {
-    
     var body: some View {
         NavigationView {
 //            VStack {
@@ -29,15 +28,16 @@ struct ClosedFridgeScreen: View {
 //                    .frame(width: .infinity, height: 650)
 //                    .padding([.leading, .trailing])
 //            }
+            
             NavigationLink(destination: InsideFridgeScreen()) {
                 Image("Closed fridge")
                     .resizable()
                     .frame(width: .infinity, height: 650)
-    //                .offset(y: -50)
-    //                .ignoresSafeArea()
+//                    .offset(y: -50)
+//                    .ignoresSafeArea()
                     .padding([.leading, .trailing])
                     .navigationBarTitle("Name of your fridge")
-    //                .navigationBarHidden(true)
+//                    .navigationBarHidden(true)
             }
         }
         .navigationBarHidden(true)

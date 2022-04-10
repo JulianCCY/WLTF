@@ -19,6 +19,15 @@ struct AddFoodScreen: View {
     @State private var category = ""
     @State private var amount: Double = 0
     @State private var unit = ""
+    @State private var expiryDate = Date()
+    
+    //            TextField("Food name", text: $name)
+    //            TextField("Category", text: $category)
+    //            TextField("Date of entry", text: $enterDate)
+    //            TextField("Date of expiration", text: $expireDate)
+    //            TextField("Amount", text: $amount)
+    //            TextField("Unit", text: $unit)
+    //            Button("Add food", action: addFood)
     
     var body: some View {
         VStack {
@@ -34,11 +43,19 @@ struct AddFoodScreen: View {
                     .padding()
                     TextField("Unit:", text: $unit)
                     
+                    
+                    VStack {
+                        DatePicker(selection: $expiryDate, in: Date.now.addingTimeInterval(86400)..., displayedComponents: .date) {
+                                    Text("Select the expiry date:")
+                                        .foregroundColor(.gray)
+                                }
+                    }
+                    
                     HStack {
                         Spacer()
                         Button("Add") {
                             DataController().addFood(name: foodName, category: category, amount: amount, unit: unit ,
-                                                     exiryDate: Date.now.addingTimeInterval(TimeInterval(86400 * Int.random(in: 1..<11))),
+                                                     exiryDate: expiryDate,
                                                      context: managedObjectContext)
                             dismiss()
                         }
@@ -47,13 +64,6 @@ struct AddFoodScreen: View {
                     
                 }
             }
-        //            TextField("Food name", text: $name)
-        //            TextField("Category", text: $category)
-        //            TextField("Date of entry", text: $enterDate)
-        //            TextField("Date of expiration", text: $expireDate)
-        //            TextField("Amount", text: $amount)
-        //            TextField("Unit", text: $unit)
-        //            Button("Add food", action: addFood)
         }
 //        .padding()
     }

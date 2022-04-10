@@ -10,7 +10,7 @@ import CoreData
 
 struct InsideFridgeScreen: View {
     @Environment(\.managedObjectContext) var moc
-    @FetchRequest(sortDescriptors: [SortDescriptor(\.expiryDate, order: .reverse)]) var food:
+    @FetchRequest(sortDescriptors: [SortDescriptor(\.expiryDate)]) var food:
         FetchedResults<Food>
     
     @State private var showingAddView = false

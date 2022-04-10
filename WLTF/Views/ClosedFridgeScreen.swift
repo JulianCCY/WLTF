@@ -30,17 +30,17 @@ struct ClosedFridgeScreen: View {
 //            }
             
             NavigationLink(destination: InsideFridgeScreen()) {
-                Image("Closed fridge")
-                    .resizable()
-                    .frame(width: .infinity, height: 650)
-//                    .offset(y: -50)
-//                    .ignoresSafeArea()
-                    .padding([.leading, .trailing])
-                    .navigationBarTitle("Name of your fridge")
-//                    .navigationBarHidden(true)
-            }
-        }
-        .navigationBarHidden(true)
+                            Image("Closed fridge")
+                                .resizable()
+                                .frame(width: .infinity, height: 650)
+                //                .offset(y: -50)
+                //                .ignoresSafeArea()
+                                .padding([.leading, .trailing])
+                                .navigationBarTitle("Name of your fridge")
+                //                .navigationBarHidden(true)
+                        }
+                    }
+                    .navigationBarHidden(true)
     }
 }
 

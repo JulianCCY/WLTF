@@ -9,7 +9,7 @@ import SwiftUI
 
 struct FoodGrid: View {
     
-    var food: FoodStorage
+    var food: FoodStruct
     
 //    func selectImg(_ input1: String, _ input2: String ) -> String {
 //
@@ -69,9 +69,9 @@ struct FoodGrid: View {
 
 }
 
-struct FoodGrid_Previews: PreviewProvider {
-    static var previews: some View {
-        FoodGrid(food: foodArr[0])
-//        FoodGrid(food: foodArr[1])
-    }
-}
+//struct FoodGrid_Previews: PreviewProvider {
+//    static var previews: some View {
+//        FoodGrid(food: foodArr[0])
+////        FoodGrid(food: foodArr[1])
+//    }
+//}

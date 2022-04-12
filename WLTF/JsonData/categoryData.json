@@ -1,0 +1,49 @@
+[
+     {
+         "category": "Vegetables",
+     },
+     
+     {
+         "category": "Fruits",
+     },
+     
+     {
+         "category": "Meat",
+     },
+     
+     {
+         "category": "Fishes",
+     },
+     
+     {
+         "category": "Grains",
+     },
+     
+     {
+         "category": "Protein foods",
+     },
+     
+     {
+         "category": "Milk & dairy",
+     },
+     
+     {
+         "category": "Beverages",
+     },
+     
+     {
+         "category": "Alcohol",
+     },
+     
+     {
+         "category": "Dessert",
+     },
+     
+     {
+         "category": "Cooked",
+     },
+    
+     {
+        "Category": "Others"
+     },
+]

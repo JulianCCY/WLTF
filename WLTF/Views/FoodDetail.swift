@@ -20,7 +20,7 @@ struct FoodDetail: View {
             ZStack {
                 Circle()
                     .strokeBorder(Color.black,lineWidth: 5)
-                    .background(Circle().foregroundColor(Color("\(FoodImgFunc.selectColor(food.expireDate))")))
+                    .background(Circle().foregroundColor(Color("\(FoodImgFunc.selectColor(food.expiryDate))")))
                     .frame(width: 225, height: 225)
                 Image("\(FoodImgFunc.selectImg(food.name, food.category))")
                     .resizable()
@@ -39,14 +39,14 @@ struct FoodDetail: View {
                 Group {
                     Text("Entry date")
                         .font(.title2)
-                    Text("\(food.enterDate)")
+                    Text("\(food.entryDate)")
                         .padding(.bottom)
                 }
                 
                 Group {
                     Text("Expiration date")
                         .font(.title2)
-                    Text("\(food.expireDate)")
+                    Text("\(food.expiryDate)")
                         .padding(.bottom)
                 }
                 Button("Delete food", action: deleteFood)

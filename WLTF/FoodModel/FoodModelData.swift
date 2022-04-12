@@ -9,7 +9,7 @@ import Foundation
 import CoreData
 
 
-var foodArr: [FoodStorage] = []
+//var foodArr: [FoodStorage] = []
 
 //var foodArr: [FoodStorage] = load("foodData.json")
 

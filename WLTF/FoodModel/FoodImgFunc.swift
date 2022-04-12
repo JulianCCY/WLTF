@@ -48,7 +48,7 @@ class FoodImgFunc {
         }
     }
     
-    class func selectColor(_ input: String) -> String {
+    class func selectColor(_ input: Date) -> String {
         return "NormalItem"
     }
 }

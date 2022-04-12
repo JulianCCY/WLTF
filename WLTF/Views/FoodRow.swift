@@ -9,7 +9,7 @@ import SwiftUI
 
 struct FoodRow: View {
     
-    var food: FoodStorage
+    var food: FoodStruct
     
     var body: some View {
         VStack {
@@ -32,12 +32,12 @@ struct FoodRow: View {
     }
 }
 
-struct FoodRow_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            FoodRow(food: foodArr[0])
-            FoodRow(food: foodArr[1])
-        }
-        .previewLayout(.fixed(width: 500, height: 100))
-    }
-}
+//struct FoodRow_Previews: PreviewProvider {
+//    static var previews: some View {
+//        Group {
+//            FoodRow(food: foodArr[0])
+//            FoodRow(food: foodArr[1])
+//        }
+//        .previewLayout(.fixed(width: 500, height: 100))
+//    }
+//}

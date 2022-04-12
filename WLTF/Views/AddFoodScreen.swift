@@ -9,10 +9,6 @@ import SwiftUI
 import Foundation
 import CoreData
 
-class GlobalArr: ObservableObject {
-  @Published var addFoodArr: [FoodStorage] = []
-}
-
 struct AddFoodScreen: View {
 //    @State var name: String = ""
 //    @State var category: String = ""
@@ -21,9 +17,9 @@ struct AddFoodScreen: View {
 //    @State var amount: String = ""
 //    @State var unit: String = ""
 //
-//    func addFood() {
-//
-//    }
+    func addFood() {
+
+    }
     
     @Environment(\.managedObjectContext) var managedObjectContext
     @Environment(\.dismiss) var dismiss
@@ -43,29 +39,28 @@ struct AddFoodScreen: View {
     
     @State private var name = ""
     @State private var category = ""
+    @State private var expiryDate = Date()
     @State private var amount = ""
     @State private var unit = ""
-    @State private var expiryDate = Date()
-    
-    //            TextField("Food name", text: $name)
-    //            TextField("Category", text: $category)
-    //            TextField("Date of entry", text: $enterDate)
-    //            TextField("Date of expiration", text: $expireDate)
-    //            TextField("Amount", text: $amount)
-    //            TextField("Unit", text: $unit)
-    //            Button("Add food", action: addFood)
     
     var body: some View {
         VStack {
-//            ScrollView {
-                List(globalArr.addFoodArr, id: \.self) { food in
-                    AddFoodList()
-                        .listRowInsets(EdgeInsets())
-                }
-                .listStyle(GroupedListStyle())
-//            }
+            List(globalArr.addFoodArr, id: \.self) { food in
+                AddFoodList()
+                    .listRowInsets(EdgeInsets())
+            }
+            .listStyle(GroupedListStyle())
             Button {
-                addFood()
+                globalArr.addFoodArr.forEach { item in
+                    DataController().addFood(name: item.name,
+                                             category: item.category,
+                                             amount: Double(item.amount),
+                                             unit: item.unit ,
+                                             entryDate: formatting(currentDate: Date()),
+                                             expiryDate: item.expiryDate,
+                                             context: managedObjectContext)
+                }
+                dismiss()
             } label: {
                 Label("Add food", systemImage: "plus")
             }
@@ -74,13 +69,15 @@ struct AddFoodScreen: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
-                    globalArr.addFoodArr.append(FoodStorage(name: "", category: "", entryDate: "", expiryDate: "", amount: 0, unit: ""))
+                    globalArr.addFoodArr.append(FoodStruct(name: "", category: "", entryDate: "", expiryDate: Date(), amount: 0, unit: ""))
                     print(globalArr.addFoodArr)
                 } label: {
                     Label("Add Food", systemImage: "plus.circle")
                 }
             }
         }
+        
+        
 //        VStack {
 //            TextField("Food name", text: $name)
 //            TextField("Category", text: $category)
@@ -108,13 +105,43 @@ struct AddFoodScreen: View {
 //            }
 //        }
 //        .padding()
-//    }
+        
+//        VStack {
+//            Form {
+//                Section {
+//                    TextField("Food name:", text: $name)
+//                    TextField("Category:", text: $category)
+//                    TextField("Amount:", text: $amount)
+//                    TextField("Unit:", text: $unit)
+//                    VStack {
+//                        DatePicker(selection: $expiryDate, in: Date.now.addingTimeInterval(86400)..., displayedComponents: .date) {
+//                                    Text("Select the expiry date:")
+//                                        .foregroundColor(.gray)
+//                                }
+//                    }
+//                    HStack {
+//                        Spacer()
+//                        Button("Add") {
+//                            DataController().addFood(name: name,
+//                                                     category: category,
+//                                                     amount: Double(amount) ?? 0.0,
+//                                                     unit: unit ,
+//                                                     entryDate: formatting(currentDate: Date()),
+//                                                     expiryDate: expiryDate,
+//                                                     context: managedObjectContext)
+//                            dismiss()
+//                        }
+//                        Spacer()
+//                    }
+//                }
+//            }
+//        }
+    }
 }
 
-    struct AddFoodScreen_Previews: PreviewProvider {
-        static var previews: some View {
-            AddFoodScreen()
-        }
+struct AddFoodScreen_Previews: PreviewProvider {
+    static var previews: some View {
+        AddFoodScreen()
     }
 }
 

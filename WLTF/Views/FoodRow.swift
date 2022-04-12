@@ -27,7 +27,7 @@ struct FoodRow: View {
                     .font(.title)
             }
 //            .padding([.top, .leading, .trailing])
-            Text("\(food.expireDate)")
+            Text("\(food.expiryDate)")
         }
     }
 }

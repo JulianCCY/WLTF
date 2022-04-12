@@ -9,11 +9,11 @@ import SwiftUI
 
 struct FoodDetail: View {
     
-    let food: FoodStorage
+//    let food: FoodStorage
     
-    func deleteFood() {
-        
-    }
+//    func deleteFood() {
+//
+//    }
     
     var body: some View {
         VStack {
@@ -60,6 +60,7 @@ struct FoodDetail: View {
 
 struct FoodDetail_Previews: PreviewProvider {
     static var previews: some View {
-        FoodDetail(food: foodArr[0])
+        FoodDetail()
+//        FoodDetail(food: foodArr[0])
     }
 }

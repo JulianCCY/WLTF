@@ -6,13 +6,28 @@
 //
 
 import SwiftUI
+import Foundation
+import CoreData
 
 class GlobalArr: ObservableObject {
   @Published var addFoodArr: [FoodStorage] = []
 }
 
 struct AddFoodScreen: View {
+//    @State var name: String = ""
+//    @State var category: String = ""
+//    @State var enterDate: String = ""
+//    @State var expireDate: String = ""
+//    @State var amount: String = ""
+//    @State var unit: String = ""
+//
+//    func addFood() {
+//
+//    }
     
+    @Environment(\.managedObjectContext) var managedObjectContext
+    @Environment(\.dismiss) var dismiss
+  
     @StateObject var globalArr = GlobalArr()
 //
 //    @Environment(\.managedObjectContext) var context
@@ -26,9 +41,19 @@ struct AddFoodScreen: View {
 //    @State var amountInt: Int64 = 0
 //    @State var unit: String = ""
     
-    func addFood() {
-
-    }
+    @State private var name = ""
+    @State private var category = ""
+    @State private var amount = ""
+    @State private var unit = ""
+    @State private var expiryDate = Date()
+    
+    //            TextField("Food name", text: $name)
+    //            TextField("Category", text: $category)
+    //            TextField("Date of entry", text: $enterDate)
+    //            TextField("Date of expiration", text: $expireDate)
+    //            TextField("Amount", text: $amount)
+    //            TextField("Unit", text: $unit)
+    //            Button("Add food", action: addFood)
     
     var body: some View {
         VStack {
@@ -92,3 +117,4 @@ struct AddFoodScreen: View {
         }
     }
 }
+

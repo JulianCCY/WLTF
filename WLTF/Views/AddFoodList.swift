@@ -13,8 +13,6 @@ struct AddFoodList: View {
     
     @StateObject var globalArr = GlobalArr()
     
-    @StateObject var globalArr = GlobalArr()
-    
     var cates = ["Alcohol", "Bread", "Cooked", "Dairy", "Desert", "Drinks", "Fruit", "Grain", "Protein", "Seasoning", "Seafood", "Veg", "Others"]
     var units = ["Bags", "Bottles", "Bowls", "Boxes", "Cans", "Cups", "Packs", "Pieces", "Plates", "Pots", "Milligrams", "Grams", "Kilorams", "Millilitre", "Litre", "Pound", "Ounce"]
     

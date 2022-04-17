@@ -10,6 +10,9 @@ import Foundation
 import CoreData
 
 struct AddFoodScreen: View {
+    
+    @Environment(\.managedObjectContext) var managedObjectContext
+    @Environment(\.dismiss) var dismiss
 
     @StateObject var globalArr = GlobalArr()
     
@@ -92,12 +95,6 @@ struct AddFoodScreen: View {
             .listStyle(GroupedListStyle())
             
             Button {
-                globalArr.addFoodArr = []
-                print(listView[0].name)
-//                listView.forEach{ i in
-//                    globalArr.addFoodArr.append(FoodStruct(name: i.name, category: i.category, entryDate: "", expiryDate: i.expireDate, amount: 10.0, unit: "boxes"))
-//                }
-//                print(globalArr.addFoodArr)
                 globalArr.addFoodArr.forEach { item in
                     DataController().addFood(name: item.name,
                                              category: item.category,

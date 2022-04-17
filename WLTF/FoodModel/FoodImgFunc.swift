@@ -43,12 +43,20 @@ class FoodImgFunc {
                 return "apple"
             }
             else {
-                return "flatware1"
+                return "others"
             }
         }
     }
     
     class func selectColor(_ input: Date) -> String {
-        return "NormalItem"
+        if (calcExpiryColor(date: input) == "3days") {
+            return "3daysItem"
+        } else if (calcExpiryColor(date: input) == "1day") {
+            return "1dayItem"
+        } else if (calcExpiryColor(date: input) == "expired") {
+            return "ExpiredItem"
+        } else {
+            return "NormalItem"
+        }
     }
 }

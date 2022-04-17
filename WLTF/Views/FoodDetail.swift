@@ -26,7 +26,7 @@ struct FoodDetail: View {
                     .frame(width: 225, height: 225)
                 Image("\(FoodImgFunc.selectImg(food.name, food.category))")
                     .resizable()
-                    .frame(width: 170, height: 170)
+                    .frame(width: 160, height: 160)
             }
             .offset(y: 75)
             .padding(.bottom, 100)
@@ -48,8 +48,11 @@ struct FoodDetail: View {
                 Group {
                     Text("Expiration date")
                         .font(.title2)
-                    Text("\(formatting(currentDate: food.expiryDate))")
-                        .padding(.bottom)
+                    HStack {
+                        Text("\(formatting(currentDate: food.expiryDate))")
+                        Text(calcExpiryText(date: food.expiryDate))
+                    }
+                    .padding(.bottom)
                 }
                 Button("Delete food", action: deleteFood)
             }

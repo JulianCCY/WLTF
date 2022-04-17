@@ -25,6 +25,15 @@ struct AddFoodScreen: View {
     @State var amount: String = ""
     @State var unit: String = "Bags"
     
+    @State private var alert = false
+    @State private var alertMessage = ""
+    
+    private func deleteItem(offsets: IndexSet) {
+        withAnimation {
+            globalArr.addFoodArr.remove(atOffsets: offsets)
+        }
+    }
+    
     var body: some View {
         VStack {
             List {
@@ -46,6 +55,7 @@ struct AddFoodScreen: View {
                             Group {
                                 TextField("Amount", text: $amount)
                                     .frame(width: 70)
+                                    .keyboardType(.numberPad)
                                 Picker("Unit", selection: $unit) {
                                     ForEach(units, id: \.self) {
                                         Text($0)
@@ -65,16 +75,32 @@ struct AddFoodScreen: View {
                         
                         Divider()
                         
-                        Button("Insert") {                                    globalArr.addFoodArr.append(FoodStruct(name: name, category: category, entryDate: formatting(currentDate: Date()), expiryDate: expiryDate, amount: Double(amount) ?? 0, unit: unit))
-                            
-                            name = ""
-                            category = "Others"
-                            expiryDate = Date()
-                            amount = ""
-                            unit = "Bags"
+                        Button {
+                            if (name == "") {
+                                alert = true
+                                alertMessage = "Empty name"
+                            } else if (Int(amount) == 0 || amount == "") {
+                                alert = true
+                                alertMessage = "Amount must be integer"
+                            }
+                            else {
+                                globalArr.addFoodArr.append(FoodStruct(name: name, category: category, entryDate: formatting(currentDate: Date()), expiryDate: expiryDate, amount: Double(amount) ?? 0, unit: unit))
+                                
+                                name = ""
+                                category = "Others"
+                                expiryDate = Date()
+                                amount = ""
+                                unit = "Bags"
+                            }
+                        } label: {
+                            Image(systemName: "plus.rectangle")
+                                .font(.system(size: 20))
                         }
                         .buttonStyle(BorderlessButtonStyle())
-                        .frame(width: 100, height: 30, alignment: .center)
+                        .frame(width: 100, height: 20, alignment: .center)
+                        .alert(isPresented: $alert) {
+                            Alert(title: Text("Invalid"), message: Text("\(alertMessage)"), dismissButton: .default(Text("Ok")))
+                        }
                     }
 
                 }
@@ -82,14 +108,32 @@ struct AddFoodScreen: View {
                     ForEach(globalArr.addFoodArr, id: \.self) { i in
                         VStack {
                             HStack {
+                                Text("Name:")
+                                    .fontWeight(.semibold)
                                 Text(i.name)
-                                Text(i.category)
-                                Text(String(Int(i.amount)))
-                                Text(i.unit)
                             }
-                            Text("Expiry date: \(formatting(currentDate: i.expiryDate))")
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            HStack {
+                                Text("Category:")
+                                    .fontWeight(.semibold)
+                                Text(i.category)
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            HStack {
+                                Text("Amount:")
+                                    .fontWeight(.semibold)
+                                Text("\(String(Int(i.amount))) \(i.unit)")
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            HStack {
+                                Text("Expiration:")
+                                    .fontWeight(.semibold)
+                                Text("\(formatting(currentDate: i.expiryDate))")
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading)
                         }
                     }
+                    .onDelete(perform: deleteItem)
                 }
             }
             .listStyle(GroupedListStyle())
@@ -107,7 +151,7 @@ struct AddFoodScreen: View {
                 dismiss()
             } label: {
                 //button one
-                Label("Add food", systemImage: "plus")
+                Label("Confirm", systemImage: "checkmark")
             }
         }
         // Screen Title

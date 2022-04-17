@@ -23,6 +23,9 @@ struct InsideFridgeScreen: View {
     
 //    @StateObject var globalArr = GlobalArr()
     @State var foodArr: [FoodStruct] = []
+    
+    @State private var alert = false
+    @State private var alertMessage = ""
 
     private func filterArr() -> [FoodStruct] {
         foodArr = []
@@ -132,7 +135,7 @@ struct InsideFridgeScreen: View {
         VStack {
             NavigationLink(destination: AddFoodScreen()) {
                 // Navigate to add food screen
-                Text("Add food")
+                Label("Add food into fridge", systemImage: "plus")
             }
 //            List(globalArr.foodArr, id: \.self) { food in
 //                NavigationLink {
@@ -172,9 +175,16 @@ struct InsideFridgeScreen: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 // Top Right delete button
                 Button {
-                    DataController().deleteAllFood(context: moc)
+                    alert = true
                 } label: {
-                    Label("Delete", systemImage: "trash.circle")
+                    Label("Delete", systemImage: "trash")
+                }
+                .alert("This action will empty your fridge!", isPresented: $alert) {
+//                    Alert(title: Text("Warning"), message: Text("Are you sure you want to empty your fridge?"))
+                    Button("Crystal clear", role: .destructive) {
+                        DataController().deleteAllFood(context: moc)
+                    }
+                    Button("Cancel", role: .cancel) { }
                 }
             }
         }

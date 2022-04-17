@@ -10,51 +10,84 @@ import Foundation
 import CoreData
 
 struct AddFoodScreen: View {
-//    @State var name: String = ""
-//    @State var category: String = ""
-//    @State var enterDate: String = ""
-//    @State var expireDate: String = ""
-//    @State var amount: String = ""
-//    @State var unit: String = ""
-//
-    
-    @Environment(\.managedObjectContext) var managedObjectContext
-    @Environment(\.dismiss) var dismiss
-  
-    @State var globalArr = GlobalArr()
-    @State var listView: [AddFoodList] = []
-    @State var sth = [Any]()
-//
-//    @Environment(\.managedObjectContext) var context
-//    @Environment(\.dismiss) var dismiss
-//
-//    @State var name: String = ""
-//    @State var category: String = ""
-//    @State var enterDate = Date()
-//    @State var expireDate = Date()
-//    @State var amount: String = ""
-//    @State var amountInt: Int64 = 0
-//    @State var unit: String = ""
-    
-    @State private var name = ""
-    @State private var category = ""
-    @State private var expiryDate = Date()
-    @State private var amount = ""
-    @State private var unit = ""
 
-    @State private var numOfForm = 0
+    @StateObject var globalArr = GlobalArr()
+    
+    var cates = ["Alcohol", "Bread", "Cooked", "Dairy", "Desert", "Drinks", "Fruit", "Grain", "Protein", "Seasoning", "Seafood", "Veg", "Others"]
+    var units = ["Bags", "Bottles", "Bowls", "Boxes", "Cans", "Cups", "Packs", "Pieces", "Plates", "Pots", "Milligrams", "Grams", "Kilorams", "Millilitre", "Litre", "Pound", "Ounce"]
+
+    @State var name: String = ""
+    @State var category: String = "Others"
+    @State var expiryDate = Date()
+    @State var amount: String = ""
+    @State var unit: String = "Bags"
     
     var body: some View {
         VStack {
-//            List((0...numOfForm), id: \.self) { food in
-//                AddFoodList()
-//                    .listRowInsets(EdgeInsets())
-//            }
-//            .listStyle(GroupedListStyle())
-            
-            List(listView, id: \.name) { v in
-                v
-                    .listRowInsets(EdgeInsets())
+            List {
+                Section {
+                    VStack {
+                        HStack {
+                            TextField("Food name", text: $name)
+                            Spacer()
+            //                    .frame(width: 50)
+                            Picker("Category", selection: $category) {
+                                ForEach(cates, id: \.self) {
+                                    Text($0)
+                                        .foregroundColor(.gray)
+                                }
+                            }
+                            .pickerStyle(.menu)
+                            Spacer()
+                                .frame(width: 50)
+                            Group {
+                                TextField("Amount", text: $amount)
+                                    .frame(width: 70)
+                                Picker("Unit", selection: $unit) {
+                                    ForEach(units, id: \.self) {
+                                        Text($0)
+                                            .foregroundColor(.gray)
+                                    }
+                                }
+                                .pickerStyle(.menu)
+                                .frame(alignment: .leading)
+                            }
+                            .frame(width: 50, alignment: .trailing)
+                        }
+                        .padding([.top, .leading, .trailing])
+                        DatePicker("When will it expire?", selection: $expiryDate, in: Date.now.addingTimeInterval(86400)..., displayedComponents: .date)
+                            .foregroundColor(.gray)
+            //                .datePickerStyle(WheelDatePickerStyle())
+                            .padding(.horizontal)
+                        
+                        Divider()
+                        
+                        Button("Insert") {                                    globalArr.addFoodArr.append(FoodStruct(name: name, category: category, entryDate: formatting(currentDate: Date()), expiryDate: expiryDate, amount: Double(amount) ?? 0, unit: unit))
+                            
+                            name = ""
+                            category = "Others"
+                            expiryDate = Date()
+                            amount = ""
+                            unit = "Bags"
+                        }
+                        .buttonStyle(BorderlessButtonStyle())
+                        .frame(width: 100, height: 30, alignment: .center)
+                    }
+
+                }
+                Section {
+                    ForEach(globalArr.addFoodArr, id: \.self) { i in
+                        VStack {
+                            HStack {
+                                Text(i.name)
+                                Text(i.category)
+                                Text(String(Int(i.amount)))
+                                Text(i.unit)
+                            }
+                            Text("Expiry date: \(formatting(currentDate: i.expiryDate))")
+                        }
+                    }
+                }
             }
             .listStyle(GroupedListStyle())
             
@@ -83,78 +116,16 @@ struct AddFoodScreen: View {
         // Screen Title
         .navigationBarTitle("Add food")
         .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    // Button here can append to global arr but can't relate to addFoodList()
-                    listView.append(AddFoodList())
-                    numOfForm += 1
-//                    globalArr.addFoodArr.append(FoodStruct(name: name, category: category, entryDate: "", expiryDate: expiryDate, amount: 0.0, unit: unit))
-                } label: {
-                    // Top right add new form
-                    Label("Add new form", systemImage: "plus.circle")
-                }
-            }
-        }
-        
-        
-//        VStack {
-//            TextField("Food name", text: $name)
-//            TextField("Category", text: $category)
-//            DatePicker("Entry date", selection: $enterDate, displayedComponents: .date)
-//            DatePicker("Expire date", selection: $expireDate, displayedComponents: .date)
-//            TextField("Amount", text: $amount)
-//            TextField("Unit", text: $unit)
-//            Button("Add food") {
-//                amountInt = Int64(amount) ?? 0
-//                FoodDataController().addFood(
-//                    name: name,
-//                    category: category,
-//                    enterDate: enterDate,
-//                    expireDate: expireDate,
-//                    amount: amountInt,
-//                    unit: unit ,
-//                    context: context)
-//                dismiss()
-//            }
-//            Spacer()
-//            Button {
-//                addFood()
-//            } label: {
-//                Label("Add food", systemImage: "plus")
-//            }
-//        }
-//        .padding()
-        
-//        VStack {
-//            Form {
-//                Section {
-//                    TextField("Food name:", text: $name)
-//                    TextField("Category:", text: $category)
-//                    TextField("Amount:", text: $amount)
-//                    TextField("Unit:", text: $unit)
-//                    VStack {
-//                        DatePicker(selection: $expiryDate, in: Date.now.addingTimeInterval(86400)..., displayedComponents: .date) {
-//                                    Text("Select the expiry date:")
-//                                        .foregroundColor(.gray)
-//                                }
-//                    }
-//                    HStack {
-//                        Spacer()
-//                        Button("Add") {
-//                            DataController().addFood(name: name,
-//                                                     category: category,
-//                                                     amount: Double(amount) ?? 0.0,
-//                                                     unit: unit ,
-//                                                     entryDate: formatting(currentDate: Date()),
-//                                                     expiryDate: expiryDate,
-//                                                     context: managedObjectContext)
-//                            dismiss()
-//                        }
-//                        Spacer()
-//                    }
+//            ToolbarItem(placement: .navigationBarTrailing) {
+//                Button {
+////                    globalArr.addFoodArr.append(FoodStruct(name: "", category: "", entryDate: "", expiryDate: Date(), amount: 0, unit: ""))
+//                    arr.append(x)
+//                    x += 1
+//                } label: {
+//                    Label("Add Food", systemImage: "plus.circle")
 //                }
 //            }
-//        }
+        }
     }
     
 }

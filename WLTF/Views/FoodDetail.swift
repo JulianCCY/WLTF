@@ -14,7 +14,7 @@ struct FoodDetail: View {
     let food: FoodStruct
     
     func deleteFood() {
-
+        
     }
     
     var body: some View {

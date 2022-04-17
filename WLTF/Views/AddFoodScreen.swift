@@ -17,14 +17,13 @@ struct AddFoodScreen: View {
 //    @State var amount: String = ""
 //    @State var unit: String = ""
 //
-    func addFood() {
-
-    }
     
     @Environment(\.managedObjectContext) var managedObjectContext
     @Environment(\.dismiss) var dismiss
   
-    @StateObject var globalArr = GlobalArr()
+    @State var globalArr = GlobalArr()
+    @State var listView: [AddFoodList] = []
+    @State var sth = [Any]()
 //
 //    @Environment(\.managedObjectContext) var context
 //    @Environment(\.dismiss) var dismiss
@@ -42,15 +41,30 @@ struct AddFoodScreen: View {
     @State private var expiryDate = Date()
     @State private var amount = ""
     @State private var unit = ""
+
+    @State private var numOfForm = 0
     
     var body: some View {
         VStack {
-            List(globalArr.addFoodArr, id: \.self) { food in
-                AddFoodList()
+//            List((0...numOfForm), id: \.self) { food in
+//                AddFoodList()
+//                    .listRowInsets(EdgeInsets())
+//            }
+//            .listStyle(GroupedListStyle())
+            
+            List(listView, id: \.name) { v in
+                v
                     .listRowInsets(EdgeInsets())
             }
             .listStyle(GroupedListStyle())
+            
             Button {
+                globalArr.addFoodArr = []
+                print(listView[0].name)
+//                listView.forEach{ i in
+//                    globalArr.addFoodArr.append(FoodStruct(name: i.name, category: i.category, entryDate: "", expiryDate: i.expireDate, amount: 10.0, unit: "boxes"))
+//                }
+//                print(globalArr.addFoodArr)
                 globalArr.addFoodArr.forEach { item in
                     DataController().addFood(name: item.name,
                                              category: item.category,
@@ -62,17 +76,22 @@ struct AddFoodScreen: View {
                 }
                 dismiss()
             } label: {
+                //button one
                 Label("Add food", systemImage: "plus")
             }
         }
+        // Screen Title
         .navigationBarTitle("Add food")
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
-                    globalArr.addFoodArr.append(FoodStruct(name: "", category: "", entryDate: "", expiryDate: Date(), amount: 0, unit: ""))
-                    print(globalArr.addFoodArr)
+                    // Button here can append to global arr but can't relate to addFoodList()
+                    listView.append(AddFoodList())
+                    numOfForm += 1
+//                    globalArr.addFoodArr.append(FoodStruct(name: name, category: category, entryDate: "", expiryDate: expiryDate, amount: 0.0, unit: unit))
                 } label: {
-                    Label("Add Food", systemImage: "plus.circle")
+                    // Top right add new form
+                    Label("Add new form", systemImage: "plus.circle")
                 }
             }
         }
@@ -137,6 +156,7 @@ struct AddFoodScreen: View {
 //            }
 //        }
     }
+    
 }
 
 struct AddFoodScreen_Previews: PreviewProvider {

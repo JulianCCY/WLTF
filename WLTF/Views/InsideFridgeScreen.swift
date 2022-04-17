@@ -20,7 +20,7 @@ struct InsideFridgeScreen: View {
     // Use Core Data in this file
     @Environment(\.managedObjectContext) var moc
 //    @FetchRequest(sortDescriptors: [SortDescriptor(\.expiryDate)]) var food: FetchedResults<Food>
-    @FetchRequest(sortDescriptors: []) var allFood: FetchedResults<Food>
+    @FetchRequest(sortDescriptors: [SortDescriptor(\.expiryDate)]) var allFood: FetchedResults<Food>
     
 //    @StateObject var globalArr = GlobalArr()
     @State var foodArr: [FoodStruct] = []
@@ -132,6 +132,7 @@ struct InsideFridgeScreen: View {
 //    }
         VStack {
             NavigationLink(destination: AddFoodScreen()) {
+                // Navigate to add food screen
                 Text("Add food")
             }
 //            List(globalArr.foodArr, id: \.self) { food in
@@ -162,6 +163,7 @@ struct InsideFridgeScreen: View {
                     .frame(maxHeight: 200)
                 }
             }
+            // Screen Header / title
             .navigationBarTitle("All food")
             .onAppear{
                 foodArr = filterArr()
@@ -169,10 +171,11 @@ struct InsideFridgeScreen: View {
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
+                // Top Right delete button
                 Button {
                     DataController().deleteAllFood(context: moc)
                 } label: {
-                    Label("Add Food", systemImage: "trash.circle")
+                    Label("Delete", systemImage: "trash.circle")
                 }
             }
         }

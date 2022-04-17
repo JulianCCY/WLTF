@@ -8,8 +8,11 @@
 import SwiftUI
 
 struct AddFoodList: View {
-    
+
+    @Environment(\.managedObjectContext) var managedObjectContext
 //    var food: FoodStruct
+    
+    @StateObject var globalArr = GlobalArr()
     
     var cates = ["Alcohol", "Bread", "Cooked", "Dairy", "Desert", "Drinks", "Fruit", "Grain", "Protein", "Seasoning", "Seafood", "Veg", "Others"]
     var units = ["Bags", "Bottles", "Bowls", "Boxes", "Cans", "Cups", "Packs", "Pieces", "Plates", "Pots", "Milligrams", "Grams", "Kilorams", "Millilitre", "Litre", "Pound", "Ounce"]
@@ -52,18 +55,29 @@ struct AddFoodList: View {
                 .frame(width: 50, alignment: .trailing)
             }
             .padding([.top, .leading, .trailing])
-            DatePicker("When will it expire?", selection: $expireDate, displayedComponents: .date)
+            DatePicker("When will it expire?", selection: $expireDate, in: Date.now.addingTimeInterval(86400)..., displayedComponents: .date)
                 .foregroundColor(.gray)
 //                .datePickerStyle(WheelDatePickerStyle())
                 .padding(.horizontal)
+            
+            // Button here can use dataController but can't append to global arr
         }
         .frame(maxWidth: .infinity, minHeight: 100)
         .border(.gray)
+        
+    }
+    
+    func returnName() -> String{
+        return name
     }
 }
+
 
 struct AddFoodList_Previews: PreviewProvider {
     static var previews: some View {
         AddFoodList()
     }
 }
+
+//        globalArr.addFoodArr.append(FoodStruct(name: name, category: category, entryDate: "", expiryDate: expireDate, amount: Double(amount) ?? 0.0, unit: unit))
+//        print(globalArr.addFoodArr)

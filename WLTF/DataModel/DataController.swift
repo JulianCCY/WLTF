@@ -67,4 +67,9 @@ class DataController: ObservableObject {
             print(error)
         }
     }
+    
+    // delete a single food in the fridge
+    func deleteOneFood() {
+        
+    }
 }

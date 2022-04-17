@@ -11,12 +11,6 @@ import CoreData
 
 struct AddFoodScreen: View {
 
-    @State var x: Int = 1
-    @State var arr: [Int] = []
-    
-    @Environment(\.managedObjectContext) var managedObjectContext
-    @Environment(\.dismiss) var dismiss
-  
     @StateObject var globalArr = GlobalArr()
     
     var cates = ["Alcohol", "Bread", "Cooked", "Dairy", "Desert", "Drinks", "Fruit", "Grain", "Protein", "Seasoning", "Seafood", "Veg", "Others"]
@@ -96,7 +90,14 @@ struct AddFoodScreen: View {
                 }
             }
             .listStyle(GroupedListStyle())
+            
             Button {
+                globalArr.addFoodArr = []
+                print(listView[0].name)
+//                listView.forEach{ i in
+//                    globalArr.addFoodArr.append(FoodStruct(name: i.name, category: i.category, entryDate: "", expiryDate: i.expireDate, amount: 10.0, unit: "boxes"))
+//                }
+//                print(globalArr.addFoodArr)
                 globalArr.addFoodArr.forEach { item in
                     DataController().addFood(name: item.name,
                                              category: item.category,
@@ -108,9 +109,11 @@ struct AddFoodScreen: View {
                 }
                 dismiss()
             } label: {
+                //button one
                 Label("Add food", systemImage: "plus")
             }
         }
+        // Screen Title
         .navigationBarTitle("Add food")
         .toolbar {
 //            ToolbarItem(placement: .navigationBarTrailing) {
@@ -124,6 +127,7 @@ struct AddFoodScreen: View {
 //            }
         }
     }
+    
 }
 
 struct AddFoodScreen_Previews: PreviewProvider {

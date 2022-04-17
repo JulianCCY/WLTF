@@ -9,23 +9,32 @@ import SwiftUI
 
 struct AddFoodList: View {
     
-//    var food: FoodStruct
+    @Environment(\.managedObjectContext) var managedObjectContext
+    
+    @StateObject var globalArr = GlobalArr()
     
     var cates = ["Alcohol", "Bread", "Cooked", "Dairy", "Desert", "Drinks", "Fruit", "Grain", "Protein", "Seasoning", "Seafood", "Veg", "Others"]
     var units = ["Bags", "Bottles", "Bowls", "Boxes", "Cans", "Cups", "Packs", "Pieces", "Plates", "Pots", "Milligrams", "Grams", "Kilorams", "Millilitre", "Litre", "Pound", "Ounce"]
     
+    @State var arrItem: [FoodStruct] = []
     @State var name: String = ""
     @State var category: String = ""
-    @State var enterDate = Date()
-    @State var expireDate = Date()
+    @State var expiryDate = Date()
     @State var amount: String = ""
-    @State var amountInt: Int64 = 0
     @State var unit: String = ""
+    
+//    func saveFood() {
+//        globalArr.addFoodArr.append(FoodStruct(name: name, category: category, entryDate: formatting(currentDate: Date()), expiryDate: expiryDate, amount: Double(amount) ?? 0, unit: unit))
+//    }
 
     var body: some View {
         VStack {
             HStack {
                 TextField("Food name", text: $name)
+//                    .onChange(of: name, perform: { _ in
+//                        print("name changed", name)
+//                        globalArr.addFoodArr.append(FoodStruct(name: "", category: "", entryDate: "", expiryDate: Date(), amount: 0, unit: ""))
+//                    })
                 Spacer()
 //                    .frame(width: 50)
                 Picker("Category", selection: $category) {
@@ -52,10 +61,18 @@ struct AddFoodList: View {
                 .frame(width: 50, alignment: .trailing)
             }
             .padding([.top, .leading, .trailing])
-            DatePicker("When will it expire?", selection: $expireDate, displayedComponents: .date)
+            DatePicker("When will it expire?", selection: $expiryDate, in: Date.now.addingTimeInterval(86400)..., displayedComponents: .date)
                 .foregroundColor(.gray)
 //                .datePickerStyle(WheelDatePickerStyle())
                 .padding(.horizontal)
+
+//            Button (action: {globalArr.addFoodArr.append(FoodStruct(name: name, category: category, entryDate: formatting(currentDate: Date()), expiryDate: expiryDate, amount: Double(amount) ?? 0, unit: unit))}, label: {Label("Add Food", systemImage: "plus.circle")})
+//            Button("add") {
+//                print(name)
+//                globalArr.addFoodArr.append(FoodStruct(name: name, category: category, entryDate: formatting(currentDate: Date()), expiryDate: expiryDate, amount: Double(amount) ?? 0, unit: unit))
+////                arrItem.append(FoodStruct(name: "", category: "", entryDate: "", expiryDate: Date(), amount: 0, unit: ""))
+//                print(globalArr.addFoodArr)
+//            }
         }
         .frame(maxWidth: .infinity, minHeight: 100)
         .border(.gray)

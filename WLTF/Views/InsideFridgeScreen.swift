@@ -11,9 +11,8 @@ import Foundation
 
 class GlobalArr: ObservableObject {
     @Published var addFoodArr: [FoodStruct] = []
-//    @Published var foodArr: [FoodStruct] = []
+//    @Published var passingArr: [FoodStruct] = []
 }
-
 
 struct InsideFridgeScreen: View {
 

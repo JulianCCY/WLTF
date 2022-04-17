@@ -9,6 +9,9 @@ import SwiftUI
 
 struct ClosedFridgeScreen: View {
     
+    @State var imgName: String = "Closed fridge"
+    @State var closedFridge = true
+    
     var body: some View {
         NavigationView {
 //            VStack {
@@ -29,6 +32,34 @@ struct ClosedFridgeScreen: View {
 //                    .frame(width: .infinity, height: 650)
 //                    .padding([.leading, .trailing])
 //            }
+            
+//            if (closedFridge) {
+//                Button(action: {
+//                    closedFridge = false
+//                }) {
+//                    Image("Closed fridge")
+//                        .resizable()
+//                }
+//            } else {
+//                NavigationLink(destination: InsideFridgeScreen()) {
+//                    Image("Opened fridge")
+//                        .resizable()
+//                        .frame(width: 1000, height: 650)
+//        //                .offset(y: -50)
+//        //                .ignoresSafeArea()
+//                        .padding([.leading, .trailing])
+//                        .navigationBarTitle("Name of your fridge")
+//        //                .navigationBarHidden(true)
+//                }
+//            }
+            
+//            Button(action: {
+//                self.imgName = "Opened fridge"
+//            }) {
+//                Image(imgName)
+//                    .resizable()
+//            }
+            
             NavigationLink(destination: InsideFridgeScreen()) {
                 Image("Closed fridge")
                     .resizable()
@@ -39,6 +70,7 @@ struct ClosedFridgeScreen: View {
                     .navigationBarTitle("Name of your fridge")
     //                .navigationBarHidden(true)
             }
+            
         }
         .navigationBarHidden(true)
     }

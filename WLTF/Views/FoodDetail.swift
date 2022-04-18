@@ -12,6 +12,8 @@ struct FoodDetail: View {
 //    @StateObject var globalArr = GlobalArr()
     
     @Environment(\.managedObjectContext) var moc
+    @Environment(\.dismiss) var dismiss
+    
     @FetchRequest(sortDescriptors: [SortDescriptor(\.expiryDate)]) var allFood: FetchedResults<Food>
     
     let food: FoodStruct
@@ -56,7 +58,10 @@ struct FoodDetail: View {
                     }
                     .padding(.bottom)
                 }
-                Button("Delete food", action: deleteFood)
+                Button("Delete food") {
+                    DataController().deleteSingleFood(id: food.foodId, context: moc)
+                    dismiss()
+                }
                 Text("\(food.foodId)")
             }
             .padding()

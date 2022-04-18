@@ -69,7 +69,19 @@ class DataController: ObservableObject {
     }
     
     // delete a single food in the fridge
-    func deleteOneFood() {
-        
+    func deleteSingleFood(id: UUID, context: NSManagedObjectContext) {
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Food")
+                fetchRequest.predicate = NSPredicate.init(format: "id=%@", id.uuidString)
+                do {
+                    let foods = try context.fetch(fetchRequest)
+                    for food in foods {
+                        context.delete(food as! NSManagedObject)
+                    }
+//                    let food = context.fetch(fetchRequest)
+//                    context.delete(food)
+                    save(context: context)
+                } catch {
+                  print(error)
+                }
     }
 }

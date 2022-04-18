@@ -13,26 +13,7 @@ struct ClosedFridgeScreen: View {
     @State var closedFridge = true
     
     var body: some View {
-        NavigationView {
-//            VStack {
-//                Rectangle()
-//                    .fill(Color("PrimaryPink"))
-//                    .frame(height: 110)
-//                    .overlay(
-//                        Text("Fridge name")
-//                            .font(.largeTitle)
-//                            .offset(y: 10)
-//                            .foregroundColor(Color.white)
-//                    )
-//                    .shadow(radius: 5)
-//                    .edgesIgnoringSafeArea(.top)
-//                Image("Closed fridge")
-//                    .resizable()
-//                    .offset(y: -20)
-//                    .frame(width: .infinity, height: 650)
-//                    .padding([.leading, .trailing])
-//            }
-            
+//        NavigationView {
 //            if (closedFridge) {
 //                Button(action: {
 //                    closedFridge = false
@@ -52,27 +33,33 @@ struct ClosedFridgeScreen: View {
 //        //                .navigationBarHidden(true)
 //                }
 //            }
-            
+    
 //            Button(action: {
 //                self.imgName = "Opened fridge"
 //            }) {
 //                Image(imgName)
 //                    .resizable()
 //            }
-            
+        VStack {
+            Text("Name of your fridge")
+                .font(.title)
+                .fontWeight(.bold)
+                .padding(.leading)
+                .frame(maxWidth: .infinity, alignment: .leading)
             NavigationLink(destination: InsideFridgeScreen()) {
                 Image("Closed fridge")
                     .resizable()
-                    .frame(width: .infinity, height: 650)
-    //                .offset(y: -50)
-    //                .ignoresSafeArea()
+                    .frame(width: .infinity, height: 625)
+        //                .offset(y: -50)
+        //                .ignoresSafeArea()
                     .padding([.leading, .trailing])
-                    .navigationBarTitle("Name of your fridge")
-    //                .navigationBarHidden(true)
-            }
-            
+        //            .navigationBarTitle("Name of your fridge")
+        //                .navigationBarHidden(true)
+                    }
+        //        }
+            .navigationTitle("")
+            .navigationBarHidden(true)
         }
-        .navigationBarHidden(true)
     }
 }
 

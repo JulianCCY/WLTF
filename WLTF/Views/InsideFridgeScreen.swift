@@ -11,14 +11,15 @@ import Foundation
 
 class GlobalArr: ObservableObject {
     @Published var addFoodArr: [FoodStruct] = []
-//    @Published var passingArr: [FoodStruct] = []
+//    @Published var foodArr: [FoodStruct] = []
 }
 
 struct InsideFridgeScreen: View {
 
     // Use Core Data in this file
     @Environment(\.managedObjectContext) var moc
-//    @FetchRequest(sortDescriptors: [SortDescriptor(\.expiryDate)]) var food: FetchedResults<Food>
+    @Environment(\.dismiss) var dismiss
+
     @FetchRequest(sortDescriptors: [SortDescriptor(\.expiryDate)]) var allFood: FetchedResults<Food>
     
 //    @StateObject var globalArr = GlobalArr()
@@ -182,7 +183,9 @@ struct InsideFridgeScreen: View {
 //                    Alert(title: Text("Warning"), message: Text("Are you sure you want to empty your fridge?"))
                     Button("Crystal clear", role: .destructive) {
                         DataController().deleteAllFood(context: moc)
+                        moc.refreshAllObjects()
                         foodArr = []
+                        dismiss()
                     }
                     Button("Cancel", role: .cancel) { }
                 }

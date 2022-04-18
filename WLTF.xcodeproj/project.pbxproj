@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6A0CEAAE280DB0690086938B /* ShoppingList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0CEAAD280DB0690086938B /* ShoppingList.swift */; };
+		6A0CEAB0280DB0CC0086938B /* DishMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0CEAAF280DB0CC0086938B /* DishMain.swift */; };
+		6A0CEAB2280DB5120086938B /* TabViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0CEAB1280DB5120086938B /* TabViews.swift */; };
 		6A1830A127FB8DA9005FF721 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1830A027FB8DA9005FF721 /* MapView.swift */; };
 		6A1830A327FC4239005FF721 /* foodData.json in Resources */ = {isa = PBXBuildFile; fileRef = 6A1830A227FC4239005FF721 /* foodData.json */; };
 		6A1830A727FC4291005FF721 /* FoodStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1830A627FC4291005FF721 /* FoodStruct.swift */; };
@@ -55,6 +58,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6A0CEAAD280DB0690086938B /* ShoppingList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingList.swift; sourceTree = "<group>"; };
+		6A0CEAAF280DB0CC0086938B /* DishMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishMain.swift; sourceTree = "<group>"; };
+		6A0CEAB1280DB5120086938B /* TabViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViews.swift; sourceTree = "<group>"; };
+		6A0CEAB3280DCB2F0086938B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		6A1830A027FB8DA9005FF721 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		6A1830A227FC4239005FF721 /* foodData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = foodData.json; sourceTree = "<group>"; };
 		6A1830A627FC4291005FF721 /* FoodStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodStruct.swift; sourceTree = "<group>"; };
@@ -127,16 +134,19 @@
 			isa = PBXGroup;
 			children = (
 				6A1AAAE327F920280084D06D /* ContentView.swift */,
+				6A0CEAB1280DB5120086938B /* TabViews.swift */,
 				6ADB2E8F27FCA32900A8E475 /* ClosedFridgeScreen.swift */,
 				6ADB2E9127FDDCCC00A8E475 /* InsideFridgeScreen.swift */,
 				6AB93E6227FC88A6003D601F /* FoodDetail.swift */,
 				6ADB2E9527FDE01700A8E475 /* AddFoodScreen.swift */,
+				6A0CEAAD280DB0690086938B /* ShoppingList.swift */,
+				6A0CEAAF280DB0CC0086938B /* DishMain.swift */,
+				6ADB2E9727FE090500A8E475 /* FoodGrid.swift */,
 				6ACEBD6128045EE4006C93A8 /* AddFoodList.swift */,
 				6ACEBD632805916D006C93A8 /* AddListItem.swift */,
 				6ADB2E9327FDDD9500A8E475 /* CircleImage.swift */,
 				6A1830A027FB8DA9005FF721 /* MapView.swift */,
 				6A1830B227FC4907005FF721 /* FoodRow.swift */,
-				6ADB2E9727FE090500A8E475 /* FoodGrid.swift */,
 				6AB93E6027FC808A003D601F /* FridgeList.swift */,
 			);
 			path = Views;
@@ -175,6 +185,7 @@
 		6A1AAAE027F920280084D06D /* WLTF */ = {
 			isa = PBXGroup;
 			children = (
+				6A0CEAB3280DCB2F0086938B /* Info.plist */,
 				84D5EBE528037D6700B15054 /* DataModel */,
 				6A1830AE27FC4696005FF721 /* Views */,
 				6A1830B127FC48A9005FF721 /* FoodModel */,
@@ -361,16 +372,19 @@
 				6A1830A727FC4291005FF721 /* FoodStruct.swift in Sources */,
 				6ADB2E9027FCA32900A8E475 /* ClosedFridgeScreen.swift in Sources */,
 				6ADB2E9627FDE01700A8E475 /* AddFoodScreen.swift in Sources */,
+				6A0CEAB0280DB0CC0086938B /* DishMain.swift in Sources */,
 				6ADB2E9427FDDD9500A8E475 /* CircleImage.swift in Sources */,
 				6A1830B027FC47AB005FF721 /* FoodModelData.swift in Sources */,
 				84D5EBEA2803808100B15054 /* DataController.swift in Sources */,
 				6ADB2E9227FDDCCC00A8E475 /* InsideFridgeScreen.swift in Sources */,
 				6A1AAAEB27F9202A0084D06D /* Persistence.swift in Sources */,
+				6A0CEAB2280DB5120086938B /* TabViews.swift in Sources */,
 				6ACEBD6228045EE4006C93A8 /* AddFoodList.swift in Sources */,
 				6A1830A127FB8DA9005FF721 /* MapView.swift in Sources */,
 				6AB93E6127FC808A003D601F /* FridgeList.swift in Sources */,
 				6A1AAAE427F920280084D06D /* ContentView.swift in Sources */,
 				6A1AAAE227F920280084D06D /* WLTFApp.swift in Sources */,
+				6A0CEAAE280DB0690086938B /* ShoppingList.swift in Sources */,
 				84D5EBEC280380F100B15054 /* TImeController.swift in Sources */,
 				6ACEBD6028045989006C93A8 /* FoodImgFunc.swift in Sources */,
 				6A1830B327FC4907005FF721 /* FoodRow.swift in Sources */,
@@ -538,9 +552,9 @@
 				DEVELOPMENT_TEAM = 83NTQJ99UW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WLTF/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -567,9 +581,9 @@
 				DEVELOPMENT_TEAM = 83NTQJ99UW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WLTF/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (

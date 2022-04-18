@@ -25,9 +25,9 @@ class DataController: ObservableObject {
     func save(context: NSManagedObjectContext) {
         do {
             try context.save()
-            print("Food Added")
+            print("Food saved")
         } catch {
-            print("Error occurred")
+            print("Saving error")
         }
     }
     

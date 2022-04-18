@@ -32,7 +32,6 @@ struct InsideFridgeScreen: View {
         allFood.forEach { i in
             foodArr.append(FoodStruct(foodId: i.id! ,name: i.name!, category: i.category!, entryDate: i.entryDate!, expiryDate: i.expiryDate!, amount: i.amount, unit: i.unit!))
         }
-        print(foodArr)
         return foodArr
     }
     
@@ -183,6 +182,7 @@ struct InsideFridgeScreen: View {
 //                    Alert(title: Text("Warning"), message: Text("Are you sure you want to empty your fridge?"))
                     Button("Crystal clear", role: .destructive) {
                         DataController().deleteAllFood(context: moc)
+                        foodArr = []
                     }
                     Button("Cancel", role: .cancel) { }
                 }

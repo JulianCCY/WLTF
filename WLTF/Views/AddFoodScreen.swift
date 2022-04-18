@@ -16,12 +16,12 @@ struct AddFoodScreen: View {
 
     @StateObject var globalArr = GlobalArr()
     
-    var cates = ["Alcohol", "Bread", "Cooked", "Dairy", "Desert", "Drinks", "Fruit", "Grain", "Protein", "Seasoning", "Seafood", "Veg", "Others"]
+    var cates = ["Alcohol", "Bread", "Cooked", "Dairy", "Desert", "Drinks", "Fruit", "Grain", "Meat", "Protein", "Seasoning", "Seafood", "Vegetables", "Others"]
     var units = ["Bags", "Bottles", "Bowls", "Boxes", "Cans", "Cups", "Packs", "Pieces", "Plates", "Pots", "Milligrams", "Grams", "Kilorams", "Millilitre", "Litre", "Pound", "Ounce"]
 
     @State var name: String = ""
     @State var category: String = "Others"
-    @State var expiryDate = Date()
+    @State var expiryDate = Date.now.addingTimeInterval(86400)
     @State var amount: String = ""
     @State var unit: String = "Bags"
     

@@ -88,7 +88,7 @@ struct AddFoodScreen: View {
                                 
                                 name = ""
                                 category = "Others"
-                                expiryDate = Date()
+                                expiryDate = Date.now.addingTimeInterval(86400)
                                 amount = ""
                                 unit = "Bags"
                             }

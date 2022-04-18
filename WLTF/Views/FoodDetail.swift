@@ -11,10 +11,12 @@ struct FoodDetail: View {
     
 //    @StateObject var globalArr = GlobalArr()
     
+    @Environment(\.managedObjectContext) var moc
+    @FetchRequest(sortDescriptors: [SortDescriptor(\.expiryDate)]) var allFood: FetchedResults<Food>
+    
     let food: FoodStruct
     
     func deleteFood() {
-        
     }
     
     var body: some View {

@@ -62,7 +62,6 @@ struct FoodDetail: View {
                     DataController().deleteSingleFood(id: food.foodId, context: moc)
                     dismiss()
                 }
-                Text("\(food.foodId)")
             }
             .padding()
             .navigationBarTitle("\(food.name)")

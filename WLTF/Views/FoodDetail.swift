@@ -57,6 +57,7 @@ struct FoodDetail: View {
                     .padding(.bottom)
                 }
                 Button("Delete food", action: deleteFood)
+                Text("\(food.foodId)")
             }
             .padding()
             .navigationBarTitle("\(food.name)")

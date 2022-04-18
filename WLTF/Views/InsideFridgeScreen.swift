@@ -30,7 +30,7 @@ struct InsideFridgeScreen: View {
     private func filterArr() -> [FoodStruct] {
         foodArr = []
         allFood.forEach { i in
-            foodArr.append(FoodStruct(name: i.name!, category: i.category!, entryDate: i.entryDate!, expiryDate: i.expiryDate!, amount: i.amount, unit: i.unit!))
+            foodArr.append(FoodStruct(foodId: i.id! ,name: i.name!, category: i.category!, entryDate: i.entryDate!, expiryDate: i.expiryDate!, amount: i.amount, unit: i.unit!))
         }
         print(foodArr)
         return foodArr

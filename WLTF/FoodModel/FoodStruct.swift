@@ -8,6 +8,7 @@
 import Foundation
 
 struct FoodStruct: Hashable, Codable {
+    var foodId: UUID
     var name: String
     var category: String
     var entryDate: String

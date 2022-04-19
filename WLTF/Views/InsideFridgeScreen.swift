@@ -19,7 +19,6 @@ struct InsideFridgeScreen: View {
     // Use Core Data in this file
     @Environment(\.managedObjectContext) var moc
     @Environment(\.dismiss) var dismiss
-
     @FetchRequest(sortDescriptors: [SortDescriptor(\.expiryDate)]) var allFood: FetchedResults<Food>
     
 //    @StateObject var globalArr = GlobalArr()
@@ -30,9 +29,12 @@ struct InsideFridgeScreen: View {
 
     private func filterArr() -> [FoodStruct] {
         foodArr = []
-        allFood.forEach { i in
+        DataController().fetchFoodData().forEach { i in
             foodArr.append(FoodStruct(foodId: i.id! ,name: i.name!, category: i.category!, entryDate: i.entryDate!, expiryDate: i.expiryDate!, amount: i.amount, unit: i.unit!))
         }
+//        foodArr.sort { (lhs: FoodStruct, rhs: FoodStruct) -> Bool in
+//            return lhs.expiryDate < rhs.expiryDate
+//        }
         return foodArr
     }
     
@@ -137,13 +139,7 @@ struct InsideFridgeScreen: View {
                 // Navigate to add food screen
                 Label("Add food into fridge", systemImage: "plus")
             }
-//            List(globalArr.foodArr, id: \.self) { food in
-//                NavigationLink {
-//                    FoodDetail()
-//                } label: {
-//                    FoodRow(food: food)
-//                }
-//            }
+            
             List(Array(Set(foodArr.map{$0.category})), id: \.self) { category in
                 VStack {
                     Text("\(category)")
@@ -170,6 +166,7 @@ struct InsideFridgeScreen: View {
             .onAppear{
                 foodArr = filterArr()
             }
+            
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -180,12 +177,11 @@ struct InsideFridgeScreen: View {
                     Label("Delete", systemImage: "trash")
                 }
                 .alert("This action will empty your fridge!", isPresented: $alert) {
-//                    Alert(title: Text("Warning"), message: Text("Are you sure you want to empty your fridge?"))
                     Button("Crystal clear", role: .destructive) {
                         DataController().deleteAllFood(context: moc)
                         moc.refreshAllObjects()
                         foodArr = []
-                        dismiss()
+//                        dismiss()
                     }
                     Button("Cancel", role: .cancel) { }
                 }

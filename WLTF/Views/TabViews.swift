@@ -26,7 +26,7 @@ struct TabViews: View {
                 ShoppingList()
                     .tabItem {
                         Image(systemName: "cart")
-                        Text("Shopping list")
+                        Text("Grocery")
                     }
         //                .navigationBarHidden(true)
                 }

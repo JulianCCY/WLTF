@@ -25,12 +25,15 @@ class DataController: ObservableObject {
     func save(context: NSManagedObjectContext) {
         do {
             try context.save()
-            print("Food saved")
-        } catch {
-            print("Saving error")
+            print("CoreData is updated successfully")
+        } catch let Error {
+            print("\(Error)")
         }
     }
     
+    // Fridge storage
+    
+    // add a single food into the fridge
     func addFood(name: String, category: String, amount: Double, unit: String, entryDate: String, expiryDate: Date, context: NSManagedObjectContext) {
         let newFood = Food(context: context)
         newFood.id = UUID()
@@ -71,17 +74,40 @@ class DataController: ObservableObject {
     // delete a single food in the fridge
     func deleteSingleFood(id: UUID, context: NSManagedObjectContext) {
         let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Food")
-                fetchRequest.predicate = NSPredicate.init(format: "id=%@", id.uuidString)
-                do {
-                    let foods = try context.fetch(fetchRequest)
-                    for food in foods {
-                        context.delete(food as! NSManagedObject)
-                    }
-//                    let food = context.fetch(fetchRequest)
-//                    context.delete(food)
-                    save(context: context)
-                } catch {
-                  print(error)
-                }
+        fetchRequest.predicate = NSPredicate.init(format: "id=%@", id.uuidString)
+        do {
+            let foods = try context.fetch(fetchRequest)
+            for food in foods {
+                context.delete(food as! NSManagedObject)
+            }
+            save(context: context)
+        } catch {
+            print(error)
+        }
+    }
+    
+    // Shopping list
+    
+    // add a TO-BUY item to the shopping list
+    func addToBuy(name: String, descr: String, context: NSManagedObjectContext) {
+        let toBuy = Shopping(context: context)
+        toBuy.id = UUID()
+        toBuy.name = name
+        toBuy.details = descr
+        
+        save(context: context)
+    }
+    
+    func clearWholeList() {
+        
+    }
+    
+    func fetchFoodData() -> [Food] {
+        let fetchRequest: NSFetchRequest<Food>
+        fetchRequest = Food.fetchRequest()
+        let context = container.viewContext
+        let objects = try? context.fetch(fetchRequest)
+        return objects!
+        
     }
 }

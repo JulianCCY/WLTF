@@ -18,11 +18,14 @@ struct FoodDetail: View {
     
     let food: FoodStruct
     
-    func deleteFood() {
-    }
+    @State private var alert = false
+    @State private var alertMessage = ""
     
     var body: some View {
         VStack {
+            Text("\(food.name)")
+                .font(.largeTitle)
+                .bold()
             ZStack {
                 Circle()
                     .strokeBorder(Color.black,lineWidth: 5)
@@ -58,13 +61,27 @@ struct FoodDetail: View {
                     }
                     .padding(.bottom)
                 }
-                Button("Delete food") {
-                    DataController().deleteSingleFood(id: food.foodId, context: moc)
-                    dismiss()
+                
+                // Delete this food
+                Button() {
+                    alert = true
+                } label: {
+                    Label("Remove", systemImage: "trash")
+                }
+                .padding()
+                .foregroundColor(Color(red: 0.0902, green: 0.0549, blue: 0.3294).opacity(0.61))
+                .background(Color(red: 0.8706, green: 0.8392, blue: 0.9529).opacity(0.61))
+                .cornerRadius(20)
+                .alert("Are you sure you want to remove this food? You can't undo this action.", isPresented: $alert) {
+                    Button("Remove", role: .destructive) {
+                        DataController().deleteSingleFood(id: food.foodId, context: moc)
+                        dismiss()
+                    }
+                    Button("Cancel", role: .cancel) { }
                 }
             }
             .padding()
-            .navigationBarTitle("\(food.name)")
+            .navigationBarTitle("")
         Spacer()
         }
     }

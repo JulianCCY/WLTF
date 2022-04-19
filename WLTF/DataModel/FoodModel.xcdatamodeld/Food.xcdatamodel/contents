@@ -9,7 +9,13 @@
         <attribute name="name" optional="YES" attributeType="String" defaultValueString="Unknown Food"/>
         <attribute name="unit" optional="YES" attributeType="String" defaultValueString=""/>
     </entity>
+    <entity name="Shopping" representedClassName="Shopping" syncable="YES" codeGenerationType="class">
+        <attribute name="details" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+    </entity>
     <elements>
-        <element name="Food" positionX="-63" positionY="-18" width="128" height="134"/>
+        <element name="Food" positionX="-63" positionY="-18" width="128" height="148"/>
+        <element name="Shopping" positionX="-313.2734375" positionY="47.19140625" width="128" height="88"/>
     </elements>
 </model>

@@ -139,19 +139,29 @@ struct AddFoodScreen: View {
             .listStyle(GroupedListStyle())
             
             Button {
-                globalArr.addFoodArr.forEach { item in
-                    DataController().addFood(name: item.name,
-                                             category: item.category,
-                                             amount: Double(item.amount),
-                                             unit: item.unit ,
-                                             entryDate: formatting(currentDate: Date()),
-                                             expiryDate: item.expiryDate,
-                                             context: managedObjectContext)
+                if globalArr.addFoodArr.isEmpty == true {
+                    alert = true
+                    alertMessage = "The Adding List is Empty"
+                    
+                } else {
+                    globalArr.addFoodArr.forEach { item in
+                        DataController().addFood(name: item.name,
+                                                 category: item.category,
+                                                 amount: Double(item.amount),
+                                                 unit: item.unit ,
+                                                 entryDate: formatting(currentDate: Date()),
+                                                 expiryDate: item.expiryDate,
+                                                 context: managedObjectContext)
+                    }
+                    dismiss()
                 }
-                dismiss()
+                
             } label: {
                 //button one
                 Label("Confirm", systemImage: "checkmark")
+            }
+            .alert(isPresented: $alert) {
+                Alert(title: Text("Invalid"), message: Text("\(alertMessage)"), dismissButton: .default(Text("Ok")))
             }
         }
         // Screen Title

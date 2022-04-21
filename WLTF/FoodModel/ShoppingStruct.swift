@@ -11,4 +11,5 @@ struct ShoppingStruct: Hashable, Codable {
     var foodId: UUID
     var foodName: String
     var description: String
+    var checked: Bool
 }

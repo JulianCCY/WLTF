@@ -63,22 +63,27 @@ struct FoodDetail: View {
                 }
                 
                 // Delete this food
-                Button() {
-                    alert = true
-                } label: {
-                    Label("Remove", systemImage: "trash")
-                }
-                .padding()
-                .foregroundColor(Color(red: 0.0902, green: 0.0549, blue: 0.3294).opacity(0.61))
-                .background(Color(red: 0.8706, green: 0.8392, blue: 0.9529).opacity(0.61))
-                .cornerRadius(20)
-                .alert("Are you sure you want to remove this food? You can't undo this action.", isPresented: $alert) {
-                    Button("Remove", role: .destructive) {
-                        DataController().deleteSingleFood(id: food.foodId, context: moc)
-                        dismiss()
+                HStack() {
+                    Spacer()
+                    Button() {
+                        alert = true
+                    } label: {
+                        Label("Remove", systemImage: "trash")
                     }
-                    Button("Cancel", role: .cancel) { }
+                    .padding()
+                    .foregroundColor(Color(red: 0.0902, green: 0.0549, blue: 0.3294).opacity(0.61))
+                    .background(Color(red: 0.8706, green: 0.8392, blue: 0.9529).opacity(0.61))
+                    .cornerRadius(20)
+                    .alert("Are you sure you want to remove this food? You can't undo this action.", isPresented: $alert) {
+                        Button("Remove", role: .destructive) {
+                            DataController().deleteSingleFood(id: food.foodId, context: moc)
+                            dismiss()
+                        }
+                        Button("Cancel", role: .cancel) { }
+                    }
+                    Spacer()
                 }
+                
             }
             .padding()
             .navigationBarTitle("")

@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreData
+import SwiftUI
 
 // This file contains func to implement data management of CoreData (add, edit, delete)
 
@@ -32,6 +33,16 @@ class DataController: ObservableObject {
     }
     
     // Fridge storage
+    
+    // fetch the food data for fridge
+    func fetchFoodData() -> [Food] {
+        let fetchRequest: NSFetchRequest<Food>
+        fetchRequest = Food.fetchRequest()
+        let context = container.viewContext
+        let objects = try? context.fetch(fetchRequest)
+        return objects!
+        
+    }
     
     // add a single food into the fridge
     func addFood(name: String, category: String, amount: Double, unit: String, entryDate: String, expiryDate: Date, context: NSManagedObjectContext) {
@@ -88,26 +99,78 @@ class DataController: ObservableObject {
     
     // Shopping list
     
+    // fetch all the To-buy item for shopping list
+    func fetchShoppingData() -> [Shopping] {
+        let fetchRequest: NSFetchRequest<Shopping>
+        fetchRequest = Shopping.fetchRequest()
+        let context = container.viewContext
+        do {
+            let objects = try context.fetch(fetchRequest)
+            return objects
+        } catch let Error {
+            print(Error)
+        }
+        return []
+     
+    }
+    
     // add a TO-BUY item to the shopping list
     func addToBuy(name: String, descr: String, context: NSManagedObjectContext) {
         let toBuy = Shopping(context: context)
         toBuy.id = UUID()
         toBuy.name = name
         toBuy.details = descr
+        toBuy.checked = NSNumber()
         
         save(context: context)
     }
     
-    func clearWholeList() {
+    // delete all the food in the list
+    func removeWholeList(context: NSManagedObjectContext) {
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> =
+            NSFetchRequest(entityName: "Shopping")
+        let deleteRequest =
+            NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        
+        do {
+            try container.viewContext.execute(deleteRequest)
+            save(context: context)
+        } catch let error as NSError {
+            print(error)
+        }
+    }
+    
+    // delete a single item from the shopping list
+    func removeSingleItem(id: UUID, context: NSManagedObjectContext){
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Shopping")
+        fetchRequest.predicate = NSPredicate.init(format: "id == %@", id.uuidString)
+        
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        
+        do {
+            try context.execute(deleteRequest)
+            save(context: context)
+        } catch let error as NSError {
+            print(error)
+        }
+    }
+    
+    // check if some food are already stored in the fridge and return the amount of them to shopping list
+    func checkFridgeContains(foodName: String) {
+//        var count = 0
+        let fetchRequest: NSFetchRequest<Food>
+        fetchRequest = Food.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "name CONTAINS %@", foodName)
+        let context = container.viewContext
+        do {
+            let objects: [Food] = try context.fetch(fetchRequest)
+            objects.forEach{ obj in
+                print("There is \(obj.amount) \(obj.name!)")
+            }
+        } catch let error as NSError {
+            print(error)
+        }
         
     }
     
-    func fetchFoodData() -> [Food] {
-        let fetchRequest: NSFetchRequest<Food>
-        fetchRequest = Food.fetchRequest()
-        let context = container.viewContext
-        let objects = try? context.fetch(fetchRequest)
-        return objects!
-        
-    }
 }

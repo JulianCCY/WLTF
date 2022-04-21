@@ -11,7 +11,7 @@ import Foundation
 
 class GlobalArr: ObservableObject {
     @Published var addFoodArr: [FoodStruct] = []
-//    @Published var foodArr: [FoodStruct] = []
+    @Published var addToBuyArr: [ShoppingStruct] = []
 }
 
 struct InsideFridgeScreen: View {
@@ -32,9 +32,10 @@ struct InsideFridgeScreen: View {
         DataController().fetchFoodData().forEach { i in
             foodArr.append(FoodStruct(foodId: i.id! ,name: i.name!, category: i.category!, entryDate: i.entryDate!, expiryDate: i.expiryDate!, amount: i.amount, unit: i.unit!))
         }
-//        foodArr.sort { (lhs: FoodStruct, rhs: FoodStruct) -> Bool in
-//            return lhs.expiryDate < rhs.expiryDate
-//        }
+        // sort the food in each category by its expiryDate
+        foodArr.sort { (lhs: FoodStruct, rhs: FoodStruct) -> Bool in
+            return lhs.expiryDate < rhs.expiryDate
+        }
         return foodArr
     }
     
@@ -163,9 +164,7 @@ struct InsideFridgeScreen: View {
             }
             // Screen Header / title
             .navigationBarTitle("All food")
-            .onAppear{
-                foodArr = filterArr()
-            }
+            .onAppear { foodArr = filterArr() }
             
         }
         .toolbar {
@@ -181,10 +180,10 @@ struct InsideFridgeScreen: View {
                         DataController().deleteAllFood(context: moc)
                         moc.refreshAllObjects()
                         foodArr = []
-//                        dismiss()
                     }
                     Button("Cancel", role: .cancel) { }
                 }
+                .disabled(foodArr.isEmpty)
             }
         }
     }

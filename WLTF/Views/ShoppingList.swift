@@ -91,8 +91,9 @@ struct ShoppingList: View {
                             }
                             .padding()
                             .onTapGesture {
-                                print(food.foodId)
-        //                            DataController().checkFridgeContains(foodName: food.foodName)
+                            //update check status if user have put this food in the cart
+                            DataController().updateCheckStatus(foodId: food.foodId, checked: food.checked as NSNumber)
+                            toBuyArr = filterArr()
                             }
                         }
                         .onDelete {

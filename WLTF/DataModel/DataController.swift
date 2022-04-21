@@ -156,21 +156,25 @@ class DataController: ObservableObject {
     }
     
     // check if some food are already stored in the fridge and return the amount of them to shopping list
-    func checkFridgeContains(foodName: String) {
-//        var count = 0
-        let fetchRequest: NSFetchRequest<Food>
-        fetchRequest = Food.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "name CONTAINS %@", foodName)
+    // only check have or dun have, and then filter our expired
+    func checkIfExist(foodName: String) {
+        print("Hi")
+    }
+    
+    //update checked status if user tap on the food on the list
+    func updateCheckStatus(foodId: UUID, checked: NSNumber) {
+        let fetchRequest: NSFetchRequest<Shopping>
+        fetchRequest = Shopping.fetchRequest()
+        fetchRequest.predicate = NSPredicate.init(format: "id == %@", foodId.uuidString)
         let context = container.viewContext
         do {
-            let objects: [Food] = try context.fetch(fetchRequest)
-            objects.forEach{ obj in
-                print("There is \(obj.amount) \(obj.name!)")
-            }
+            let objects: [Shopping] = try context.fetch(fetchRequest)
+            objects[0].checked = checked == 0 ? 1 : 0
+            save(context: context)
+            print("check update")
         } catch let error as NSError {
             print(error)
         }
-        
     }
     
 }

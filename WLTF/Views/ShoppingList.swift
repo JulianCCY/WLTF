@@ -57,18 +57,6 @@ struct ShoppingList: View {
         
         
     }
-//        VStack {
-//
-//            Text("Shopping List")
-//            List {
-//                Text("Hi")
-//            }
-//
-    
-    
-//        }
-//        .navigationTitle("")
-//        .navigationBarHidden(true)
     
     private func removeListItem(offsets: IndexSet) {
         withAnimation{

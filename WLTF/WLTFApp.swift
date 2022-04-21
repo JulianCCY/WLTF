@@ -18,9 +18,6 @@ struct WLTFApp: App {
         WindowGroup {
             ContentView()
                 .environment(\.managedObjectContext, datacontroller.container.viewContext)
-            
-            
-//                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }

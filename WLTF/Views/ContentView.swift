@@ -63,7 +63,7 @@ struct ContentView: View {
                 ShoppingList()
                     .tabItem {
                         Image(systemName: "cart")
-                        Text("Shopping list")
+                        Text("Grocery")
                     }
                     .tag(3)
             }

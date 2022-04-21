@@ -55,8 +55,7 @@ struct ClosedFridgeScreen: View {
                     .padding([.leading, .trailing])
         //            .navigationBarTitle("Name of your fridge")
         //                .navigationBarHidden(true)
-                    }
-        //        }
+            }
             .navigationTitle("")
             .navigationBarHidden(true)
         }

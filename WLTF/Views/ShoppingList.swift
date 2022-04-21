@@ -26,9 +26,12 @@ struct ShoppingList: View {
     
     @State private var foodName = ""
     @State private var description = ""
+    @State private var text1 = ""
+    @State private var text2 = ""
     
     @State private var alert = false
     @State private var deleteAlert = false
+    @State private var editAlert = false
     @State private var alertMessage = ""
     @State private var disabled = true
     
@@ -43,150 +46,188 @@ struct ShoppingList: View {
     var body: some View {
         NavigationView {
             ZStack {
-                VStack() {
-                    List {
-                        Section {
-                            VStack {
-                                HStack {
-                                    TextField("Food name", text: $foodName)
-                                        .frame(width: 125)
-    //                                    .border(Color.black, width: 1, cornerRadius(5))
-                                    Spacer()
-                                    TextField("Description (Optional)", text: $description)
-                                }
-    //                            .overlay(
-    //                                Capsule(style: .continuous)
-    //                                    .stroke(Color.purple, style: StrokeStyle(lineWidth: 1))
-    //                                    )
-                                .padding()
-                                
-                                Divider()
-                                
-                                Button() {
-                                    if foodName == "" {
-                                        alert = true
-                                        alertMessage = "Empty Food name"
-                                    } else {
-                                        DataController().addToBuy(name: foodName, descr: description, context: moc)
-                                        toBuyArr = filterArr()
-                                        foodName = ""
-                                        description = ""
+                ZStack {
+                    VStack() {
+                        List {
+                            Section {
+                                VStack {
+                                    HStack {
+                                        TextField("Food name", text: $foodName)
+                                            .frame(width: 125)
+        //                                    .border(Color.black, width: 1, cornerRadius(5))
+                                        Spacer()
+                                        TextField("Description (Optional)", text: $description)
                                     }
-                                } label: {
-                                    Image(systemName: "plus.rectangle")
-                                        .font(.system(size: 20))
-                                }
-                                .buttonStyle(BorderlessButtonStyle())
-                                .frame(width: 100, height: 20, alignment: .center)
-                                .disabled(foodName == "")
-                                .alert(isPresented: $alert) {
-                                    Alert(title: Text("Invalid"), message: Text("\(alertMessage)"), dismissButton: .default(Text("Ok")))
-                                }
-                                .foregroundColor(foodName == "" ? .gray : .blue)
-                                Text("TO-BUY (\(toBuyArr.count))")
-                                    .foregroundColor(.gray)
-                            }
-                        }
-                        
-                        Section {
-                            ForEach(toBuyArr, id: \.self) { food in
-                                ZStack {
-                                    VStack(alignment: .leading, spacing: 5) {
-                                        Text(food.foodName)
-                                            .fontWeight(.bold)
-                                            .font(.title2)
-                                        Text("Remark:")
-                                            .fontWeight(.semibold)
-                                        HStack {
-                                            if (food.description == "") {
-                                                Text("Nothing to show :)")
-                                            } else {
-                                                Text(food.description)
-                                                    .lineLimit(nil)
-                                                    .multilineTextAlignment(.leading)
-                                            }
-                                            Spacer()
+        //                            .overlay(
+        //                                Capsule(style: .continuous)
+        //                                    .stroke(Color.purple, style: StrokeStyle(lineWidth: 1))
+        //                                    )
+                                    .padding()
+                                    
+                                    Divider()
+                                    
+                                    Button() {
+                                        if foodName == "" {
+                                            alert = true
+                                            alertMessage = "Empty Food name"
+                                        } else {
+                                            DataController().addToBuy(name: foodName, descr: description, context: moc)
+                                            toBuyArr = filterArr()
+                                            foodName = ""
+                                            description = ""
                                         }
+                                    } label: {
+                                        Image(systemName: "plus.rectangle")
+                                            .font(.system(size: 20))
                                     }
-                                    if (food.checked) {
-                                        VStack {
+                                    .buttonStyle(BorderlessButtonStyle())
+                                    .frame(width: 100, height: 20, alignment: .center)
+                                    .disabled(foodName == "")
+                                    .alert(isPresented: $alert) {
+                                        Alert(title: Text("Invalid"), message: Text("\(alertMessage)"), dismissButton: .default(Text("Ok")))
+                                    }
+                                    .foregroundColor(foodName == "" ? .gray : .blue)
+                                    Text("TO-BUY (\(toBuyArr.count))")
+                                        .foregroundColor(.gray)
+                                    
+                                    Divider()
+                                    
+                                    VStack(alignment: .leading) {
+                                        Label {
+                                            Text("Detected similar food remaining in fridge")
+                                        } icon: {
+                                            Image(systemName: "exclamationmark.square")
+                                                .foregroundColor(Color("SecondaryColor"))
+                                        }
+                                        .font(.system(size: 12))
+                                        Label {
+                                            Text("Double tab to check your item")
+                                        } icon: {
+                                            Image(systemName: "checkmark")
+                                                .foregroundColor(Color.green)
+                                        }
+                                        .font(.system(size: 12))
+    //                                    Label("Detected similar food remaining in fridge", systemImage: "exclamationmark.square")
+    //                                    Label("Double tab to check your item", systemImage: "checkmark")
+                                    }
+                                }
+                            }
+                            
+                            Section {
+                                ForEach(toBuyArr, id: \.self) { food in
+                                    ZStack {
+                                        VStack(alignment: .leading, spacing: 5) {
+                                            Text(food.foodName)
+                                                .fontWeight(.bold)
+                                                .font(.title2)
+                                            Text("Remark:")
+                                                .fontWeight(.semibold)
                                             HStack {
+                                                if (food.description == "") {
+                                                    Text("Nothing to show :)")
+                                                } else {
+                                                    Text(food.description)
+                                                        .lineLimit(nil)
+                                                        .multilineTextAlignment(.leading)
+                                                }
                                                 Spacer()
-                                                Image(systemName: "checkmark")
-                                                    .foregroundColor(Color.green)
                                             }
-                                            Spacer()
+                                        }
+                                        if (food.checked) {
+                                            VStack {
+                                                HStack {
+                                                    Spacer()
+                                                    VStack {
+                                                        Image(systemName: "checkmark")
+                                                            .foregroundColor(Color.green)
+                                                    }
+                                                }
+                                                Spacer()
+                                            }
+                                        }
+                                        else if DataController().checkIfExist(foodName: food.foodName) == true {
+                                            VStack {
+                                                HStack {
+                                                    Spacer()
+                                                    Image(systemName: "exclamationmark.square")
+                                                        .foregroundColor(Color("SecondaryColor"))
+                                                }
+                                                Spacer()
+                                            }
                                         }
                                     }
+                                    .padding()
+                                    .frame(maxWidth: .infinity)
+                                    .contentShape(Rectangle())
+                                    .highPriorityGesture(
+                                          TapGesture(count:2)
+                                            .onEnded({
+                                                //update check status if user have put this food in the cart
+                                                DataController().updateCheckStatus(foodId: food.foodId, checked: food.checked as NSNumber)
+                                                toBuyArr = filterArr()                                    })
+                                        )
+                                    .onTapGesture{}.onLongPressGesture(minimumDuration: 0.5) {
+                                        editAlert = true
+                                        text1 = food.foodName
+                                        text2 = food.description
+                                    }
+                                    .background(Color(selectColour(checked: food.checked)))
+                                    .cornerRadius(10)
+                                    .shadow(color: .gray, radius: 0.2, x: 1, y: 1)
                                 }
-     //                         if DataController().checkIfExist(foodName: food.foodName) == true {
-      //                              Text("still have")
-      //                          } else{
-      //                              Text("dun have")
-      //                          }
-                                .padding()
-                                .frame(maxWidth: .infinity)
-                                .contentShape(Rectangle())
-                                .highPriorityGesture(
-                                      TapGesture(count:2)
-                                        .onEnded({
-                                            //update check status if user have put this food in the cart
-                                            DataController().updateCheckStatus(foodId: food.foodId, checked: food.checked as NSNumber)
-                                            toBuyArr = filterArr()                                    })
-                                    )
-                                .background(Color(selectColour(checked: food.checked)))
-                                .cornerRadius(10)
-                                .shadow(color: .gray, radius: 0.2, x: 1, y: 1)
+                                .onDelete {
+                                    offset in
+                                    // ghost of codewars
+                                    let uuid =  offset.compactMap{toBuyArr[$0].foodId}[0]
+                                    DataController().removeSingleItem(id: uuid, context: moc)
+                                    toBuyArr = filterArr()
+                                }
                             }
-                            .onDelete {
-                                offset in
-                                // ghost of codewars
-                                let uuid =  offset.compactMap{toBuyArr[$0].foodId}[0]
-                                DataController().removeSingleItem(id: uuid, context: moc)
-                                toBuyArr = filterArr()
+                        }
+                        .listStyle(InsetListStyle())
+                        .onAppear { toBuyArr = filterArr() }
+                    }
+                    .navigationTitle("Grocery List")
+                    .toolbar{
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Button {
+                                deleteAlert = true
+                            } label: {
+                                Label("Delete", systemImage: "trash")
                             }
+                            .alert("Empty your grocery list?", isPresented: $deleteAlert) {
+                                Button("Yes please", role: .destructive) {
+                                    DataController().removeWholeList(context: moc)
+                                    toBuyArr = []
+                                }
+                                Button("Noooooooo", role: .cancel) { }
+                            }
+                            .disabled(toBuyArr.isEmpty)
                         }
                     }
-                    .listStyle(InsetListStyle())
-                    .onAppear { toBuyArr = filterArr() }
-                }
-                .navigationTitle("Grocery List")
-                .toolbar{
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button {
-                            deleteAlert = true
-                        } label: {
-                            Label("Delete", systemImage: "trash")
-                        }
-                        .alert("Empty your grocery list?", isPresented: $deleteAlert) {
-                            Button("Yes please", role: .destructive) {
-                                DataController().removeWholeList(context: moc)
-                                toBuyArr = []
-                            }
-                            Button("No no no", role: .cancel) { }
-                        }
-                        .disabled(toBuyArr.isEmpty)
-                    }
-                }
-                VStack {
-                    Spacer()
-                    HStack {
+                    VStack {
                         Spacer()
-                        NavigationLink(destination: MapView()) {
-                            Image(systemName: "map")
-                                .font(.system(size: 30))
-                                .padding(10)
-                                .frame(width: 50, height: 50)
-                                .background(Color("PrimaryColor"))
-                                .foregroundColor(Color.white)
-                                .clipShape(Circle())
-                                .contentShape(Circle())
-                                .shadow(color: .gray, radius: 0.2, x: 1, y: 1)
+                        HStack {
+                            Spacer()
+                            NavigationLink(destination: MapView()) {
+                                Image(systemName: "map")
+                                    .font(.system(size: 30))
+                                    .padding(10)
+                                    .frame(width: 50, height: 50)
+                                    .background(Color("PrimaryColor"))
+                                    .foregroundColor(Color.white)
+                                    .clipShape(Circle())
+                                    .contentShape(Circle())
+                                    .shadow(color: .gray, radius: 0.2, x: 1, y: 1)
+                            }
                         }
+                        .padding([.trailing, .bottom])
                     }
-                    .padding([.trailing, .bottom])
+                }.blur(radius: editAlert ? 20 : 0)
+                if editAlert {
+                    EditAlert(text1: $text1, text2: $text2, showingAlert: $editAlert)
                 }
-//          Zstack
+//          Big Zstack
             }
 //          Navigation
         }

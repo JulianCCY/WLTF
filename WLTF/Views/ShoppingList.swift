@@ -88,6 +88,11 @@ struct ShoppingList: View {
                                         Text(food.description)
                                     }
                                 }
+                                if DataController().checkIfExist(foodName: food.foodName) == true {
+                                    Text("still have")
+                                } else{
+                                    Text("dun have")
+                                }
                             }
                             .padding()
                             .onTapGesture {

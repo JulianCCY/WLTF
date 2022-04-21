@@ -26,6 +26,10 @@ struct InsideFridgeScreen: View {
     
     @State private var alert = false
     @State private var alertMessage = ""
+    
+    init() {
+        UITableView.appearance().backgroundColor = .white
+    }
 
     private func filterArr() -> [FoodStruct] {
         foodArr = []
@@ -136,10 +140,10 @@ struct InsideFridgeScreen: View {
 //        return result
 //    }
         VStack {
-            NavigationLink(destination: AddFoodScreen()) {
-                // Navigate to add food screen
-                Label("Add food into fridge", systemImage: "plus")
-            }
+//            NavigationLink(destination: AddFoodScreen()) {
+//                // Navigate to add food screen
+//                Label("Add food into fridge", systemImage: "plus")
+//            }
             
             List(Array(Set(foodArr.map{$0.category})), id: \.self) { category in
                 VStack {
@@ -159,13 +163,27 @@ struct InsideFridgeScreen: View {
                         }
                         .padding(.horizontal)
                     }
-                    .frame(maxHeight: 200)
+                    .frame(height: 110)
                 }
             }
             // Screen Header / title
             .navigationBarTitle("All food")
-            .onAppear { foodArr = filterArr() }
-            
+            .onAppear{
+                foodArr = filterArr()
+            }
+            HStack {
+                Spacer()
+                NavigationLink(destination: AddFoodScreen()) {
+                    // Navigate to add food screen
+                    Image(systemName: "plus.square.fill")
+                        .resizable()
+                        .frame(width: 50, height: 50)
+                        .foregroundColor(Color("PrimaryColor"))
+                        .shadow(color: .gray, radius: 0.2, x: 1, y: 1)
+                        .padding(.trailing)
+                }
+            }
+            .background(.clear)
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {

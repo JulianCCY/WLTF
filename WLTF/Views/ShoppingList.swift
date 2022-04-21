@@ -12,6 +12,10 @@ import MapKit
 
 struct ShoppingList: View {
     
+//    init() {
+//        UITableView.appearance().sectionFooterHeight = 0
+//    }
+    
     // access coredata in this file
     @Environment(\.managedObjectContext) var moc
     @Environment(\.dismiss) var dismiss
@@ -30,87 +34,95 @@ struct ShoppingList: View {
     var body: some View {
         NavigationView {
             VStack() {
-//                NavigationLink(destination: AddToBuyScreen()) {
-//                    Label("Edit", systemImage: "plus")
-//                }
-                
-                Section {
-                    HStack {
-                        Group {
-                            Spacer()
-                            TextField("Food name", text: $foodName)
-    //                            .frame(width: 50)
-                            Spacer()
-                            TextField("Description (Optional)", text: $description)
-                        }
-                    }
-                    Divider()
-                    Spacer()
-                    Button() {
-                        if foodName == "" {
-                            alert = true
-                            alertMessage = "Empty Food name"
-                        } else {
-                            DataController().addToBuy(name: foodName, descr: description, context: moc)
-                            toBuyArr = filterArr()
-                            foodName = ""
-                            description = ""
-                        }
-                    } label: {
-                        Image(systemName: "plus.rectangle")
-                    }
-                    .disabled(foodName == "")
-                    .alert(isPresented: $alert) {
-                        Alert(title: Text("Invalid"), message: Text("\(alertMessage)"), dismissButton: .default(Text("Ok")))
-                    }
-                    .foregroundColor(foodName == "" ? .gray : .red)
-                    Spacer()
-                }
-                
-                Text("TO-BUY (\(toBuyArr.count))")
-                    .foregroundColor(.gray)
-                List{
-                    ForEach(toBuyArr, id: \.self) { food in
-                        VStack(alignment: .leading, spacing: 5) {
+                List {
+                    Section {
+                        VStack {
                             HStack {
+                                TextField("Food name", text: $foodName)
+                                    .frame(width: 125)
+                                Spacer()
+                                TextField("Description (Optional)", text: $description)
+                            }
+                            .padding()
+                            
+                            Divider()
+                            
+                            Button() {
+                                if foodName == "" {
+                                    alert = true
+                                    alertMessage = "Empty Food name"
+                                } else {
+                                    DataController().addToBuy(name: foodName, descr: description, context: moc)
+                                    toBuyArr = filterArr()
+                                    foodName = ""
+                                    description = ""
+                                }
+                            } label: {
+                                Image(systemName: "plus.rectangle")
+                                    .font(.system(size: 20))
+                            }
+                            .buttonStyle(BorderlessButtonStyle())
+                            .frame(width: 100, height: 20, alignment: .center)
+                            .disabled(foodName == "")
+                            .alert(isPresented: $alert) {
+                                Alert(title: Text("Invalid"), message: Text("\(alertMessage)"), dismissButton: .default(Text("Ok")))
+                            }
+                            .foregroundColor(foodName == "" ? .gray : .blue)
+                            Text("TO-BUY (\(toBuyArr.count))")
+                                .foregroundColor(.gray)
+                        }
+                    }
+                    
+                    Section {
+                        ForEach(toBuyArr, id: \.self) { food in
+                            VStack(alignment: .leading, spacing: 5) {
                                 Text(food.foodName)
-                                    .bold()
-                                Text(food.description)
+                                    .fontWeight(.bold)
+                                    .font(.title2)
                                 HStack {
-                                    Text(String(food.checked))
+                                    Text("Remark:")
+                                        .fontWeight(.semibold)
+                                    if (food.description == "") {
+                                        Text("Nothing to show :)")
+                                    } else {
+                                        Text(food.description)
+                                    }
                                 }
                             }
-                        }
-                        .frame(maxWidth: .infinity)
-                        .onTapGesture {
+                            .padding()
+                            .onTapGesture {
                             //update check status if user have put this food in the cart
                             DataController().updateCheckStatus(foodId: food.foodId, checked: food.checked as NSNumber)
                             toBuyArr = filterArr()
+                            }
+                        }
+                        .onDelete {
+                            offset in
+                            // ghost of codewars
+                            let uuid =  offset.compactMap{toBuyArr[$0].foodId}[0]
+                            DataController().removeSingleItem(id: uuid, context: moc)
+                            toBuyArr = filterArr()
                         }
                     }
-                    .onDelete {
-                        offset in
-                            // ghost of codewars
-                        let uuid =  offset.compactMap{toBuyArr[$0].foodId}[0]
-                        DataController().removeSingleItem(id: uuid, context: moc)
-                        toBuyArr = filterArr()
-                    }
                 }
-                .listStyle(.plain)
-                .navigationTitle("Grocery List")
+                .listStyle(InsetListStyle())
                 .onAppear { toBuyArr = filterArr() }
                 
                 NavigationLink(destination: MapView()) {
                     Image(systemName: "map")
                         .font(.system(size: 30))
                         .padding(10)
-                        .background(Color("BackgroundColor"))
+                        .frame(width: 50, height: 50)
+                        .background(Color("PrimaryColor"))
+                        .foregroundColor(Color.white)
                         .clipShape(Circle())
-                        .shadow(radius: 10)
                         .contentShape(Circle())
+                        .shadow(color: .gray, radius: 0.2, x: 1, y: 1)
                 }
-                
+                .background(.clear)
+                Spacer()
             }
+            .navigationTitle("Grocery List")
             .toolbar{
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
@@ -123,7 +135,7 @@ struct ShoppingList: View {
                 }
             }
         }
-        .navigationViewStyle(.stack)
+//        .navigationViewStyle(.stack)
         .navigationTitle("")
         .navigationBarHidden(true)
         

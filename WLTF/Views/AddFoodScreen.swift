@@ -137,7 +137,7 @@ struct AddFoodScreen: View {
                     .onDelete(perform: deleteItem)
                 }
             }
-            .listStyle(GroupedListStyle())
+            .listStyle(InsetListStyle())
             
             Button {
                 if globalArr.addFoodArr.isEmpty == true {
@@ -179,8 +179,7 @@ struct AddFoodScreen: View {
 //                }
 //            }
         }
-    }
-    
+    }    
 }
 
 struct AddFoodScreen_Previews: PreviewProvider {

@@ -158,7 +158,7 @@ class DataController: ObservableObject {
     // check if some food are already stored in the fridge and return the amount of them to shopping list
     // only check have or dun have, and then filter our expired
     func checkIfExist(foodName: String) {
-        
+        print("Hi")
     }
     
     //update checked status if user tap on the food on the list

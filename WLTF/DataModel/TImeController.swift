@@ -51,3 +51,10 @@ extension Date {
         return dateformat.string(from: self)
     }
 }
+
+func checkExpired(expiryDate: Date) -> Bool {
+    let minutes = Int(expiryDate.timeIntervalSinceNow)/60
+    let hours = minutes/60
+    let days = hours/24
+    return days <= 0 && hours <= 0 ? true : false
+}

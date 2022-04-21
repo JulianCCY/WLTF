@@ -37,9 +37,9 @@ struct InsideFridgeScreen: View {
             foodArr.append(FoodStruct(foodId: i.id! ,name: i.name!, category: i.category!, entryDate: i.entryDate!, expiryDate: i.expiryDate!, amount: i.amount, unit: i.unit!))
         }
         // sort the food in each category by its expiryDate
-        foodArr.sort { (lhs: FoodStruct, rhs: FoodStruct) -> Bool in
-            return lhs.expiryDate < rhs.expiryDate
-        }
+//        foodArr.sort { (lhs: FoodStruct, rhs: FoodStruct) -> Bool in
+//            return lhs.expiryDate < rhs.expiryDate
+//        }
         return foodArr
     }
     
@@ -60,8 +60,10 @@ struct InsideFridgeScreen: View {
     //                // Navigate to add food screen
     //                Label("Add food into fridge", systemImage: "plus")
     //            }
-                
-                List(Array(Set(foodArr.map{$0.category})), id: \.self) { category in
+              
+                //ghost of codewar again
+                // we can sort category by expiryDate and sort the food in each category by expiryDate
+                List(NSOrderedSet(array: foodArr.map{$0.category}).map({$0 as! String}), id: \.self) { category in
                     VStack {
                         Text("\(category)")
                             .font(.title2)

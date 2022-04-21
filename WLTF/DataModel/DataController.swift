@@ -14,7 +14,6 @@ import SwiftUI
 class DataController: ObservableObject {
     let container = NSPersistentContainer(name: "FoodModel")
 
-    
     init() {
         container.loadPersistentStores { desc, error in
             if let error = error {
@@ -23,6 +22,7 @@ class DataController: ObservableObject {
         }
     }
     
+    // save every update in CoreData
     func save(context: NSManagedObjectContext) {
         do {
             try context.save()
@@ -32,7 +32,8 @@ class DataController: ObservableObject {
         }
     }
     
-    // Fridge storage
+    
+    // For Fridge storage
     
     // fetch the food data for fridge
     func fetchFoodData() -> [Food] {
@@ -40,7 +41,8 @@ class DataController: ObservableObject {
         fetchRequest = Food.fetchRequest()
         let context = container.viewContext
         let objects = try? context.fetch(fetchRequest)
-        return objects!
+        //objects!
+        return objects!.sorted{$0.expiryDate! < $1.expiryDate!}
         
     }
     
@@ -97,7 +99,7 @@ class DataController: ObservableObject {
         }
     }
     
-    // Shopping list
+    // For Shopping list
     
     // fetch all the To-buy item for shopping list
     func fetchShoppingData() -> [Shopping] {
@@ -157,8 +159,18 @@ class DataController: ObservableObject {
     
     // check if some food are already stored in the fridge and return the amount of them to shopping list
     // only check have or dun have, and then filter our expired
-    func checkIfExist(foodName: String) {
-        print("Hi")
+    func checkIfExist(foodName: String) -> Bool{
+        let fetchRequest: NSFetchRequest<Food>
+        fetchRequest = Food.fetchRequest()
+        fetchRequest.predicate = NSPredicate.init(format: "name == %@", foodName)
+        let context = container.viewContext
+        do {
+            let objects: [Food] = try context.fetch(fetchRequest)
+            return objects.filter{checkExpired(expiryDate: $0.expiryDate!) == false}.count > 0 ? true : false
+        } catch let error as NSError {
+            print(error)
+        }
+        return false
     }
     
     //update checked status if user tap on the food on the list

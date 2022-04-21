@@ -119,6 +119,11 @@ struct ShoppingList: View {
                                         }
                                     }
                                 }
+     //                         if DataController().checkIfExist(foodName: food.foodName) == true {
+      //                              Text("still have")
+      //                          } else{
+      //                              Text("dun have")
+      //                          }
                                 .padding()
                                 .frame(maxWidth: .infinity)
                                 .contentShape(Rectangle())

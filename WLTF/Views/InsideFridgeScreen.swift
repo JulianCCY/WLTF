@@ -54,154 +54,75 @@ struct InsideFridgeScreen: View {
         ]
     
     var body: some View {
-//        NavigationView {
-//                VStack(alignment: .leading) {
-//                    Text("\(Int(totalNumOfFood())) item(s)")
-//                        .foregroundColor(.gray)
-//                        .padding(.horizontal)
-//                    List {
-//                        ForEach(filterCategory(arr: food.compactMap{$0.category}), id: \.self) { f in
-//                            VStack {
-//                                Text("\(f)")
-//                                    .font(.headline)
-//                            }
-//                        }
-//                    }
-//                    .onAppear{
-//                        foodArr = filterArr()
-//                    }
-//
-//                    List {
-//                        ForEach(foodArr, id: \.self) { item in
-//                            HStack {
-//                                VStack(alignment: .leading, spacing: 6) {
-//                                    Text(item.name)
-//
-//                                    Text(item.category) +
-//                                    Text(" x \(Int(item.amount)) ") +
-//                                    Text(item.unit)
-//                                    Text(item.entryDate)
-//                                }
-//                                Spacer()
-//                                Text(calcExpiry(date: item.expireDate))
-//                                    .foregroundColor(.brown)
-//                            }
-//                        }
-//                    }
-//                }
-//                .navigationTitle("All Food")
-//                .toolbar{
-//                    ToolbarItem(placement: .navigationBarTrailing) {
-//                        HStack {
-//                            Button {
-//                                showingAddView.toggle()
-//                            } label: {
-//                                Label("Add Food", systemImage: "plus.circle")
-//                            }
-//                            Button {
-//                                DataController().deleteAllFood(context: moc)
-//                            } label: {
-//                                Label("Add Food", systemImage: "trash.circle")
-//                            }
-//                        }
-//                    }
-//                }
-//                .sheet(isPresented: $showingAddView) {
-//                    AddFoodScreen()
-//                }
-//            }
-//            .navigationViewStyle(.stack)
-//    }
-    
-    // count total num of food stored
-//    private func totalNumOfFood() -> Int {
-//            return food.count
-//    }
-    
-    // delete the food and save afer delete
-//    private func deleteFood(offsets: IndexSet) {
-//        withAnimation {
-//            offsets.map {food[$0]}.forEach(moc.delete)
-//            DataController().save(context: moc)
-//        }
-//    }
-    
-//    private func filterCategory(arr: [String]) -> [String] {
-//        if arr.isEmpty == true { return [] }
-//        var dict = Set<String>()
-//        var result: [String] = []
-//        
-//        for i in arr {
-//            if dict.contains(i) == false {
-//                dict.insert(i)
-//                result.append(i)
-//            }
-//        }
-//        return result
-//    }
-        VStack {
-//            NavigationLink(destination: AddFoodScreen()) {
-//                // Navigate to add food screen
-//                Label("Add food into fridge", systemImage: "plus")
-//            }
-            
-            List(Array(Set(foodArr.map{$0.category})), id: \.self) { category in
-                VStack {
-                    Text("\(category)")
-                        .font(.headline)
-                    ScrollView {
-                        LazyVGrid(columns: columns, spacing: 20) {
-                            ForEach(foodArr.filter{$0.category == category}, id: \.self) { food in
-                                NavigationLink {
-                                    FoodDetail(food: food)
+        ZStack {
+            VStack {
+    //            NavigationLink(destination: AddFoodScreen()) {
+    //                // Navigate to add food screen
+    //                Label("Add food into fridge", systemImage: "plus")
+    //            }
+                
+                List(Array(Set(foodArr.map{$0.category})), id: \.self) { category in
+                    VStack {
+                        Text("\(category)")
+                            .font(.title2)
+                            .fontWeight(.semibold)
+                        ScrollView {
+                            LazyVGrid(columns: columns, spacing: 20) {
+                                ForEach(foodArr.filter{$0.category == category}, id: \.self) { food in
+                                    NavigationLink {
+                                        FoodDetail(food: food)
+                                    }
+                                    label: {
+                                        FoodGrid(food: food)
+                                    }
+                                    .buttonStyle(PlainButtonStyle())
                                 }
-                                label: {
-                                    FoodGrid(food: food)
-                                }
-                                .buttonStyle(PlainButtonStyle())
                             }
+                            .padding(.horizontal)
                         }
-                        .padding(.horizontal)
+                        .frame(height: 110)
                     }
-                    .frame(height: 110)
+                }
+                // Screen Header / title
+                .navigationBarTitle("All food")
+                .onAppear{
+                    foodArr = filterArr()
                 }
             }
-            // Screen Header / title
-            .navigationBarTitle("All food")
-            .onAppear{
-                foodArr = filterArr()
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    // Top Right delete button
+                    Button {
+                        alert = true
+                    } label: {
+                        Label("Delete", systemImage: "trash")
+                    }
+                    .alert("This action will empty your fridge!", isPresented: $alert) {
+                        Button("Crystal clear", role: .destructive) {
+                            DataController().deleteAllFood(context: moc)
+                            moc.refreshAllObjects()
+                            foodArr = []
+                        }
+                        Button("Cancel", role: .cancel) { }
+                    }
+                    .disabled(foodArr.isEmpty)
+                }
             }
-            HStack {
+
+            VStack {
                 Spacer()
-                NavigationLink(destination: AddFoodScreen()) {
-                    // Navigate to add food screen
-                    Image(systemName: "plus.square.fill")
-                        .resizable()
-                        .frame(width: 50, height: 50)
-                        .foregroundColor(Color("PrimaryColor"))
-                        .shadow(color: .gray, radius: 0.2, x: 1, y: 1)
-                        .padding(.trailing)
-                }
-            }
-            .background(.clear)
-        }
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                // Top Right delete button
-                Button {
-                    alert = true
-                } label: {
-                    Label("Delete", systemImage: "trash")
-                }
-                .alert("This action will empty your fridge!", isPresented: $alert) {
-                    Button("Crystal clear", role: .destructive) {
-                        DataController().deleteAllFood(context: moc)
-                        moc.refreshAllObjects()
-                        foodArr = []
+                HStack {
+                    Spacer()
+                    NavigationLink(destination: AddFoodScreen()) {
+                        // Navigate to add food screen
+                        Image(systemName: "plus.square.fill")
+                            .resizable()
+                            .frame(width: 50, height: 50)
+                            .foregroundColor(Color("PrimaryColor"))
+                            .shadow(color: .gray, radius: 0.2, x: 1, y: 1)
+                            .padding(.trailing)
                     }
-                    Button("Cancel", role: .cancel) { }
                 }
-                .disabled(foodArr.isEmpty)
             }
         }
     }

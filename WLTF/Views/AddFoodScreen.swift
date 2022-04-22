@@ -16,7 +16,7 @@ struct AddFoodScreen: View {
 
     @StateObject var globalArr = GlobalArr()
     
-    var cates = ["Alcohol", "Bread", "Cooked", "Dairy", "Desert", "Drinks", "Fruit", "Grain", "Meat", "Protein", "Seasoning", "Seafood", "Vegetables", "Others"]
+    var cates = ["Alcohol", "Bread", "Cooked", "Dairy", "Dessert", "Drinks", "Fruit", "Grain", "Meat", "Protein", "Seasoning", "Seafood", "Snacks", "Vegetables", "Others"]
     var units = ["Bags", "Bottles", "Bowls", "Boxes", "Cans", "Cups", "Packs", "Pieces", "Plates", "Pots", "Milligrams", "Grams", "Kilorams", "Millilitre", "Litre", "Pound", "Ounce"]
 
     @State var name: String = ""

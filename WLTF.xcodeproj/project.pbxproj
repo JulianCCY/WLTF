@@ -150,7 +150,6 @@
 				6A0CEAAD280DB0690086938B /* ShoppingList.swift */,
 				6A0CEAAF280DB0CC0086938B /* DishMain.swift */,
 				6ADB2E9727FE090500A8E475 /* FoodGrid.swift */,
-				6A0CEAB82811FB9B0086938B /* EditAlert.swift */,
 				6A1830A027FB8DA9005FF721 /* MapView.swift */,
 				6ACEBD6128045EE4006C93A8 /* AddFoodList.swift */,
 				6ACEBD632805916D006C93A8 /* AddListItem.swift */,
@@ -159,6 +158,7 @@
 				6AB93E6027FC808A003D601F /* FridgeList.swift */,
 				6A0CEAB1280DB5120086938B /* TabViews.swift */,
 				8403E031280F07FC00683C76 /* AddToBuyScreen.swift */,
+				6A0CEAB82811FB9B0086938B /* EditAlert.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";

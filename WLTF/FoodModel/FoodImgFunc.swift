@@ -23,6 +23,9 @@ class FoodImgFunc {
         if input1.lowercased().contains("cereal") || input1.lowercased().contains("viljaa") || input1.lowercased().contains("viljat") {
             return "cereal-1"
         }
+        if input1.lowercased().contains("pie") || input1.lowercased().contains("piirakka") {
+            return "pie-1"
+        }
         else {
             if input1.lowercased() == "apple" || input1.lowercased() == "omena" {
                 return "apple"

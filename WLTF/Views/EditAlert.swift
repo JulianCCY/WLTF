@@ -12,6 +12,7 @@ struct EditAlert: View {
     @Binding var itemDetails: String
     @Binding var showingAlert: Bool
     @Binding var itemId: String
+    @Binding var toBuyArr: [ShoppingStruct]
     
     var body: some View {
         ZStack {
@@ -50,6 +51,7 @@ struct EditAlert: View {
                         Button ("Save") {
                             DataController().updateShoppingListItem(foodId: itemId, foodName: itemName, description: itemDetails)
                             self.showingAlert.toggle()
+                            toBuyArr = ShoppingList().filterArr()
                         }
                         Spacer()
                     }

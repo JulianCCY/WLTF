@@ -125,11 +125,12 @@ struct ShoppingList: View {
                                             Text(food.foodName)
                                                 .fontWeight(.bold)
                                                 .font(.title2)
-                                            Text("Remark:")
+                                            Text("Note:")
                                                 .fontWeight(.semibold)
                                             HStack {
                                                 if (food.description == "") {
-                                                    Text("Nothing to show :)")
+                                                    Text("Blank")
+                                                        .foregroundColor(.gray)
                                                 } else {
                                                     Text(food.description)
                                                         .lineLimit(nil)
@@ -169,13 +170,11 @@ struct ShoppingList: View {
                                             .onEnded({
                                                 //update check status if user have put this food in the cart
                                                 DataController().updateCheckStatus(foodId: food.foodId, checked: food.checked as NSNumber)
-                                                toBuyArr = filterArr()                                    })
+                                                toBuyArr = filterArr()})
                                         )
-                                    .onTapGesture{}.onLongPressGesture(minimumDuration: 0.5) {
-                                        editAlert = true
-                                        itemName = food.foodName
-                                        itemDetails = food.description
-                                        itemId = food.foodId.uuidString
+                                    .onTapGesture{}.onLongPressGesture(minimumDuration: 0.3) {
+                                        // edit item details
+                                        editAlertView(oldName: food.foodName, oldDescr: food.description, itemId: food.foodId.uuidString)
                                     }
                                     .background(Color(selectColour(checked: food.checked)))
                                     .cornerRadius(10)
@@ -230,9 +229,6 @@ struct ShoppingList: View {
                         .padding([.trailing, .bottom])
                     }
                 }.blur(radius: editAlert ? 20 : 0)
-                if editAlert {
-                    EditAlert(itemName: $itemName, itemDetails: $itemDetails, showingAlert: $editAlert, itemId: $itemId)
-                }
 //          Big Zstack
             }
 //          Navigation
@@ -245,12 +241,51 @@ struct ShoppingList: View {
         
     }
     
+    // transform objects to useable array
     func filterArr() -> [ShoppingStruct] {
         toBuyArr = []
         DataController().fetchShoppingData().forEach { i in
             toBuyArr.append(ShoppingStruct(foodId: i.id!, foodName: i.name!, description: i.details!, checked: i.checked?.boolValue ?? false))
         }
         return toBuyArr
+    }
+    
+    // alert edit view to edit info of item
+    func editAlertView(oldName: String, oldDescr: String, itemId: String) {
+        let screen = UIApplication.shared.connectedScenes.first as? UIWindowScene
+        
+//        let editAlert = UIAlertController(title: "Error", message: "Food name can't be Empty", preferredStyle: .alert)
+        
+        let alert = UIAlertController(title: "Edit", message: "please input new food name and description", preferredStyle: .alert)
+        alert.addTextField { foodName in
+            foodName.placeholder = "\(oldName)"
+            alert.textFields![0].text! = oldName
+        }
+        
+        alert.addTextField { description in
+            description.placeholder = "Description (Optional)"
+            alert.textFields![1].text! = oldDescr
+        }
+        
+        let submitEdit = UIAlertAction(title: "Confirm", style: .default) { (_) in
+            itemName = alert.textFields![0].text! == "" ? oldName : alert.textFields![0].text!
+            itemDetails = alert.textFields![1].text! == "" ? "" : alert.textFields![1].text!
+            
+            DataController().updateShoppingListItem(foodId: itemId, foodName: itemName, description: itemDetails)
+            toBuyArr = filterArr()
+        }
+        
+        let cancelEdit = UIAlertAction(title: "Cancel", style: .destructive) { (_) in }
+        
+        alert.addAction(submitEdit)
+        alert.addAction(cancelEdit)
+        
+        screen!.windows.first?.rootViewController?.present(alert, animated: true,
+            completion: {
+                itemName = ""
+                itemDetails = ""
+        })
+        
     }
 }
 

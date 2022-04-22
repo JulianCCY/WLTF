@@ -99,6 +99,8 @@ class DataController: ObservableObject {
         }
     }
     
+    
+    
     // For Shopping list
     
     // fetch all the To-buy item for shopping list
@@ -173,7 +175,7 @@ class DataController: ObservableObject {
         return false
     }
     
-    //update checked status if user tap on the food on the list
+    //update checked status
     func updateCheckStatus(foodId: UUID, checked: NSNumber) {
         let fetchRequest: NSFetchRequest<Shopping>
         fetchRequest = Shopping.fetchRequest()
@@ -189,4 +191,20 @@ class DataController: ObservableObject {
         }
     }
     
+    //update the list item
+    func updateShoppingListItem(foodId: String, foodName: String, description: String) {
+        let fetchRequest: NSFetchRequest<Shopping>
+        fetchRequest = Shopping.fetchRequest()
+        fetchRequest.predicate = NSPredicate.init(format: "id == %@", foodId)
+        let context = container.viewContext
+        do {
+            let objects: [Shopping] = try context.fetch(fetchRequest)
+            objects[0].name = foodName
+            objects[0].details = description
+            save(context: context)
+            print("update ok")
+        } catch let error as NSError {
+            print(error)
+        }
+    }
 }

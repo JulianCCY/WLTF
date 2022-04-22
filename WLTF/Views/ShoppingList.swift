@@ -24,11 +24,16 @@ struct ShoppingList: View {
     // need to the shopping struct restructure the array then I sin can use
     @State var toBuyArr: [ShoppingStruct] = []
     
+    // for upload input
     @State private var foodName = ""
     @State private var description = ""
-    @State private var text1 = ""
-    @State private var text2 = ""
     
+    // for edit input
+    @State private var itemName = ""
+    @State private var itemDetails = ""
+    @State private var itemId = ""
+    
+    // for general alert
     @State private var alert = false
     @State private var deleteAlert = false
     @State private var editAlert = false
@@ -168,8 +173,9 @@ struct ShoppingList: View {
                                         )
                                     .onTapGesture{}.onLongPressGesture(minimumDuration: 0.5) {
                                         editAlert = true
-                                        text1 = food.foodName
-                                        text2 = food.description
+                                        itemName = food.foodName
+                                        itemDetails = food.description
+                                        itemId = food.foodId.uuidString
                                     }
                                     .background(Color(selectColour(checked: food.checked)))
                                     .cornerRadius(10)
@@ -225,7 +231,7 @@ struct ShoppingList: View {
                     }
                 }.blur(radius: editAlert ? 20 : 0)
                 if editAlert {
-                    EditAlert(text1: $text1, text2: $text2, showingAlert: $editAlert)
+                    EditAlert(itemName: $itemName, itemDetails: $itemDetails, showingAlert: $editAlert, itemId: $itemId)
                 }
 //          Big Zstack
             }
@@ -239,7 +245,7 @@ struct ShoppingList: View {
         
     }
     
-    private func filterArr() -> [ShoppingStruct] {
+    func filterArr() -> [ShoppingStruct] {
         toBuyArr = []
         DataController().fetchShoppingData().forEach { i in
             toBuyArr.append(ShoppingStruct(foodId: i.id!, foodName: i.name!, description: i.details!, checked: i.checked?.boolValue ?? false))

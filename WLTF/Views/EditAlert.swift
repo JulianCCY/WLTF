@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct EditAlert: View {
-    @Binding var text1: String
-    @Binding var text2: String
+    @Binding var itemName: String
+    @Binding var itemDetails: String
     @Binding var showingAlert: Bool
+    @Binding var itemId: String
     
     var body: some View {
         ZStack {
@@ -22,13 +23,13 @@ struct EditAlert: View {
                     .fontWeight(.bold)
                     .foregroundColor(.black)
                 
-                TextField("Enter text", text: $text1)
+                TextField("Food name", text: $itemName)
                     .padding(5)
                     .background(Color.white)
                     .foregroundColor(.black)
                     .padding(.horizontal, 20)
                     
-                TextField("Enter text", text: $text2)
+                TextField("Description (optional)", text: $itemDetails)
                     .padding(5)
                     .background(Color.white)
                     .foregroundColor(.black)
@@ -47,7 +48,7 @@ struct EditAlert: View {
                     HStack {
                         Spacer()
                         Button ("Save") {
-                            print("New food \(text1) \(text2)")
+                            DataController().updateShoppingListItem(foodId: itemId, foodName: itemName, description: itemDetails)
                             self.showingAlert.toggle()
                         }
                         Spacer()

@@ -30,13 +30,13 @@ struct FoodDetail: View {
                 Circle()
                     .strokeBorder(Color.black,lineWidth: 5)
                     .background(Circle().foregroundColor(Color("\(FoodImgFunc.selectColor(food.expiryDate))")))
-                    .frame(width: 225, height: 225)
+                    .frame(width: 190, height: 190)
                 Image("\(FoodImgFunc.selectImg(food.name, food.category))")
                     .resizable()
-                    .frame(width: 160, height: 160)
+                    .frame(width: 140, height: 140)
             }
-            .offset(y: 75)
-            .padding(.bottom, 100)
+//            .offset(y: 50)
+            .padding(.bottom, 40)
 
             VStack(alignment: .leading) {
                 Text("Amount")
@@ -62,6 +62,7 @@ struct FoodDetail: View {
                     .padding(.bottom)
                 }
                 
+                Spacer()
                 // Delete this food
                 HStack() {
                     Spacer()

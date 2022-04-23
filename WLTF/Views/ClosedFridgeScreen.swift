@@ -17,7 +17,7 @@ struct ClosedFridgeScreen: View {
             Text("Name of your fridge")
                 .font(.title)
                 .fontWeight(.bold)
-                .padding(.leading)
+                .padding([.top, .leading])
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .navigationTitle("")
                 .navigationBarHidden(true)

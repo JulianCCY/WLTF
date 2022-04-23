@@ -13,7 +13,9 @@ import MapKit
 struct ShoppingList: View {
     
 //    init() {
-//        UITableView.appearance().sectionFooterHeight = 0
+//        if #available(iOS 15, *) {
+//            UINavigationBar.appearance().scrollEdgeAppearance = UINavigationBarAppearance()
+//        }
 //    }
     
     // access coredata in this file
@@ -52,7 +54,14 @@ struct ShoppingList: View {
         NavigationView {
             ZStack {
                 ZStack {
-                    VStack() {
+                    VStack {
+//                        Text("Grocery list")
+//                            .font(.title)
+//                            .fontWeight(.bold)
+//                            .padding([.top, .leading])
+//                            .frame(maxWidth: .infinity, alignment: .leading)
+//                            .navigationTitle("")
+//                            .navigationBarHidden(true)
                         List {
                             Section {
                                 VStack {
@@ -202,10 +211,10 @@ struct ShoppingList: View {
                                 
                             }
                         }
+                        .navigationBarTitle("Grocery List")
                         .listStyle(InsetListStyle())
                         .onAppear { toBuyArr = filterArr() }
                     }
-                    .navigationTitle("Grocery List")
                     .toolbar{
                         ToolbarItem(placement: .navigationBarTrailing) {
                             Button {
@@ -242,15 +251,10 @@ struct ShoppingList: View {
                         .padding([.trailing, .bottom])
                     }
                 }.blur(radius: editAlert ? 20 : 0)
-//          Big Zstack
+    //          Big Zstack
             }
-//          Navigation
+//       navigation
         }
-//        .navigationViewStyle(.stack)
-        .navigationTitle("")
-        .navigationBarHidden(true)
-        
-        
         
     }
     

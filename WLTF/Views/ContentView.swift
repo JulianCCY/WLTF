@@ -46,6 +46,38 @@ struct ContentView: View {
 //            }
 //            .navigationBarHidden(true)
 //        }
+        
+        
+//        GeometryReader { geometry in
+//             VStack {
+//                 Spacer()
+//                 Text("Home")
+//                 Spacer()
+//                 HStack {
+//                     TabBarIcon(width: geometry.size.width/3, height: geometry.size.height/28, systemIconName: "magazine", tabName: "Cookbook")
+//                     ZStack {
+//                          Circle()
+//                             .foregroundColor(Color.white)
+//                              .frame(width: geometry.size.width/7, height: geometry.size.width/7)
+//                              .shadow(radius: 3)
+//                         Image(systemName: "house.fill")
+//                              .resizable()
+//                              .aspectRatio(contentMode: .fit)
+//                              .frame(width: geometry.size.width/7-6 , height: geometry.size.width/7-6)
+//                              .foregroundColor(Color("SecondaryColor"))
+//                      }
+//                     .offset(y: -geometry.size.height/8/2)
+//                     TabBarIcon(width: geometry.size.width/3, height: geometry.size.height/28, systemIconName: "cart", tabName: "Grocery")
+//                 }
+//                 .frame(width: geometry.size.width, height: geometry.size.height/8)
+//                 .background(Color.white.shadow(radius: 2))
+//             }
+//             .edgesIgnoringSafeArea(.bottom)
+//         }
+        
+        
+        
+        
         NavigationView {
             TabView(selection:$selection) {
                 DishMain()
@@ -68,8 +100,33 @@ struct ContentView: View {
                     .tag(3)
             }
         }
+
+        
+        
+        
     }
 }
+
+//struct TabBarIcon: View {
+//     
+//     let width, height: CGFloat
+//     let systemIconName, tabName: String
+//     
+//     
+//     var body: some View {
+//         VStack {
+//             Image(systemName: systemIconName)
+//                 .resizable()
+//                 .aspectRatio(contentMode: .fit)
+//                 .frame(width: width, height: height)
+//                 .padding(.top, 10)
+//             Text(tabName)
+//                 .font(.footnote)
+//             Spacer()
+//         }
+//         .padding(.horizontal, -4)
+//     }
+// }
 
 struct ContentView_Previews:
     PreviewProvider {

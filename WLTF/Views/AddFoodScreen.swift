@@ -91,6 +91,7 @@ struct AddFoodScreen: View {
                                 expiryDate = Date.now.addingTimeInterval(86400)
                                 amount = ""
                                 unit = "Bags"
+                                hideKeyboard()
                             }
                         } label: {
                             Image(systemName: "plus.rectangle")
@@ -188,3 +189,8 @@ struct AddFoodScreen_Previews: PreviewProvider {
     }
 }
 
+extension View {
+    func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+}

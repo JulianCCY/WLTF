@@ -44,6 +44,13 @@ func formatting(currentDate: Date) -> String {
     return formattedDate
 }
 
+// formatting for memo
+func formattingForMemo(currentDate: Date) -> String {
+    let date = currentDate
+    let formattedDate = date.getFormattedDate(format: "MM/dd/yyyy") // Set output format
+    return formattedDate
+}
+
 extension Date {
    func getFormattedDate(format: String) -> String {
         let dateformat = DateFormatter()

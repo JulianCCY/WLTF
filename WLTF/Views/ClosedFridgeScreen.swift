@@ -21,6 +21,9 @@ struct ClosedFridgeScreen: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .navigationTitle("")
                 .navigationBarHidden(true)
+                .onTapGesture {
+                    DataController().fetchGoingToBeExpired()
+                }
             if (closedFridge) {
                 Button(action: {
                     closedFridge = false

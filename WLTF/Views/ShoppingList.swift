@@ -179,14 +179,27 @@ struct ShoppingList: View {
                                     .background(Color(selectColour(checked: food.checked)))
                                     .cornerRadius(10)
                                     .shadow(color: .gray, radius: 0.2, x: 1, y: 1)
+                                    .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                                        Button(role: .destructive){
+                                            withAnimation(.default){
+                                                let uuid =  food.foodId
+                                                DataController().removeSingleItem(id: uuid, context: moc)
+                                                toBuyArr = filterArr()
+                                            }
+                                        } label: {
+                                            Label("", systemImage: "trash")
+                                        }
+                                    }
                                 }
-                                .onDelete {
-                                    offset in
-                                    // ghost of codewars
-                                    let uuid =  offset.compactMap{toBuyArr[$0].foodId}[0]
-                                    DataController().removeSingleItem(id: uuid, context: moc)
-                                    toBuyArr = filterArr()
-                                }
+//                                .onDelete {
+//                                    offset in
+//                                    // ghost of codewars
+//                                    let uuid =  offset.compactMap{toBuyArr[$0].foodId}[0]
+//                                    DataController().removeSingleItem(id: uuid, context: moc)
+//                                    toBuyArr = filterArr()
+//                                }
+                                
+                                
                             }
                         }
                         .listStyle(InsetListStyle())

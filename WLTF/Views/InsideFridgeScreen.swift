@@ -27,6 +27,16 @@ struct InsideFridgeScreen: View {
     @State private var alert = false
     @State private var alertMessage = ""
     
+    @State private var searchText = ""
+    
+    var searchResult: [FoodStruct] {
+        if searchText.isEmpty {
+            return foodArr
+        } else {
+            return foodArr.filter{ $0.name.contains(searchText)}
+        }
+    }
+    
     init() {
         UITableView.appearance().backgroundColor = .white
     }
@@ -63,14 +73,14 @@ struct InsideFridgeScreen: View {
               
                 //ghost of codewar again
                 // we can sort category by expiryDate and sort the food in each category by expiryDate
-                List(NSOrderedSet(array: foodArr.map{$0.category}).map({$0 as! String}), id: \.self) { category in
+                List(NSOrderedSet(array: searchResult.map{$0.category}).map({$0 as! String}), id: \.self) { category in
                     VStack {
                         Text("\(category)")
                             .font(.title2)
                             .fontWeight(.semibold)
                         ScrollView {
                             LazyVGrid(columns: columns, spacing: 20) {
-                                ForEach(foodArr.filter{$0.category == category}, id: \.self) { food in
+                                ForEach(searchResult.filter{$0.category == category}, id: \.self) { food in
                                     NavigationLink {
                                         FoodDetail(food: food)
                                     }
@@ -85,6 +95,7 @@ struct InsideFridgeScreen: View {
                         .frame(height: 110)
                     }
                 }
+                .searchable(text: $searchText)
                 // Screen Header / title
                 .navigationBarTitle("All food")
                 .onAppear{

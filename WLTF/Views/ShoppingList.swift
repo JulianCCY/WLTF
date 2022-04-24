@@ -253,6 +253,8 @@ struct ShoppingList: View {
                 }.blur(radius: editAlert ? 20 : 0)
     //          Big Zstack
             }
+            .navigationTitle("")
+            .navigationBarHidden(true)
 //       navigation
         }
         

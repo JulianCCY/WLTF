@@ -13,6 +13,10 @@ struct ContentView: View {
 //    @State private var navBoolean = false
     @State private var selection = 2
     
+    init() {
+         UITabBar.appearance().barTintColor = UIColor.white
+     }
+    
     var body: some View {
 //        NavigationView {
 //            ZStack {

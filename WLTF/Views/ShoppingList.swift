@@ -18,6 +18,10 @@ struct ShoppingList: View {
 //        }
 //    }
     
+//    init() {
+//            UITabBar.appearance().backgroundColor = UIColor.white
+//    }
+    
     // access coredata in this file
     @Environment(\.managedObjectContext) var moc
     @Environment(\.dismiss) var dismiss
@@ -253,10 +257,10 @@ struct ShoppingList: View {
                 }.blur(radius: editAlert ? 20 : 0)
     //          Big Zstack
             }
-            .navigationTitle("")
-            .navigationBarHidden(true)
 //       navigation
         }
+        .navigationTitle("")
+        .navigationBarHidden(true)
         
     }
     

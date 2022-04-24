@@ -11,6 +11,10 @@ import Foundation
 
 struct ClosedFridgeScreen: View {
     
+    init() {
+            UITabBar.appearance().backgroundColor = UIColor.white
+    }
+    
     @Environment(\.managedObjectContext) var moc
     @Environment(\.dismiss) var dismiss
     

@@ -75,6 +75,7 @@ struct NotesUI: View {
                                         }
                                     }
                                     .listRowBackground(Color.clear)
+                                    .listRowSeparator(.hidden)
                                 }
                                 .listStyle(InsetListStyle())
                                 .frame(width: 340, height: 300)

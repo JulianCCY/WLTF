@@ -6,8 +6,13 @@
 //
 
 import SwiftUI
+import CoreData
+import Foundation
 
 struct ClosedFridgeScreen: View {
+    
+    @Environment(\.managedObjectContext) var moc
+    @Environment(\.dismiss) var dismiss
     
 //    @State var imgName: String = "Closedfridge"
     @State private var closedFridge = true
@@ -26,27 +31,14 @@ struct ClosedFridgeScreen: View {
     
     @State private var expiringFoodArr: [[FoodStruct]] = []
     
+//     this funcation transform multi d NSObject to multi d FoodStruct object
     private func filterArr() -> [[FoodStruct]] {
         expiringFoodArr = []
-        DataController().fetchGoingToBeExpired().forEach { i in
-            var arr: [FoodStruct] = []
-            i.forEach{ j in
-                arr.append(FoodStruct(foodId: j.id! ,name: j.name!, category: j.category!, entryDate: j.entryDate!, expiryDate: j.expiryDate!, amount: j.amount, unit: j.unit!))
-            }
-            expiringFoodArr.append(arr)
-        }
-        if expiringFoodArr[0].count > 0 {
-            purple = true
-            purpleCount = expiringFoodArr[0].count
-        }
-        if expiringFoodArr[1].count > 0 {
-            red = true
-            redCount = expiringFoodArr[1].count
-        }
-        if expiringFoodArr[2].count > 0 {
-            orange = true
-            orangeCount = expiringFoodArr[2].count
-        }
+        expiringFoodArr = DataController().fetchGoingToBeExpired().map{$0.map{FoodStruct(foodId: $0.id! ,name: $0.name!, category:$0.category!, entryDate:$0.entryDate!, expiryDate: $0.expiryDate!, amount: $0.amount, unit: $0.unit!)}}
+        (purple, purpleCount) = (expiringFoodArr[0].isEmpty ? false : true, expiringFoodArr[0].count)
+        (red, redCount) = (expiringFoodArr[1].isEmpty ? false : true, expiringFoodArr[1].count)
+        (orange, orangeCount) = (expiringFoodArr[2].isEmpty ? false : true, expiringFoodArr[2].count)
+
         return expiringFoodArr
     }
     
@@ -60,6 +52,7 @@ struct ClosedFridgeScreen: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .navigationTitle("")
                     .navigationBarHidden(true)
+                
                 NavigationLink(destination: InsideFridgeScreen()) {
                     Image("Closedfridge")
                         .resizable()
@@ -91,7 +84,7 @@ struct ClosedFridgeScreen: View {
                                     .opacity(orange ? 1 : 0)
                                     .allowsHitTesting(orange)
 //                                }
-                                
+
 //                                if red {
                                     ZStack {
                                         Button {
@@ -114,7 +107,7 @@ struct ClosedFridgeScreen: View {
                                     .opacity(red ? 1 : 0)
                                     .allowsHitTesting(red)
 //                                }
-                                
+
 //                                if purple {
                                     ZStack {
                                         Button {
@@ -136,9 +129,9 @@ struct ClosedFridgeScreen: View {
                                     .offset(x: -30, y: -135)
                                     .opacity(purple ? 1 : 0)
                                     .allowsHitTesting(purple)
-//                                }
-                                
-                            }
+                                }
+
+//                            }
                         )
 //                    Navigation
                 }

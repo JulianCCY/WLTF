@@ -12,6 +12,7 @@ import SwiftUI
 // This file contains func to implement data management of CoreData (add, edit, delete)
 
 class DataController: ObservableObject {
+    
     let container = NSPersistentContainer(name: "FoodModel")
 
     init() {
@@ -41,9 +42,7 @@ class DataController: ObservableObject {
         fetchRequest = Food.fetchRequest()
         let context = container.viewContext
         let objects = try? context.fetch(fetchRequest)
-        //objects!
         return objects!.sorted{$0.expiryDate! < $1.expiryDate!}
-        
     }
     
     // add a single food into the fridge
@@ -102,23 +101,16 @@ class DataController: ObservableObject {
     
     // For Sticky notes on Fridge door
     
-    // separate 3 arrays (expired, 1 days left, 3 days left), so boris can add the food in the memo on the fridge door
+//     separate 3 arrays (expired, 1 days left, 3 days left), so boris can add the food in the memo on the fridge door
     func fetchGoingToBeExpired() -> [[Food]] {
         let fetchRequest: NSFetchRequest<Food>
         fetchRequest = Food.fetchRequest()
         let context = container.viewContext
-        
-        do {
-            let objects: [Food] = try context.fetch(fetchRequest)
-            let expired = objects.filter{calcExpiryColor(date: $0.expiryDate!) == "expired"}.sorted{$0.expiryDate! < $1.expiryDate!}
-            let oneDay = objects.filter{calcExpiryColor(date: $0.expiryDate!) == "1day"}.sorted{$0.expiryDate! < $1.expiryDate!}
-            let threeDay = objects.filter{calcExpiryColor(date: $0.expiryDate!) == "3days"}.sorted{$0.expiryDate! < $1.expiryDate!}
-            return [expired, oneDay, threeDay]
-            
-        } catch let error as NSError {
-            print(error)
-        }
-        return []
+        let objects: [Food] = try! context.fetch(fetchRequest)
+        let expired = objects.filter{calcExpiryColor(date: $0.expiryDate!) == "expired"}.sorted{$0.expiryDate! < $1.expiryDate!}
+        let oneDay = objects.filter{calcExpiryColor(date: $0.expiryDate!) == "1day"}.sorted{$0.expiryDate! < $1.expiryDate!}
+        let threeDay = objects.filter{calcExpiryColor(date: $0.expiryDate!) == "3days"}.sorted{$0.expiryDate! < $1.expiryDate!}
+        return [expired, oneDay, threeDay]
     }
     
     

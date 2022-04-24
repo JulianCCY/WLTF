@@ -19,7 +19,7 @@ struct InsideFridgeScreen: View {
     // Use Core Data in this file
     @Environment(\.managedObjectContext) var moc
     @Environment(\.dismiss) var dismiss
-    @FetchRequest(sortDescriptors: [SortDescriptor(\.expiryDate)]) var allFood: FetchedResults<Food>
+//    @FetchRequest(sortDescriptors: [SortDescriptor(\.expiryDate)]) var allFood: FetchedResults<Food>
     
 //    @StateObject var globalArr = GlobalArr()
     @State var foodArr: [FoodStruct] = []
@@ -41,23 +41,15 @@ struct InsideFridgeScreen: View {
         UITableView.appearance().backgroundColor = .white
     }
 
+    // fetching data from the coredata
     private func filterArr() -> [FoodStruct] {
         foodArr = []
+        // finished expiry date sorting in DataController
         DataController().fetchFoodData().forEach { i in
             foodArr.append(FoodStruct(foodId: i.id! ,name: i.name!, category: i.category!, entryDate: i.entryDate!, expiryDate: i.expiryDate!, amount: i.amount, unit: i.unit!))
         }
-        // sort the food in each category by its expiryDate
-//        foodArr.sort { (lhs: FoodStruct, rhs: FoodStruct) -> Bool in
-//            return lhs.expiryDate < rhs.expiryDate
-//        }
         return foodArr
     }
-    
-//    var categoryArr = Array(Set(globalArr.foodArr.map{$0.category}))
-//
-//    @State private var showingAddView = false
-
-//    var categoryArr = Array(Set(globalArr.foodArr.map{$0.category}))
 
     let columns = [
             GridItem(.adaptive(minimum: 80))
@@ -66,13 +58,9 @@ struct InsideFridgeScreen: View {
     var body: some View {
         ZStack {
             VStack {
-    //            NavigationLink(destination: AddFoodScreen()) {
-    //                // Navigate to add food screen
-    //                Label("Add food into fridge", systemImage: "plus")
-    //            }
-              
                 //ghost of codewar again
                 // we can sort category by expiryDate and sort the food in each category by expiryDate
+                // Using NSOrderedSet, the case of changing element position won't happen, which is better than using Set
                 List(NSOrderedSet(array: searchResult.map{$0.category}).map({$0 as! String}), id: \.self) { category in
                     VStack {
                         Text("\(category)")

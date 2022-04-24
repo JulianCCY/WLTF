@@ -102,7 +102,7 @@ struct AddFoodScreen: View {
                         .alert(isPresented: $alert) {
                             Alert(title: Text("Invalid"), message: Text("\(alertMessage)"), dismissButton: .default(Text("Ok")))
                         }
-                        .foregroundColor(name == "" ? .gray : .red)
+                        .foregroundColor(name == "" ? .gray : .blue)
                     }
 
                 }

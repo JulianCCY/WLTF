@@ -176,6 +176,7 @@ struct ShoppingList: View {
                                         }
                                     }
                                     .padding()
+                                    .listRowSeparator(.hidden)
                                     .frame(maxWidth: .infinity)
                                     .contentShape(Rectangle())
                                     .highPriorityGesture(
@@ -191,7 +192,8 @@ struct ShoppingList: View {
                                     }
                                     .background(Color(selectColour(checked: food.checked)))
                                     .cornerRadius(10)
-                                    .shadow(color: .gray, radius: 0.2, x: 1, y: 1)
+//                                    .shadow(color: .gray, radius: 0.2, x: 1, y: 1)
+                                    .shadow(color: Color.gray.opacity(0.4), radius: 3, x: 0, y: 0)
                                     .swipeActions(edge: .trailing, allowsFullSwipe: false) {
                                         Button(role: .destructive){
                                             withAnimation(.default){

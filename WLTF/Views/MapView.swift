@@ -10,6 +10,7 @@ import MapKit
 
 struct MapView: View {
     @StateObject private var mapViewModel = MapViewModel()
+//    mapViewModel.pointOfInterest = MKPointOfInterestFilter.excludingAll
     
     var body: some View {
         Map(coordinateRegion: $mapViewModel.region, showsUserLocation: true)

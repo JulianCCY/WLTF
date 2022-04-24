@@ -7,7 +7,6 @@
 
 import Foundation
 import CoreData
-import SwiftUI
 
 // This file contains func to implement data management of CoreData (add, edit, delete)
 
@@ -58,17 +57,6 @@ class DataController: ObservableObject {
         
         save(context: context)
     }
-    
-//    func editFood(food: Food, name: String, category: String, amount: Double, unit: String, context: NSManagedObjectContext) {
-//        food.expiryDate = Date()
-//        food.name = name
-//        food.category = category
-//        food.amount = amount
-//        food.unit = unit
-//
-//        save(context: context)
-//
-//    }
     
     // delete all the food in the fridge
     func deleteAllFood(context: NSManagedObjectContext) {
@@ -220,4 +208,16 @@ class DataController: ObservableObject {
             print(error)
         }
     }
+    
+    // For receipt dish and ingredient
+    
+    // fetch dish
+    
+    // add dish
+    
+    // edit dish
+    
+    // delete dish
+    
+    // check enough
 }

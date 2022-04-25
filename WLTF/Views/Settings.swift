@@ -13,6 +13,7 @@ enum languages {
 
 struct Settings: View {
     
+    @Environment(\.managedObjectContext) var moc
     @Environment(\.dismiss) var dismiss
     
     @State private var fridgeName: String = ""

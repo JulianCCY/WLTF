@@ -82,7 +82,17 @@ struct InsideFridgeScreen: View {
                         }
                         .frame(height: 110)
                     }
+                    .padding([.top, .bottom])
+                    .listRowSeparator(.hidden)
+                    .frame(maxWidth: .infinity)
+                    .background(
+                        Rectangle()
+                            .fill(Color.white)
+                            .cornerRadius(10)
+                    )
+                    .shadow(color: Color.gray.opacity(0.5), radius: 2, x: 0, y: 0)
                 }
+                .listStyle(InsetListStyle())
                 .searchable(text: $searchText)
                 // Screen Header / title
                 .navigationBarTitle("All food")

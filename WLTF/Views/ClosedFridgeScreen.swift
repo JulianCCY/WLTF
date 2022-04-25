@@ -96,7 +96,7 @@ struct ClosedFridgeScreen: View {
                                 }
                                 
                                 VStack {
-                                    Text("Ulla Sederlöf")
+                                    Text("FRIDGE FRIDGE")
                                         .font(.system(size: 20))
                                         .fontWeight(.semibold)
                                         .foregroundColor(Color.black)

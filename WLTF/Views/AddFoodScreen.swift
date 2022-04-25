@@ -16,8 +16,8 @@ struct AddFoodScreen: View {
 
     @StateObject var globalArr = GlobalArr()
     
-    var cates = ["Alcohol", "Bread", "Cooked", "Dairy", "Dessert", "Drinks", "Fruit", "Grain", "Meat", "Protein", "Seasoning", "Seafood", "Snacks", "Vegetables", "Others"]
-    var units = ["Bags", "Bottles", "Bowls", "Boxes", "Cans", "Cups", "Packs", "Pieces", "Plates", "Pots", "Milligrams", "Grams", "Kilorams", "Millilitre", "Litre", "Pound", "Ounce"]
+    var cates = ["Alcohol", "Bread", "Cooked", "Dairy", "Dessert", "Drinks", "Frozen", "Fruit", "Grain", "Meat", "Processed", "Protein", "Seasoning", "Seafood", "Snacks", "Vegetables", "Others"]
+    var units = ["Bag(s)", "Bottle(s)", "Bowl(s)", "Box(es)", "Can(s)", "Cup(s)", "Pack(s)", "Piece(s)", "Plate(s)", "Pot(s)", "Serving(s)", "Milligram(s)", "Gram(s)", "Kiloram(s)", "Millilitre(s)", "Litre(s)", "Pound(s)", "Ounce(s)"]
 
     @State var name: String = ""
     @State var category: String = "Others"
@@ -134,6 +134,15 @@ struct AddFoodScreen: View {
                             }
                             .frame(maxWidth: .infinity, alignment: .leading)
                         }
+                        .padding()
+                        .listRowSeparator(.hidden)
+                        .frame(maxWidth: .infinity)
+                        .background(
+                            Rectangle()
+                                .fill(Color.white)
+                                .cornerRadius(10)
+                        )
+                        .shadow(color: Color.gray.opacity(0.5), radius: 2, x: 0, y: 0)
                     }
                     .onDelete(perform: deleteItem)
                 }

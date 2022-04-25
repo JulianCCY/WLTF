@@ -125,8 +125,6 @@ struct ShoppingList: View {
                                                 .foregroundColor(Color.green)
                                         }
                                         .font(.system(size: 12))
-    //                                    Label("Detected similar food remaining in fridge", systemImage: "exclamationmark.square")
-    //                                    Label("Double tab to check your item", systemImage: "checkmark")
                                     }
                                 }
                             }
@@ -140,12 +138,15 @@ struct ShoppingList: View {
                                                 .font(.title2)
                                             Text("Note:")
                                                 .fontWeight(.semibold)
+                                                .padding(.top, 5)
                                             HStack {
                                                 if (food.description == "") {
                                                     Text("Blank")
-                                                        .foregroundColor(.gray)
+                                                        .font(.subheadline)
+                                                        .foregroundColor(.black)
                                                 } else {
                                                     Text(food.description)
+                                                        .font(.subheadline)
                                                         .lineLimit(nil)
                                                         .multilineTextAlignment(.leading)
                                                 }

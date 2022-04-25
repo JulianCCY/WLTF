@@ -318,17 +318,15 @@ class DataController: ObservableObject {
     }
     
     // For settings
-    func fetchFridgeName() -> String{
+    func fetchFridgeName() -> String {
         let fetchRequest: NSFetchRequest<Fridge>
         fetchRequest = Fridge.fetchRequest()
         let context = container.viewContext
-        do {
-            let objects = try context.fetch(fetchRequest).first
-            return objects?.name == nil ? "" : objects!.name!
-        } catch let error as NSError {
-            print(error)
+        let objects = try? context.fetch(fetchRequest)
+        if objects!.isEmpty == true {
+            return "Your Fridge"
         }
-        return ""
+        return objects![0].name!
     }
     
     func updateFridgeName(newFridgeName: String) {
@@ -337,15 +335,34 @@ class DataController: ObservableObject {
         fetchRequest.fetchLimit = 1
         
         let context = container.viewContext
+        let objects: [Fridge] = try! context.fetch(fetchRequest)
         
-        do {
-            let objects = try context.fetch(fetchRequest).first
-            objects?.name = newFridgeName
+        if objects.isEmpty == true {
+            let newName = Fridge(context: context)
+            newName.name = newFridgeName
             save(context: context)
-            print("update ok")
-        } catch let error as NSError {
-            print(error)
+        } else {
+            do {
+                let newObject = try context.fetch(fetchRequest).first
+                newObject?.name = newFridgeName
+                save(context: context)
+            } catch let error {
+                print(error)
+            }
         }
+    }
+    
+    func clearFridgeName(context: NSManagedObjectContext) {
+            let fetchRequest: NSFetchRequest<NSFetchRequestResult> =
+                NSFetchRequest(entityName: "Fridge")
+            let deleteRequest =
+                NSBatchDeleteRequest(fetchRequest: fetchRequest)
         
+            do {
+                try container.viewContext.execute(deleteRequest)
+                save(context: context)
+            } catch let error as NSError {
+                print(error)
+            }
     }
 }

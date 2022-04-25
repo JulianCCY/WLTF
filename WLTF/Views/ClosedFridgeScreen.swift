@@ -189,7 +189,6 @@ struct ClosedFridgeScreen: View {
                 .onAppear{
                     expiringFoodArr = filterArr()
                     getName()
-                    print(fridgeName)
                 }
             .allowsHitTesting(!showNote)
 //            .edgesIgnoringSafeArea(.top)

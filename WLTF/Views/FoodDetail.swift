@@ -75,7 +75,7 @@ struct FoodDetail: View {
                     .foregroundColor(Color(red: 0.0902, green: 0.0549, blue: 0.3294).opacity(0.61))
                     .background(Color(red: 0.8706, green: 0.8392, blue: 0.9529).opacity(0.61))
                     .cornerRadius(20)
-                    .alert("Are you sure you want to remove this food? You can't undo this action.", isPresented: $alert) {
+                    .confirmationDialog("Are you sure you want to remove this food?", isPresented: $alert, titleVisibility: .visible) {
                         Button("Remove", role: .destructive) {
                             DataController().deleteSingleFood(id: food.foodId, context: moc)
                             dismiss()

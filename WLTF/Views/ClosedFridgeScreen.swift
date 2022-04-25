@@ -46,6 +46,11 @@ struct ClosedFridgeScreen: View {
         return expiringFoodArr
     }
     
+//    Get fridge name
+//    private func getName() -> String {
+//        return DataController().
+//    }
+    
     var body: some View {      
         ZStack {
 //            VStack {
@@ -96,7 +101,7 @@ struct ClosedFridgeScreen: View {
                                 }
                                 
                                 VStack {
-                                    Text("FRIDGE FRIDGE")
+                                    Text("Fridge fridge")
                                         .font(.system(size: 20))
                                         .fontWeight(.semibold)
                                         .foregroundColor(Color.black)

@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct DishMain: View {
+    
+    @State private var dishArr: [String] = ["Fries", "Noodles", "Rice", "Pizza", "Steak", "Pasta"]
+    
     var body: some View {
         ZStack {
             VStack {
@@ -15,21 +18,14 @@ struct DishMain: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                    HStack(spacing: 20) {
                        
-
-                       
-
-                       
-                       
-                       
-                       
-    //                   ForEach(guidelines) { i in
-    //
-    ////                       GeometryReader { geometry in
-    ////                           CardView(title: card.title, image: card.image, color: card.color)
-    ////                               .rotation3DEffect(Angle(degrees: Double(geometry.frame(in: .global).minX - 50) / -30), axis: (x: 0, y: 100.0, z: 0))
-    ////                       }
-    //                       .frame(width: 250, height: 400)
-    //                   }
+                       ForEach(dishArr, id: \.self) { i in
+    
+                           GeometryReader { geometry in
+                               DishCard(title: i)
+                                   .rotation3DEffect(Angle(degrees: Double(geometry.frame(in: .global).minX) / 10), axis: (x: 0, y: 0, z: 1000))
+                           }
+                           .frame(width: 180, height: 180)
+                       }
                    }
                    .padding([.leading, .trailing], 30)
                    .padding(.bottom, 50)

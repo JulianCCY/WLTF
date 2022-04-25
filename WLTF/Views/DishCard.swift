@@ -11,15 +11,27 @@ struct DishCard: View {
     
     var title: String = "Dish name"
     var image: String = "wok"
-    var color: String = "BackhgroundColor"
+    var color: String = "BackgroundColor"
     
     var body: some View {
         
         ZStack {
             VStack {
+                Spacer()
                 Text("\(title)")
+                    .font(.title3)
+                    .fontWeight(.medium)
+//                    .padding(.top, 10)
+                Image("\(image)")
+                    .resizable()
+                    .frame(width: 120, height: 120)
             }
         }
+        .frame(width: 180, height: 180)
+        .background(
+            Circle()
+                .fill(Color("\(color)"))
+        )
         
     }
 }

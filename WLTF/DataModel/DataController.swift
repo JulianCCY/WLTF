@@ -244,7 +244,7 @@ class DataController: ObservableObject {
     }
     
     // add dishes
-    func addDish(dishName: String, portion: Int, note: String, ingredients: [String], context: NSManagedObjectContext) {
+    func addDish(dishName: String, portion: Int, note: String, ingredients: [String], img: String, context: NSManagedObjectContext) {
         
         // dish part
         let newDish = Dishes(context: context)
@@ -252,6 +252,7 @@ class DataController: ObservableObject {
         newDish.dishName = dishName
         newDish.note = note
         newDish.portion = Int16(portion)
+        newDish.dishImg = img
         save(context: context)
         
         // ingredient part
@@ -322,11 +323,17 @@ class DataController: ObservableObject {
         let fetchRequest: NSFetchRequest<Fridge>
         fetchRequest = Fridge.fetchRequest()
         let context = container.viewContext
-        let objects = try? context.fetch(fetchRequest)
-        if objects!.isEmpty == true {
-            return "Your Fridge"
+        
+        do {
+            
+            let objects = try context.fetch(fetchRequest)
+            return objects.isEmpty ? "Your Fridge" : objects[0].name!
+            
+        } catch let error as NSError{
+            print(error)
         }
-        return objects![0].name!
+        
+        return "Your Fridge"
     }
     
     func updateFridgeName(newFridgeName: String) {
@@ -350,19 +357,5 @@ class DataController: ObservableObject {
                 print(error)
             }
         }
-    }
-    
-    func clearFridgeName(context: NSManagedObjectContext) {
-            let fetchRequest: NSFetchRequest<NSFetchRequestResult> =
-                NSFetchRequest(entityName: "Fridge")
-            let deleteRequest =
-                NSBatchDeleteRequest(fetchRequest: fetchRequest)
-        
-            do {
-                try container.viewContext.execute(deleteRequest)
-                save(context: context)
-            } catch let error as NSError {
-                print(error)
-            }
     }
 }

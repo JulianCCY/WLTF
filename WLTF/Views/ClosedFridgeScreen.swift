@@ -8,6 +8,7 @@
 import SwiftUI
 import CoreData
 import Foundation
+import AVFoundation
 
 struct ClosedFridgeScreen: View {
     
@@ -44,6 +45,18 @@ struct ClosedFridgeScreen: View {
         (orange, orangeCount) = (expiringFoodArr[2].isEmpty ? false : true, expiringFoodArr[2].count)
 
         return expiringFoodArr
+    }
+    
+    private func openDoorSound() {
+        var player: AVAudioPlayer?
+        guard let url = Bundle.main.url(forResource: "open-fridge", withExtension: ".mp3") else {return}
+        
+        do {
+            player = try AVAudioPlayer(contentsOf: url)
+            player?.play()
+        } catch let error {
+            print("Error playing sound \(error.localizedDescription)")
+        }
     }
     
 //    Get fridge name
@@ -189,6 +202,9 @@ struct ClosedFridgeScreen: View {
                 .onAppear{
                     expiringFoodArr = filterArr()
                     getName()
+                }
+                .onTapGesture {
+                    openDoorSound()
                 }
             .allowsHitTesting(!showNote)
 //            .edgesIgnoringSafeArea(.top)

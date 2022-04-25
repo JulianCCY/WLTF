@@ -38,7 +38,7 @@ struct Settings: View {
                     VStack(alignment: .leading, spacing: 2) {
                         Text("Name your fridge here!")
                             .font(.headline)
-                        TextField("Name of your fridge", text: $fridgeName)
+                        TextField("Type here...", text: $fridgeName)
                     }
 //                    .frame(width: 200)
                     .padding()

@@ -12,6 +12,15 @@ struct DishCard: View {
     var title: String = "Dish name"
     var image: String = "wok"
     var color: String = "BackgroundColor"
+    var suff: Bool = true
+    
+    private func suffColor(bool: Bool) -> String {
+        if bool {
+            return "CheckedItem"
+        } else {
+            return "1dayItem"
+        }
+    }
     
     var body: some View {
         
@@ -19,15 +28,18 @@ struct DishCard: View {
             VStack {
                 Spacer()
                 Text("\(title)")
-                    .font(.title3)
+                    .font(.title)
                     .fontWeight(.medium)
 //                    .padding(.top, 10)
+                Circle()
+                    .fill(Color("\(suffColor(bool: suff))"))
+                    .frame(width: 25, height: 25, alignment: .center)
                 Image("\(image)")
                     .resizable()
                     .frame(width: 120, height: 120)
             }
         }
-        .frame(width: 180, height: 180)
+        .frame(width: 240, height: 240)
         .background(
             Circle()
                 .fill(Color("\(color)"))

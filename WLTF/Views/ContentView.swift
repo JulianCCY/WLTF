@@ -87,7 +87,7 @@ struct ContentView: View {
                 DishMain()
                     .tabItem {
                         Image(systemName: "magazine")
-                        Text("Cookbook")
+                        Text("Menu")
                     }
                     .tag(1)
                 ClosedFridgeScreen()

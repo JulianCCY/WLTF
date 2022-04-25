@@ -16,7 +16,7 @@ struct Settings: View {
     @Environment(\.managedObjectContext) var moc
     @Environment(\.dismiss) var dismiss
     
-    @State private var fridgeName: String = ""
+    @State private var fridgeName: String = DataController().fetchFridgeName()
     @State private var chosenLanguage: languages = languages.english
     @State private var guidelines: [String] = ["General", "Home", "Adding items", "Grocery list", "Dishes"]
     
@@ -39,6 +39,7 @@ struct Settings: View {
                         Text("Name your fridge here!")
                             .font(.headline)
                         TextField("Name of your fridge", text: $fridgeName)
+                            .foregroundColor(Color(UIColor.gray))
                     }
 //                    .frame(width: 200)
                     .padding()
@@ -190,7 +191,7 @@ struct Settings: View {
                               Image(systemName: "hand.draw")
                                   .font(.system(size: 20))
                                   .frame(alignment: .trailing)
-                              Text("Pull upwards to use search bar.")
+                              Text("Pull downwards to use search bar.")
                                   .font(.subheadline)
                           }
                           .padding(.top, 2)

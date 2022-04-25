@@ -13,6 +13,8 @@ enum languages {
 
 struct Settings: View {
     
+    @Environment(\.dismiss) var dismiss
+    
     @State private var fridgeName: String = ""
     @State private var chosenLanguage: languages = languages.english
     @State private var guidelines: [String] = ["General", "Home", "Adding items", "Grocery list", "Dishes"]
@@ -288,7 +290,8 @@ struct Settings: View {
             VStack {
                 Spacer()
                 Button{
-                    
+                    DataController().updateFridgeName(newFridgeName: fridgeName)
+                    dismiss()
                 } label: {
                     Image(systemName: "checkmark.square.fill")
                         .resizable()

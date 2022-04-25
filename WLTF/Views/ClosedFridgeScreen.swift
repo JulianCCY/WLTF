@@ -18,7 +18,7 @@ struct ClosedFridgeScreen: View {
     @Environment(\.managedObjectContext) var moc
     @Environment(\.dismiss) var dismiss
     
-//    @State var imgName: String = "Closedfridge"
+    @State private var fridgeName: String = ""
     @State private var closedFridge = true
     @State private var showNote: Bool = false
     @State private var noteType: String = ""
@@ -47,9 +47,9 @@ struct ClosedFridgeScreen: View {
     }
     
 //    Get fridge name
-//    private func getName() -> String {
-//        return DataController().
-//    }
+    private func getName() {
+        fridgeName = DataController().fetchFridgeName()
+    }
     
     var body: some View {      
         ZStack {
@@ -101,7 +101,7 @@ struct ClosedFridgeScreen: View {
                                 }
                                 
                                 VStack {
-                                    Text("Fridge fridge")
+                                    Text("\(fridgeName)")
                                         .font(.system(size: 20))
                                         .fontWeight(.semibold)
                                         .foregroundColor(Color.black)
@@ -188,6 +188,8 @@ struct ClosedFridgeScreen: View {
                 .navigationBarHidden(true)
                 .onAppear{
                     expiringFoodArr = filterArr()
+                    getName()
+                    print(fridgeName)
                 }
             .allowsHitTesting(!showNote)
 //            .edgesIgnoringSafeArea(.top)

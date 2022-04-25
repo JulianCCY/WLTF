@@ -319,12 +319,12 @@ class DataController: ObservableObject {
     
     // For settings
     func fetchFridgeName() -> String{
-        let fetchRequest: NSFetchRequest<Settings>
-        fetchRequest = Settings.fetchRequest()
+        let fetchRequest: NSFetchRequest<Fridge>
+        fetchRequest = Fridge.fetchRequest()
         let context = container.viewContext
         do {
             let objects = try context.fetch(fetchRequest).first
-            return objects?.fridgeName == nil ? "" : objects!.fridgeName!
+            return objects?.name == nil ? "" : objects!.name!
         } catch let error as NSError {
             print(error)
         }
@@ -332,15 +332,15 @@ class DataController: ObservableObject {
     }
     
     func updateFridgeName(newFridgeName: String) {
-        let fetchRequest: NSFetchRequest<Settings>
-        fetchRequest = Settings.fetchRequest()
+        let fetchRequest: NSFetchRequest<Fridge>
+        fetchRequest = Fridge.fetchRequest()
         fetchRequest.fetchLimit = 1
         
         let context = container.viewContext
         
         do {
             let objects = try context.fetch(fetchRequest).first
-            objects?.fridgeName = newFridgeName
+            objects?.name = newFridgeName
             save(context: context)
             print("update ok")
         } catch let error as NSError {

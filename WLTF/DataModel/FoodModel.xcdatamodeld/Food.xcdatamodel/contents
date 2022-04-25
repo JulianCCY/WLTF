@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21E258" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Dishes" representedClassName="Dishes" syncable="YES" codeGenerationType="class">
+        <attribute name="dishName" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="note" optional="YES" attributeType="String"/>
+        <attribute name="portion" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
     <entity name="Food" representedClassName="Food" syncable="YES" codeGenerationType="class">
         <attribute name="amount" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="category" optional="YES" attributeType="String"/>
@@ -9,6 +15,13 @@
         <attribute name="name" optional="YES" attributeType="String" defaultValueString="Unknown Food"/>
         <attribute name="unit" optional="YES" attributeType="String" defaultValueString=""/>
     </entity>
+    <entity name="Ingredients" representedClassName="Ingredients" syncable="YES" codeGenerationType="class">
+        <attribute name="dishId" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="Settings" representedClassName="Settings" syncable="YES" codeGenerationType="class">
+        <attribute name="fridgeName" optional="YES" attributeType="String"/>
+    </entity>
     <entity name="Shopping" representedClassName="Shopping" syncable="YES" codeGenerationType="class">
         <attribute name="checked" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="NO"/>
         <attribute name="details" optional="YES" attributeType="String"/>
@@ -16,7 +29,10 @@
         <attribute name="name" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="Food" positionX="-63" positionY="-18" width="128" height="148"/>
-        <element name="Shopping" positionX="-313.2734375" positionY="47.19140625" width="128" height="89"/>
+        <element name="Dishes" positionX="-144.1796875" positionY="-155.4609375" width="128" height="14"/>
+        <element name="Food" positionX="-529.55859375" positionY="-57.765625" width="128" height="134"/>
+        <element name="Ingredients" positionX="-285.18359375" positionY="-148.80078125" width="128" height="59"/>
+        <element name="Settings" positionX="-324" positionY="-45" width="128" height="44"/>
+        <element name="Shopping" positionX="-537.22265625" positionY="-170.015625" width="128" height="89"/>
     </elements>
 </model>

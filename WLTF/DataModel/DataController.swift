@@ -7,8 +7,10 @@
 
 import Foundation
 import CoreData
+import SwiftUI
 
 // This file contains func to implement data management of CoreData (add, edit, delete)
+// For food in the fridge, item in shopping list and the receipts/ingredients in dish
 
 class DataController: ObservableObject {
     
@@ -41,7 +43,19 @@ class DataController: ObservableObject {
         fetchRequest = Food.fetchRequest()
         let context = container.viewContext
         let objects = try? context.fetch(fetchRequest)
-        return objects!.sorted{$0.expiryDate! < $1.expiryDate!}
+        return quicksortForExpiryDate(objects!)
+    }
+    
+    //quicksort
+    // I love alogrithms
+    // average complexity Big O of log n
+    func quicksortForExpiryDate(_ objects: [Food]) -> [Food] {
+        // early return
+        guard objects.count > 1 else { return objects}
+        let pivot = objects[0]
+        let earlier = objects.suffix(from: 1).filter{$0.expiryDate! < pivot.expiryDate!}
+        let later = objects.suffix(from: 1).filter{$0.expiryDate! > pivot.expiryDate!}
+        return quicksortForExpiryDate(earlier) + [pivot] + quicksortForExpiryDate(later)
     }
     
     // add a single food into the fridge
@@ -89,7 +103,7 @@ class DataController: ObservableObject {
     
     // For Sticky notes on Fridge door
     
-//     separate 3 arrays (expired, 1 days left, 3 days left), so boris can add the food in the memo on the fridge door
+    //separate 3 arrays (expired, 1 days left, 3 days left), so boris can add the food in the memo on the fridge door
     func fetchGoingToBeExpired() -> [[Food]] {
         let fetchRequest: NSFetchRequest<Food>
         fetchRequest = Food.fetchRequest()
@@ -209,15 +223,129 @@ class DataController: ObservableObject {
         }
     }
     
-    // For receipt dish and ingredient
+    // For receipt dishes and ingredients
     
     // fetch dish
+    func fetchAllDishes() -> [Dishes]{
+        let fetchRequest: NSFetchRequest<Dishes>
+        fetchRequest = Dishes.fetchRequest()
+        let context = container.viewContext
+        let object = try? context.fetch(fetchRequest)
+        return object!
+    }
     
-    // add dish
+    // fetcha all ingredient
+    func fetchAllIngredient() -> [Ingredients]{
+        let fetchRequest: NSFetchRequest<Ingredients>
+        fetchRequest = Ingredients.fetchRequest()
+        let context = container.viewContext
+        let object = try? context.fetch(fetchRequest)
+        return object!
+    }
+    
+    // add dishes
+    func addDish(dishName: String, portion: Int, note: String, ingredients: [String], context: NSManagedObjectContext) {
+        
+        // dish part
+        let newDish = Dishes(context: context)
+        newDish.id = UUID()
+        newDish.dishName = dishName
+        newDish.note = note
+        newDish.portion = Int16(portion)
+        save(context: context)
+        
+        // ingredient part
+        ingredients.forEach{
+            let relatedIngredients = Ingredients(context: context)
+            relatedIngredients.dishId = newDish.id
+            relatedIngredients.name = $0
+            save(context: context)
+        }
+    }
+    
+    // delete dish -> delete ingredient at the same
+    func deleteDish(dishId: UUID, context: NSManagedObjectContext) {
+        // 1. delete the receipt
+        let dishFetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Dishes")
+        dishFetchRequest.predicate = NSPredicate.init(format: "id == %@", dishId.uuidString)
+        
+        // 2. delete the related ingredients
+        let ingredFetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Ingredients")
+        ingredFetchRequest.predicate = NSPredicate.init(format: "dishId == %@", dishId.uuidString)
+        let ingredDeleteFetchRequest = NSBatchDeleteRequest(fetchRequest: ingredFetchRequest)
+        
+        do {
+            let dish = try context.fetch(dishFetchRequest)
+            for d in dish {
+                context.delete(d as! NSManagedObject)
+            }
+            save(context: context)
+            
+            try container.viewContext.execute(ingredDeleteFetchRequest)
+            save(context: context)
+        } catch {
+            print(error)
+        }
+        
+    }
+    
+    func deleteAllDishes() {
+        
+    }
     
     // edit dish
+    func editDish() {
+        
+        func addIngredientToDish(dishId: String, ingredients: [String]) {
+            
+        }
+        
+        func removeIngredientToDish() {
+            
+        }
+    }
     
-    // delete dish
     
-    // check enough
+    
+    // check enough to cook
+    func checkIfEnoughIngredient() {
+        
+    }
+    
+    // add ingredient to shopping list
+    func addToBuyFromDish() {
+        
+    }
+    
+    // For settings
+    func fetchFridgeName() -> String{
+        let fetchRequest: NSFetchRequest<Settings>
+        fetchRequest = Settings.fetchRequest()
+        let context = container.viewContext
+        do {
+            let objects = try context.fetch(fetchRequest).first
+            return objects?.fridgeName == nil ? "" : objects!.fridgeName!
+        } catch let error as NSError {
+            print(error)
+        }
+        return ""
+    }
+    
+    func updateFridgeName(newFridgeName: String) {
+        let fetchRequest: NSFetchRequest<Settings>
+        fetchRequest = Settings.fetchRequest()
+        fetchRequest.fetchLimit = 1
+        
+        let context = container.viewContext
+        
+        do {
+            let objects = try context.fetch(fetchRequest).first
+            objects?.fridgeName = newFridgeName
+            save(context: context)
+            print("update ok")
+        } catch let error as NSError {
+            print(error)
+        }
+        
+    }
 }

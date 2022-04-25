@@ -250,8 +250,7 @@ struct ShoppingList: View {
                                     .frame(width: 50, height: 50)
                                     .background(Color("PrimaryColor"))
                                     .foregroundColor(Color.white)
-                                    .clipShape(Circle())
-                                    .contentShape(Circle())
+                                    .cornerRadius(6)
                                     .shadow(color: .gray, radius: 0.2, x: 1, y: 1)
                             }
                         }

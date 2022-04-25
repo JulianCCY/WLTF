@@ -141,8 +141,8 @@ struct AddFoodScreen: View {
                             Rectangle()
                                 .fill(Color.white)
                                 .cornerRadius(10)
+                                .shadow(color: Color.gray.opacity(0.5), radius: 2, x: 0, y: 0)
                         )
-                        .shadow(color: Color.gray.opacity(0.5), radius: 2, x: 0, y: 0)
                     }
                     .onDelete(perform: deleteItem)
                 }

@@ -12,24 +12,72 @@ struct DishMain: View {
     @State private var dishArr: [String] = ["Fries", "Noodles", "Rice", "Pizza", "Steak", "Pasta"]
     
     var body: some View {
+        
         ZStack {
             VStack {
-    //            guidelines
+                VStack {
+                    HStack {
+                        Text("Menu")
+                            .font(.system(size: 36))
+                            .fontWeight(.bold)
+                            .padding(.top, 50)
+                            .padding(.leading, 20)
+                        Spacer()
+                    }
+                    Spacer()
+                }
+                
+// Horizontal scroll
                 ScrollView(.horizontal, showsIndicators: false) {
-                   HStack(spacing: 20) {
-                       
-                       ForEach(dishArr, id: \.self) { i in
+                    HStack(spacing: 10) {
+                        
+                        ForEach(dishArr, id: \.self) { i in
     
                            GeometryReader { geometry in
                                DishCard(title: i)
-                                   .rotation3DEffect(Angle(degrees: Double(geometry.frame(in: .global).minX) / 10), axis: (x: 0, y: 0, z: 1000))
+                                   .rotation3DEffect(Angle(degrees: Double(geometry.frame(in: .global).minX) / -15), axis: (x: 0, y: 10, z: 0))
                            }
-                           .frame(width: 180, height: 180)
+                           .frame(width: 250, height: 250)
                        }
                    }
-                   .padding([.leading, .trailing], 30)
-                   .padding(.bottom, 50)
+//                   .padding([.leading, .trailing], 30)
+                   .padding(.leading, 70)
+                   .padding(.trailing, 70)
                 }
+                
+//                Ingredients
+                VStack(alignment: .leading) {
+                    HStack() {
+                        Circle()
+                            .fill(Color("CheckedItem"))
+                            .frame(width: 25, height: 25)
+                        Text("Sufficient ingredient")
+                    }
+                    HStack() {
+                        Circle()
+                            .fill(Color("1dayItem"))
+                            .frame(width: 25, height: 25)
+                        Text("Insufficient ingredient")
+                    }
+                }
+                .padding(.top, 30)
+                
+                VStack {
+                    Spacer()
+                    HStack {
+                        Spacer()
+                        NavigationLink(destination: DishAdd()) {
+                            // Navigate to add food screen
+                            Image(systemName: "plus.square.fill")
+                                .resizable()
+                                .frame(width: 50, height: 50)
+                                .foregroundColor(Color("PrimaryColor"))
+                                .shadow(color: .gray, radius: 0.2, x: 1, y: 1)
+//                                .padding(.trailing)
+                        }
+                    }
+                }
+                .padding([.trailing, .bottom])
 
             }
         }

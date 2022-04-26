@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import SimpleToast
+
 
 struct FoodDetail: View {
     
@@ -20,6 +22,15 @@ struct FoodDetail: View {
     
     @State private var alert = false
     @State private var alertMessage = ""
+    @State private var showToast = false
+    
+    @State private var toastOptions = SimpleToastOptions(
+        alignment: .top,
+        hideAfter: 2,
+        backdrop: Color.black.opacity(0.2),
+        animation: .default,
+        modifierType: .fade
+    )
     
     var body: some View {
         VStack {
@@ -87,7 +98,8 @@ struct FoodDetail: View {
                     } else {
                         Button() {
                             alert = true
-                        } label: {
+                        }
+                        label: {
                             
                             Label("Remove", systemImage: "trash")
                         }
@@ -102,13 +114,40 @@ struct FoodDetail: View {
                             }
                         }
                     }
-                        
                     Spacer()
+                    
+                    Button("Show Toast") {
+                        showToast.toggle()
+                    }
+                    .simpleToast(isPresented: $showToast, options: toastOptions, onDismiss: {
+
+                    }) {
+                        HStack{
+                            Image(systemName: "leaf.fill")
+                            Text("Haha").bold()
+                        }
+                        .padding(20)
+                        .background(.green)
+                        .foregroundColor(.white)
+                        .cornerRadius(20)
+                        
+                    }
                 }
+                
                 
             }
             .padding()
             .navigationBarTitle("")
+            .toolbar{
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    // Top Right delete button
+                    Button {
+//                        showToast.toggle()
+                    } label: {
+                        Label("Add to cart", systemImage: "cart.badge.plus")
+                    }
+                }
+            }
         Spacer()
         }
     }

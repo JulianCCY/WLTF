@@ -38,6 +38,7 @@
 		6ADB2E9427FDDD9500A8E475 /* CircleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADB2E9327FDDD9500A8E475 /* CircleImage.swift */; };
 		6ADB2E9627FDE01700A8E475 /* AddFoodScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADB2E9527FDE01700A8E475 /* AddFoodScreen.swift */; };
 		6ADB2E9827FE090500A8E475 /* FoodGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADB2E9727FE090500A8E475 /* FoodGrid.swift */; };
+		8400B48028180B3B000FAF99 /* SimpleToast in Frameworks */ = {isa = PBXBuildFile; productRef = 8400B47F28180B3B000FAF99 /* SimpleToast */; };
 		8403E032280F07FC00683C76 /* AddToBuyScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8403E031280F07FC00683C76 /* AddToBuyScreen.swift */; };
 		8403E034280F16DE00683C76 /* ShoppingStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8403E033280F16DE00683C76 /* ShoppingStruct.swift */; };
 		846BB7D52816071A004864AE /* DishStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846BB7D42816071A004864AE /* DishStruct.swift */; };
@@ -124,6 +125,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8400B48028180B3B000FAF99 /* SimpleToast in Frameworks */,
 				848E373228143B5D004BF416 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -302,6 +304,9 @@
 			dependencies = (
 			);
 			name = WLTF;
+			packageProductDependencies = (
+				8400B47F28180B3B000FAF99 /* SimpleToast */,
+			);
 			productName = WLTF;
 			productReference = 6A1AAADE27F920280084D06D /* WLTF.app */;
 			productType = "com.apple.product-type.application";
@@ -374,6 +379,9 @@
 				Base,
 			);
 			mainGroup = 6A1AAAD527F920280084D06D;
+			packageReferences = (
+				8400B47E28180B3B000FAF99 /* XCRemoteSwiftPackageReference "SimpleToast" */,
+			);
 			productRefGroup = 6A1AAADF27F920280084D06D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -779,6 +787,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8400B47E28180B3B000FAF99 /* XCRemoteSwiftPackageReference "SimpleToast" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sanzaru/SimpleToast";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.6.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8400B47F28180B3B000FAF99 /* SimpleToast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8400B47E28180B3B000FAF99 /* XCRemoteSwiftPackageReference "SimpleToast" */;
+			productName = SimpleToast;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		84D5EBE628037DA200B15054 /* FoodModel.xcdatamodeld */ = {

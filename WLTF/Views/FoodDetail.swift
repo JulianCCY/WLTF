@@ -26,7 +26,7 @@ struct FoodDetail: View {
     
     @State private var toastOptions = SimpleToastOptions(
         alignment: .top,
-        hideAfter: 2,
+        hideAfter: 1,
         backdrop: Color.black.opacity(0.2),
         animation: .default,
         modifierType: .fade
@@ -75,7 +75,7 @@ struct FoodDetail: View {
                 
                 Spacer()
                 // Delete/Remove this food
-                HStack() {
+                HStack {
                     Spacer()
                     if checkExpired(expiryDate: food.expiryDate) == false{
                         Button() {
@@ -88,12 +88,11 @@ struct FoodDetail: View {
                         .foregroundColor(Color(red: 0.1059, green: 0.251, blue: 0.5098).opacity(0.61))
                         .background(Color(red: 0.7569, green: 0.898, blue: 1).opacity(0.61))
                         .cornerRadius(20)
-                        .confirmationDialog("Enjoy your food", isPresented: $alert, titleVisibility: .visible) {
-                            Button("Bon appétit!", role: .destructive) {
+                        .confirmationDialog("Enjoy your food", isPresented: $alert) {
+                            Button("Bon appétit!") {
                                 DataController().deleteSingleFood(id: food.foodId, context: moc)
                                 dismiss()
                             }
-                            Button("Cancel", role: .cancel) { }
                         }
                     } else {
                         Button() {
@@ -107,7 +106,7 @@ struct FoodDetail: View {
                         .foregroundColor(Color(red: 0.0902, green: 0.0549, blue: 0.3294).opacity(0.61))
                         .background(Color(red: 0.8706, green: 0.8392, blue: 0.9529).opacity(0.61))
                         .cornerRadius(20)
-                        .confirmationDialog("Please don't waste food next time...", isPresented: $alert, titleVisibility: .visible) {
+                        .confirmationDialog("Please don't waste food next time...", isPresented: $alert) {
                             Button("Remove", role: .destructive) {
                                 DataController().deleteSingleFood(id: food.foodId, context: moc)
                                 dismiss()
@@ -116,22 +115,22 @@ struct FoodDetail: View {
                     }
                     Spacer()
                     
-                    Button("Show Toast") {
-                        showToast.toggle()
-                    }
-                    .simpleToast(isPresented: $showToast, options: toastOptions, onDismiss: {
-
-                    }) {
-                        HStack{
-                            Image(systemName: "leaf.fill")
-                            Text("Haha").bold()
-                        }
-                        .padding(20)
-                        .background(.green)
-                        .foregroundColor(.white)
-                        .cornerRadius(20)
-                        
-                    }
+//                    Button("Show Toast") {
+//                        showToast.toggle()
+//                    }
+//                    .simpleToast(isPresented: $showToast, options: toastOptions, onDismiss: {
+//
+//                    }) {
+//                        HStack{
+//                            Image(systemName: "leaf.fill")
+//                            Text("Haha").bold()
+//                        }
+//                        .padding(20)
+//                        .background(.green)
+//                        .foregroundColor(.white)
+//                        .cornerRadius(20)
+//
+//                    }
                 }
                 
                 
@@ -142,7 +141,7 @@ struct FoodDetail: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     // Top Right delete button
                     Button {
-//                        showToast.toggle()
+                        showToast.toggle()
                     } label: {
                         Label("Add to cart", systemImage: "cart.badge.plus")
                     }
@@ -150,6 +149,19 @@ struct FoodDetail: View {
             }
         Spacer()
         }
+        .simpleToast(isPresented: $showToast, options: toastOptions, onDismiss: {}) {
+            HStack{
+               Image(systemName: "checkmark")
+               Text("Added to list").bold()
+           }
+            .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20))
+            .background(Color("BackgroundColor"))
+            .foregroundColor(.black)
+            .cornerRadius(5)
+            .offset(y: -92)
+//            .edgesIgnoringSafeArea(.top)
+        }
+
     }
 }
 

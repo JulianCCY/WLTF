@@ -9,10 +9,11 @@ import SwiftUI
 
 struct DishCard: View {
     
-    var title: String = "Dish name"
-    var image: String = "wok"
+    var title: String
+    var image: String
+    var ingredients: [String]
     var color: String = "BackgroundColor"
-    var suff: Bool = true
+    @State var suff: Bool = true
     
     private func suffColor(bool: Bool) -> String {
         if bool {
@@ -20,6 +21,18 @@ struct DishCard: View {
         } else {
             return "1dayItem"
         }
+    }
+    
+    private func checkSuff(arr: [String]) -> Bool {
+        var check: Bool = true
+        arr.forEach{ i in
+            if DataController().checkIfExist(foodName: i) {
+                check = true
+            } else {
+                return check = false
+            }
+        }
+        return check
     }
     
     var body: some View {
@@ -30,6 +43,7 @@ struct DishCard: View {
                 Text("\(title)")
                     .font(.system(size: 28))
                     .fontWeight(.medium)
+                    .foregroundColor(.black)
                     .padding(.top, 100)
                 Image("\(image)")
                     .resizable()
@@ -44,13 +58,17 @@ struct DishCard: View {
         .background(
             Circle()
                 .fill(Color("\(color)"))
+                .shadow(color: .gray, radius: 0.2, x: 1, y: 1)
         )
+        .onAppear{
+            suff = checkSuff(arr: ingredients)
+        }
         
     }
 }
 
-struct DishCard_Previews: PreviewProvider {
-    static var previews: some View {
-        DishCard()
-    }
-}
+//struct DishCard_Previews: PreviewProvider {
+//    static var previews: some View {
+//        DishCard()
+//    }
+//}

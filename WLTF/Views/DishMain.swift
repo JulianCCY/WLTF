@@ -34,22 +34,27 @@ struct DishMain: View {
                 }
                 
 // Horizontal scroll
-//                ScrollView(.horizontal, showsIndicators: false) {
-//                    HStack(spacing: 10) {
-//
-//                        ForEach(dishArr, id: \.self) { i in
-//
-//                           GeometryReader { geometry in
-//                               DishCard(title: i)
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 10) {
+
+                        ForEach(dishArr, id: \.self) { i in
+
+                           GeometryReader { geometry in
+                               NavigationLink {
+                                   DishDetail(dish: i)
+                               }
+                               label: {
+                                   DishCard(title: i.dishName, image: i.dishImg, ingredients: i.ingredientArr)
+                               }
 //                                   .rotation3DEffect(Angle(degrees: Double(geometry.frame(in: .global).minX) / -15), axis: (x: 0, y: 10, z: 0))
-//                           }
-//                           .frame(width: 250, height: 250)
-//                       }
-//                   }
-////                   .padding([.leading, .trailing], 30)
-//                   .padding(.leading, 70)
-//                   .padding(.trailing, 70)
-//                }
+                           }
+                           .frame(width: 250, height: 250)
+                       }
+                   }
+//                   .padding([.leading, .trailing], 30)
+                   .padding(.leading, 70)
+                   .padding(.trailing, 70)
+                }
                 
 //                Ingredients
                 VStack(alignment: .leading) {

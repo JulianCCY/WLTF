@@ -70,14 +70,24 @@ struct DishAdd: View {
                     HStack {
                         TextField("Ingredient", text: $ingredient)
                         Button {
-                            ingredients.append(ingredient)
-                            ingredient = ""
+                            if (ingredient == "") {
+                                alert = true
+                                alertMessage = "No ingredient"
+                            }
+                            else {
+                                ingredients.append(ingredient)
+                                ingredient = ""
+                            }
                         } label: {
                             Image(systemName: "plus.rectangle")
                                 .font(.system(size: 20))
                         }
                         .buttonStyle(BorderlessButtonStyle())
                         .frame(width: 100, height: 20, alignment: .center)
+                        .alert(isPresented: $alert) {
+                            Alert(title: Text("Invalid"), message: Text("\(alertMessage)"), dismissButton: .default(Text("Ok")))
+                        }
+                        .foregroundColor(ingredient == "" ? .gray : .blue)
                     }
                     .frame(maxWidth: .infinity, minHeight: 25)
                     

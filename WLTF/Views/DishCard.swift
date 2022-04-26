@@ -25,11 +25,13 @@ struct DishCard: View {
     
     private func checkSuff(arr: [String]) -> Bool {
         var check: Bool = true
-        arr.forEach{ i in
-            if DataController().checkIfExist(foodName: i) {
+        arr.forEach { i in
+            if check == false {
+                check = false
+            } else if DataController().checkIfExist(foodName: i) {
                 check = true
             } else {
-                return check = false
+               check = false
             }
         }
         return check
@@ -54,11 +56,12 @@ struct DishCard: View {
                     .padding(.bottom, 100)
             }
         }
-        .frame(width: 240, height: 240)
+        .frame(width: 220, height: 220)
         .background(
             Circle()
                 .fill(Color("\(color)"))
-                .shadow(color: .gray, radius: 0.2, x: 1, y: 1)
+//                .frame(width: 230, height: 230)
+                .shadow(color: Color.gray.opacity(0.2), radius: 10, x: 0, y: 0)
         )
         .onAppear{
             suff = checkSuff(arr: ingredients)

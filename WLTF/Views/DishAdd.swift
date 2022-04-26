@@ -22,7 +22,7 @@ struct DishAdd: View {
     @State private var alert = false
     @State private var alertMessage = ""
     
-    @State var imageArr:[String] = ["meal", "mystery", "dinner", "smallbowl", "bigbowl", "smallplate", "bigplate", "pan", "wok", "vegan", "cookbook", "cookingbook"]
+    @State var imageArr:[String] = ["mystery", "dinner", "smallbowl", "bigbowl", "smallplate", "bigplate", "pan", "wok", "vegan", "cookbook", "cookingbook"]
 
     private func deleteItem(offsets: IndexSet) {
         withAnimation {
@@ -128,7 +128,7 @@ struct DishAdd: View {
             HStack {
                 Spacer()
                 ScrollView(.horizontal, showsIndicators: false) {
-                    HStack (spacing: 20) {
+                    HStack (spacing: 30) {
                         ForEach(imageArr, id: \.self) { i in
                             Button {
                                 dishImage = i
@@ -146,6 +146,7 @@ struct DishAdd: View {
                         }
                     }
                     .frame(height: 120)
+                    .padding([.leading, .trailing], 10)
                 }
                 Spacer()
             }

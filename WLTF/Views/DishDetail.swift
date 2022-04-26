@@ -17,6 +17,12 @@ struct DishDetail: View {
     @State private var alert = false
     @State private var alertMessage = ""
     
+    private func check(name: String) -> Bool {
+        if DataController().checkIfExist(foodName: name) {
+            return true
+        } else { return false }
+    }
+    
     var body: some View {
         
             VStack {
@@ -38,12 +44,41 @@ struct DishDetail: View {
                 VStack(alignment: .leading) {
                     Text("Ingredients")
                         .font(.title)
+                        .padding(.leading, 20)
                     
                     List(dish.ingredientArr, id: \.self) { i in
                         
-                        Text("\(i)")
+                        ZStack {
+                            if check(name: i) {
+                                Label {
+                                    Text("\(i)")
+                                        .foregroundColor(Color("NormalItem"))
+                                        .frame(height: 20)
+                                        .font(.headline)
+                                } icon: {
+                                    Image(systemName: "checkmark")
+                                        .foregroundColor(Color("NormalItem"))
+                                }
+                                
+                                
+                            } else {
+                                Label {
+                                    Text("\(i)")
+                                        .frame(height: 20)
+                                        .font(.headline)
+                                        .listRowSeparator(.hidden)
+                                        .foregroundColor(Color("1dayItem"))
+                                } icon: {
+                                    Image(systemName: "xmark")
+                                        .foregroundColor(Color("1dayItem"))
+                                }
+                                
+                            }
+                        }
+                        .listRowSeparator(.hidden)
                         
                     }
+                    .listStyle(InsetListStyle())
                         
                     
                     
@@ -62,8 +97,8 @@ struct DishDetail: View {
                         .cornerRadius(20)
                         .confirmationDialog("", isPresented: $alert) {
                             Button("Confirm") {
-//                                DataController().deleteSingleFood(id: food.foodId, context: moc)
-//                                dismiss()
+                                DataController().deleteSingleFood(id: dish.dishId, context: moc)
+                                dismiss()
                             }
                         }
                         Spacer()

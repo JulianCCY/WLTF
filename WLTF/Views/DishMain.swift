@@ -9,7 +9,13 @@ import SwiftUI
 
 struct DishMain: View {
     
+    @Environment(\.managedObjectContext) var moc
+    @Environment(\.dismiss) var dismiss
+    
     @State private var dishArr: [DishStruct] = []
+    
+    @State private var alert = false
+    @State private var alertMessage = ""
     
     private func filterArr() -> [DishStruct] {
         dishArr = []
@@ -34,22 +40,26 @@ struct DishMain: View {
                 }
                 
 // Horizontal scroll
-//                ScrollView(.horizontal, showsIndicators: false) {
-//                    HStack(spacing: 10) {
-//
-//                        ForEach(dishArr, id: \.self) { i in
-//
-//                           GeometryReader { geometry in
-//                               DishCard(title: i)
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 10) {
+
+                        ForEach(dishArr, id: \.self) { i in
+
+                           GeometryReader { geometry in
+                               NavigationLink {
+                                   DishDetail(dish: i)
+                               }
+                               label: {
+                                   DishCard(title: i.dishName, image: i.dishImg, ingredients: i.ingredientArr)
+                               }
 //                                   .rotation3DEffect(Angle(degrees: Double(geometry.frame(in: .global).minX) / -15), axis: (x: 0, y: 10, z: 0))
-//                           }
-//                           .frame(width: 250, height: 250)
-//                       }
-//                   }
-////                   .padding([.leading, .trailing], 30)
-//                   .padding(.leading, 70)
-//                   .padding(.trailing, 70)
-//                }
+                           }
+                           .frame(width: 250, height: 280)
+                       }
+                   }
+                   .padding([.leading, .trailing], 70)
+                   .padding(.top, 50)
+                }
                 
 //                Ingredients
                 VStack(alignment: .leading) {
@@ -90,6 +100,25 @@ struct DishMain: View {
         .onAppear{dishArr = filterArr()}
         .navigationTitle("")
         .navigationBarHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                // Top Right delete button
+                Button {
+                    alert = true
+                } label: {
+                    Label("Delete", systemImage: "trash")
+                }
+                .alert("Delete all of your dishes", isPresented: $alert) {
+                    Button("Confirm", role: .destructive) {
+                        DataController().deleteAllDishes()
+                        moc.refreshAllObjects()
+                        dishArr = []
+                    }
+                    Button("Cancel", role: .cancel) { }
+                }
+                .disabled(dishArr.isEmpty)
+            }
+        }
     }
 }
 

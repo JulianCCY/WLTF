@@ -8,13 +8,112 @@
 import SwiftUI
 
 struct DishDetail: View {
+    
+    @Environment(\.managedObjectContext) var moc
+    @Environment(\.dismiss) var dismiss
+    
+    let dish: DishStruct
+    
+    @State private var alert = false
+    @State private var alertMessage = ""
+    
+    private func check(name: String) -> Bool {
+        if DataController().checkIfExist(foodName: name) {
+            return true
+        } else { return false }
+    }
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        
+            VStack {
+                Text("\(dish.dishName)")
+                    .font(.largeTitle)
+                    .bold()
+                ZStack {
+                    Circle()
+                        .strokeBorder(Color.black,lineWidth: 5)
+                        .background(Circle().foregroundColor(Color("BackgroundColor")))
+                        .frame(width: 190, height: 190)
+                    Image("\(dish.dishImg)")
+                        .resizable()
+                        .frame(width: 140, height: 140)
+                }
+    //            .offset(y: 50)
+                .padding(.bottom, 40)
+
+                VStack(alignment: .leading) {
+                    Text("Ingredients")
+                        .font(.title)
+                        .padding(.leading, 20)
+                    
+                    List(dish.ingredientArr, id: \.self) { i in
+                        
+                        ZStack {
+                            if check(name: i) {
+                                Label {
+                                    Text("\(i)")
+                                        .foregroundColor(Color("NormalItem"))
+                                        .frame(height: 20)
+                                        .font(.headline)
+                                } icon: {
+                                    Image(systemName: "checkmark")
+                                        .foregroundColor(Color("NormalItem"))
+                                }
+                                
+                                
+                            } else {
+                                Label {
+                                    Text("\(i)")
+                                        .frame(height: 20)
+                                        .font(.headline)
+                                        .listRowSeparator(.hidden)
+                                        .foregroundColor(Color("1dayItem"))
+                                } icon: {
+                                    Image(systemName: "xmark")
+                                        .foregroundColor(Color("1dayItem"))
+                                }
+                                
+                            }
+                        }
+                        .listRowSeparator(.hidden)
+                        
+                    }
+                    .listStyle(InsetListStyle())
+                        
+                    
+                    
+                    Spacer()
+                    // Delete/Remove this food
+                    HStack {
+                        Spacer()
+                        Button() {
+                            alert = true
+                        } label: {
+                            Label("Delete", systemImage: "trash")
+                        }
+                        .padding()
+                        .foregroundColor(Color(red: 0.1059, green: 0.251, blue: 0.5098).opacity(0.61))
+                        .background(Color(red: 0.7569, green: 0.898, blue: 1).opacity(0.61))
+                        .cornerRadius(20)
+                        .confirmationDialog("", isPresented: $alert) {
+                            Button("Confirm") {
+                                DataController().deleteSingleFood(id: dish.dishId, context: moc)
+                                dismiss()
+                            }
+                        }
+                        Spacer()
+                    }
+                }
+                .padding()
+                .navigationBarTitle("")
+                
+            Spacer()
+        }
     }
 }
 
-struct DishDetail_Previews: PreviewProvider {
-    static var previews: some View {
-        DishDetail()
-    }
-}
+//struct DishDetail_Previews: PreviewProvider {
+//    static var previews: some View {
+//        DishDetail()
+//    }
+//}

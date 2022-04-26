@@ -114,23 +114,7 @@ struct FoodDetail: View {
                         }
                     }
                     Spacer()
-                    
-//                    Button("Show Toast") {
-//                        showToast.toggle()
-//                    }
-//                    .simpleToast(isPresented: $showToast, options: toastOptions, onDismiss: {
-//
-//                    }) {
-//                        HStack{
-//                            Image(systemName: "leaf.fill")
-//                            Text("Haha").bold()
-//                        }
-//                        .padding(20)
-//                        .background(.green)
-//                        .foregroundColor(.white)
-//                        .cornerRadius(20)
-//
-//                    }
+
                 }
                 
                 

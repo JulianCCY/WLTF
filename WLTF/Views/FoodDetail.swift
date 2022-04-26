@@ -142,6 +142,7 @@ struct FoodDetail: View {
                     // Top Right delete button
                     Button {
                         showToast.toggle()
+                        DataController().fromDetailsAddToBuy(name: food.name, context: moc)
                     } label: {
                         Label("Add to cart", systemImage: "cart.badge.plus")
                     }

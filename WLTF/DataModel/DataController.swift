@@ -144,6 +144,16 @@ class DataController: ObservableObject {
         save(context: context)
     }
     
+    // add a stored item to the shopping list
+    func fromDetailsAddToBuy(name: String, context: NSManagedObjectContext) {
+        let toBuy = Shopping(context: context)
+        toBuy.id = UUID()
+        toBuy.name = name
+        toBuy.details = ""
+        toBuy.checked = NSNumber()
+        save(context: context)
+    }
+    
     // delete all the food in the list
     func removeWholeList(context: NSManagedObjectContext) {
         let fetchRequest: NSFetchRequest<NSFetchRequestResult> =

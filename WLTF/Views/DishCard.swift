@@ -26,17 +26,18 @@ struct DishCard: View {
         
         ZStack {
             VStack {
-                Spacer()
+//                Spacer()
                 Text("\(title)")
-                    .font(.title)
+                    .font(.system(size: 28))
                     .fontWeight(.medium)
-//                    .padding(.top, 10)
-                Circle()
-                    .fill(Color("\(suffColor(bool: suff))"))
-                    .frame(width: 25, height: 25, alignment: .center)
+                    .padding(.top, 100)
                 Image("\(image)")
                     .resizable()
                     .frame(width: 120, height: 120)
+                Circle()
+                    .fill(Color("\(suffColor(bool: suff))"))
+                    .frame(width: 25, height: 25, alignment: .center)
+                    .padding(.bottom, 100)
             }
         }
         .frame(width: 240, height: 240)

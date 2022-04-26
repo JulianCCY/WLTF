@@ -9,7 +9,26 @@ import SwiftUI
 
 struct DishMain: View {
     
-    @State private var dishArr: [String] = ["Fries", "Noodles", "Rice", "Pizza", "Steak", "Pasta"]
+    @State private var dishArr: [DishStruct] = []
+    
+    private func filterArr() {
+//        dishArr = []
+//        let dishObj: [Dishes] = DataController().fetchAllDishes()
+//        let ingredientObj: [Ingredients] = DataController().fetchAllIngredient()
+//
+//
+//        DataController().fetchAllDishes().forEach { i in
+//            dishArr.append(DishStruct(dishId: i.id! ,
+//                                      dishName: i.dishName!,
+//                                      dishImg: i.dishImg!,
+//                                      portion: Int(i.portion),
+//                                      note: i.note ?? "",
+//                                      ingredientArr: Ingredients)
+//            )
+//        }
+//        return dishArr
+//        dishArr = dishObj.map{i in [i] + [ingredientObj.filter{$0.dishId == i.id}]}
+    }
     
     var body: some View {
         
@@ -28,22 +47,22 @@ struct DishMain: View {
                 }
                 
 // Horizontal scroll
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 10) {
-                        
-                        ForEach(dishArr, id: \.self) { i in
-    
-                           GeometryReader { geometry in
-                               DishCard(title: i)
-                                   .rotation3DEffect(Angle(degrees: Double(geometry.frame(in: .global).minX) / -15), axis: (x: 0, y: 10, z: 0))
-                           }
-                           .frame(width: 250, height: 250)
-                       }
-                   }
-//                   .padding([.leading, .trailing], 30)
-                   .padding(.leading, 70)
-                   .padding(.trailing, 70)
-                }
+//                ScrollView(.horizontal, showsIndicators: false) {
+//                    HStack(spacing: 10) {
+//
+//                        ForEach(dishArr, id: \.self) { i in
+//
+//                           GeometryReader { geometry in
+//                               DishCard(title: i)
+//                                   .rotation3DEffect(Angle(degrees: Double(geometry.frame(in: .global).minX) / -15), axis: (x: 0, y: 10, z: 0))
+//                           }
+//                           .frame(width: 250, height: 250)
+//                       }
+//                   }
+////                   .padding([.leading, .trailing], 30)
+//                   .padding(.leading, 70)
+//                   .padding(.trailing, 70)
+//                }
                 
 //                Ingredients
                 VStack(alignment: .leading) {
@@ -81,6 +100,7 @@ struct DishMain: View {
 
             }
         }
+        .onAppear(perform: filterArr)
         .navigationTitle("")
         .navigationBarHidden(true)
     }

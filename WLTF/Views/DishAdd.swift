@@ -9,14 +9,18 @@ import SwiftUI
 
 struct DishAdd: View {
     
+    @Environment(\.managedObjectContext) var managedObjectContext
+    @Environment(\.dismiss) var dismiss
+    
     @State var dishName: String = ""
     @State var ingredient: String = ""
     @State var ingredients: [String] = []
     @State var note: String = ""
-    @State var portion: Int = 1
+    @State var portion: Double = 1
     @State var dishImage: String = "meal"
     
-    @State var sliderValue: Double = 1.0
+    @State private var alert = false
+    @State private var alertMessage = ""
     
     @State var imageArr:[String] = ["meal", "mystery", "dinner", "smallbowl", "bigbowl", "smallplate", "bigplate", "pan", "wok", "vegan", "cookbook", "cookingbook"]
 
@@ -50,8 +54,8 @@ struct DishAdd: View {
 //                            .frame(width: 270, height: 90)
 //                    }
                     VStack {
-                        Slider(value: $sliderValue, in: 1...20, step: 1)
-                        Text("Serving \(Int(sliderValue)) people")
+                        Slider(value: $portion, in: 1...20, step: 1)
+                        Text("Serving \(Int(portion)) people")
                     }
 
                 }
@@ -136,6 +140,31 @@ struct DishAdd: View {
                 Spacer()
             }
             .padding([.leading, .top, .trailing])
+            
+            Button {
+                if dishName.isEmpty == true {
+                    alert = true
+                    alertMessage = "Please name your dish"
+                    
+                } else {
+                    DataController().addDish(dishName: dishName,
+                                             portion: Int(portion),
+                                             note: note,
+                                             ingredients: ingredients,
+                                             img: dishImage,
+                                             context: managedObjectContext
+                    )
+                    dismiss()
+                }
+                
+            } label: {
+                //button one
+                Label("Confirm", systemImage: "checkmark")
+            }
+            .disabled(dishName.isEmpty)
+            .alert(isPresented: $alert) {
+                Alert(title: Text("Invalid"), message: Text("\(alertMessage)"), dismissButton: .default(Text("Ok")))
+            }
         
             
         }

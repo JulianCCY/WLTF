@@ -226,9 +226,19 @@ class DataController: ObservableObject {
     // For receipt dishes and ingredients
     
     // fetch dish
-    func fetchAllDishes() -> [Dishes]{
+    func fetchAllDishes() -> [Dishes] {
         let fetchRequest: NSFetchRequest<Dishes>
         fetchRequest = Dishes.fetchRequest()
+        let context = container.viewContext
+        let object = try? context.fetch(fetchRequest)
+        return object!
+    }
+    
+    func fetchRelatedIngredient(dishId: UUID) -> [Ingredients]{
+        let fetchRequest: NSFetchRequest<Ingredients>
+        fetchRequest = Ingredients.fetchRequest()
+        fetchRequest.predicate = NSPredicate.init(format: "dishId == %@", dishId.uuidString)
+        
         let context = container.viewContext
         let object = try? context.fetch(fetchRequest)
         return object!

@@ -11,23 +11,10 @@ struct DishMain: View {
     
     @State private var dishArr: [DishStruct] = []
     
-    private func filterArr() {
-//        dishArr = []
-//        let dishObj: [Dishes] = DataController().fetchAllDishes()
-//        let ingredientObj: [Ingredients] = DataController().fetchAllIngredient()
-//
-//
-//        DataController().fetchAllDishes().forEach { i in
-//            dishArr.append(DishStruct(dishId: i.id! ,
-//                                      dishName: i.dishName!,
-//                                      dishImg: i.dishImg!,
-//                                      portion: Int(i.portion),
-//                                      note: i.note ?? "",
-//                                      ingredientArr: Ingredients)
-//            )
-//        }
-//        return dishArr
-//        dishArr = dishObj.map{i in [i] + [ingredientObj.filter{$0.dishId == i.id}]}
+    private func filterArr() -> [DishStruct] {
+        dishArr = []
+        dishArr = DataController().fetchAllDishes().map{DishStruct(dishId: $0.id!, dishName: $0.dishName!, dishImg: $0.dishImg!, portion: Int($0.portion), note: $0.note!, ingredientArr: DataController().fetchRelatedIngredient(dishId: $0.id!).map{$0.name!})}
+        return dishArr
     }
     
     var body: some View {
@@ -100,7 +87,7 @@ struct DishMain: View {
 
             }
         }
-        .onAppear(perform: filterArr)
+        .onAppear{dishArr = filterArr()}
         .navigationTitle("")
         .navigationBarHidden(true)
     }

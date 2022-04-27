@@ -42,6 +42,7 @@
 		8400B48028180B3B000FAF99 /* SimpleToast in Frameworks */ = {isa = PBXBuildFile; productRef = 8400B47F28180B3B000FAF99 /* SimpleToast */; };
 		8403E032280F07FC00683C76 /* AddToBuyScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8403E031280F07FC00683C76 /* AddToBuyScreen.swift */; };
 		8403E034280F16DE00683C76 /* ShoppingStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8403E033280F16DE00683C76 /* ShoppingStruct.swift */; };
+		843C853F281998CD001D5AF6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 843C853E281998CD001D5AF6 /* LaunchScreen.storyboard */; };
 		846BB7D52816071A004864AE /* DishStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846BB7D42816071A004864AE /* DishStruct.swift */; };
 		846BB7DA28173DCE004864AE /* open-fridge.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 846BB7D828173DCE004864AE /* open-fridge.mp3 */; };
 		846BB7DB28173DCE004864AE /* close-fridge.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 846BB7D928173DCE004864AE /* close-fridge.mp3 */; };
@@ -75,7 +76,7 @@
 		6A0CEAAD280DB0690086938B /* ShoppingList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingList.swift; sourceTree = "<group>"; };
 		6A0CEAAF280DB0CC0086938B /* DishMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishMain.swift; sourceTree = "<group>"; };
 		6A0CEAB1280DB5120086938B /* TabViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViews.swift; sourceTree = "<group>"; };
-		6A0CEAB3280DCB2F0086938B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		6A0CEAB3280DCB2F0086938B /* Info.plist */ = {isa = PBXFileReference; explicitFileType = image.png; path = Info.plist; sourceTree = "<group>"; };
 		6A0CEAB42810340B0086938B /* NotesUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesUI.swift; sourceTree = "<group>"; };
 		6A0CEAB82811FB9B0086938B /* EditAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAlert.swift; sourceTree = "<group>"; };
 		6A0CEABC2815B74B0086938B /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
@@ -110,6 +111,7 @@
 		6ADB2E9727FE090500A8E475 /* FoodGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodGrid.swift; sourceTree = "<group>"; };
 		8403E031280F07FC00683C76 /* AddToBuyScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToBuyScreen.swift; sourceTree = "<group>"; };
 		8403E033280F16DE00683C76 /* ShoppingStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingStruct.swift; sourceTree = "<group>"; };
+		843C853E281998CD001D5AF6 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		846BB7D42816071A004864AE /* DishStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishStruct.swift; sourceTree = "<group>"; };
 		846BB7D828173DCE004864AE /* open-fridge.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "open-fridge.mp3"; sourceTree = "<group>"; };
 		846BB7D928173DCE004864AE /* close-fridge.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "close-fridge.mp3"; sourceTree = "<group>"; };
@@ -184,6 +186,7 @@
 				6A0CEAB1280DB5120086938B /* TabViews.swift */,
 				8403E031280F07FC00683C76 /* AddToBuyScreen.swift */,
 				6A0CEAB82811FB9B0086938B /* EditAlert.swift */,
+				843C853E281998CD001D5AF6 /* LaunchScreen.storyboard */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -402,6 +405,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6A1AAAE927F9202A0084D06D /* Preview Assets.xcassets in Resources */,
+				843C853F281998CD001D5AF6 /* LaunchScreen.storyboard in Resources */,
 				6A1AAAE627F9202A0084D06D /* Assets.xcassets in Resources */,
 				84D5EBE4280354BB00B15054 /* categoryData.json in Resources */,
 				846BB7DA28173DCE004864AE /* open-fridge.mp3 in Resources */,
@@ -632,6 +636,8 @@
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app needs your location to find nearest supermarket";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIStatusBarHidden = NO;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -663,6 +669,8 @@
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app needs your location to find nearest supermarket";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIStatusBarHidden = NO;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";

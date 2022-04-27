@@ -66,11 +66,12 @@ struct FoodDetail: View {
                 Group {
                     Text("Expiration date")
                         .font(.title2)
-                    HStack {
+                    VStack(alignment: .leading){
                         Text("\(formatting(currentDate: food.expiryDate))")
                         Text(calcExpiryText(date: food.expiryDate))
                     }
                     .padding(.bottom)
+                    
                 }
                 
                 Spacer()

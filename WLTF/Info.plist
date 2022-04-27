@@ -21,12 +21,10 @@
 	</array>
 	<key>UILaunchScreen</key>
 	<dict>
-		<key>UIColorName</key>
-		<string>SecondaryColor</string>
 		<key>UIImageName</key>
-		<string>Landing page logo</string>
+		<string>loadingScreen</string>
 		<key>UIImageRespectsSafeAreaInsets</key>
-		<true/>
+		<false/>
 	</dict>
 </dict>
 </plist>

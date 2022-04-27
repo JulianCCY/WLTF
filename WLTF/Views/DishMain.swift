@@ -110,7 +110,7 @@ struct DishMain: View {
                 }
                 .alert("Delete all of your dishes", isPresented: $alert) {
                     Button("Confirm", role: .destructive) {
-                        DataController().deleteAllDishes()
+//                        DataController().deleteAllDishes()
                         moc.refreshAllObjects()
                         dishArr = []
                     }

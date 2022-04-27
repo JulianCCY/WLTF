@@ -310,8 +310,20 @@ class DataController: ObservableObject {
         
     }
     
-    func deleteAllDishes() {
+    func deleteAllDishes(context: NSManagedObjectContext) {
+        let deleteAllDishes: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Dishes")
+        let deleteAllIngredients: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Ingredients")
         
+        let deleteRequest1 = NSBatchDeleteRequest(fetchRequest: deleteAllDishes)
+        let deleteRequest2 = NSBatchDeleteRequest(fetchRequest: deleteAllIngredients)
+        
+        do {
+            try container.viewContext.execute(deleteRequest1)
+            try container.viewContext.execute(deleteRequest2)
+            save(context: context)
+        } catch let error {
+            print(error)
+        }
     }
     
     // edit dish

@@ -20,6 +20,9 @@ struct FoodDetail: View {
     
     let food: FoodStruct
     
+    @State private var remaining: Double = 0
+    private let max: Double = 100
+    
     @State private var alert = false
     @State private var alertMessage = ""
     @State private var showToast = false
@@ -38,16 +41,28 @@ struct FoodDetail: View {
                 .font(.largeTitle)
                 .bold()
             ZStack {
-                Circle()
-                    .strokeBorder(Color.black,lineWidth: 5)
-                    .background(Circle().foregroundColor(Color("\(FoodImgFunc.selectColor(food.expiryDate))")))
-                    .frame(width: 190, height: 190)
+//                Circle()
+//                    .strokeBorder(Color.black,lineWidth: 5)
+//                    .background(Circle().foregroundColor(Color("\(FoodImgFunc.selectColor(food.expiryDate))")))
+//                    .frame(width: 190, height: 190)
+                RemainingCircle(value: $remaining.wrappedValue,
+                                maxValue: self.max,
+                                style: .dotted,
+                                foregroundColor: .green,
+                                lineWidth: 8)
+                            .frame(height: 190)
                 Image("\(FoodImgFunc.selectImg(food.name, food.category))")
                     .resizable()
                     .frame(width: 140, height: 140)
             }
 //            .offset(y: 50)
-            .padding(.bottom, 40)
+            .padding(.bottom, 20)
+            
+            VStack {
+                Slider(value: $remaining, in: 0...100, step: 1)
+                Text("\(Int(remaining)) % remaining")
+            }
+            .padding([.leading, .trailing], 50)
 
             VStack(alignment: .leading) {
                 Text("Amount")

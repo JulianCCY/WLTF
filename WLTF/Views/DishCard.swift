@@ -17,9 +17,9 @@ struct DishCard: View {
     
     private func suffColor(bool: Bool) -> String {
         if bool {
-            return "CheckedItem"
+            return "Green"
         } else {
-            return "1dayItem"
+            return "Red"
         }
     }
     

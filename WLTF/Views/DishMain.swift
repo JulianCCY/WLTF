@@ -57,7 +57,9 @@ struct DishMain: View {
                            .frame(width: 250, height: 280)
                        }
                    }
-                   .padding([.leading, .trailing], 70)
+//                   .padding([.leading, .trailing], 70)
+                    .padding(.leading, 80)
+                    .padding(.trailing, 50)
                    .padding(.top, 50)
                 }
                 
@@ -65,15 +67,17 @@ struct DishMain: View {
                 VStack(alignment: .leading) {
                     HStack() {
                         Circle()
-                            .fill(Color("CheckedItem"))
-                            .frame(width: 25, height: 25)
-                        Text("Sufficient ingredient")
+                            .fill(Color("Green"))
+                            .frame(width: 16, height: 16)
+                        Text("Ample ingredient")
+                            .font(.system(size: 14))
                     }
                     HStack() {
                         Circle()
-                            .fill(Color("1dayItem"))
-                            .frame(width: 25, height: 25)
-                        Text("Insufficient ingredient")
+                            .fill(Color("Red"))
+                            .frame(width: 16, height: 16)
+                        Text("Inadequate ingredient")
+                            .font(.system(size: 14))
                     }
                 }
                 .padding(.top, 30)
@@ -96,29 +100,34 @@ struct DishMain: View {
                 .padding([.trailing, .bottom])
 
             }
+            
+            VStack {
+                HStack {
+                    Spacer()
+                    Button {
+                        alert = true
+                    } label: {
+                        Image(systemName: "trash")
+                            .font(.system(size: 22))
+                            .padding(EdgeInsets(top: 12, leading: 0, bottom: 0, trailing: 15))
+                    }
+                    .alert("Delete all of your dishes", isPresented: $alert) {
+                        Button("Confirm", role: .destructive) {
+                            DataController().deleteAllDishes()
+                            moc.refreshAllObjects()
+                            dishArr = []
+                        }
+                        Button("Cancel", role: .cancel) { }
+                    }
+                    .disabled(dishArr.isEmpty)
+                }
+                Spacer()
+            }
+            
         }
         .onAppear{dishArr = filterArr()}
         .navigationTitle("")
         .navigationBarHidden(true)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                // Top Right delete button
-                Button {
-                    alert = true
-                } label: {
-                    Label("Delete", systemImage: "trash")
-                }
-                .alert("Delete all of your dishes", isPresented: $alert) {
-                    Button("Confirm", role: .destructive) {
-//                        DataController().deleteAllDishes()
-                        moc.refreshAllObjects()
-                        dishArr = []
-                    }
-                    Button("Cancel", role: .cancel) { }
-                }
-                .disabled(dishArr.isEmpty)
-            }
-        }
     }
 }
 

@@ -52,12 +52,12 @@ struct DishDetail: View {
                             if check(name: i) {
                                 Label {
                                     Text("\(i)")
-                                        .foregroundColor(Color("NormalItem"))
+                                        .foregroundColor(Color("Green"))
                                         .frame(height: 20)
                                         .font(.headline)
                                 } icon: {
                                     Image(systemName: "checkmark")
-                                        .foregroundColor(Color("NormalItem"))
+                                        .foregroundColor(Color("Green"))
                                 }
                                 
                                 
@@ -67,10 +67,10 @@ struct DishDetail: View {
                                         .frame(height: 20)
                                         .font(.headline)
                                         .listRowSeparator(.hidden)
-                                        .foregroundColor(Color("1dayItem"))
+                                        .foregroundColor(Color("Red"))
                                 } icon: {
                                     Image(systemName: "xmark")
-                                        .foregroundColor(Color("1dayItem"))
+                                        .foregroundColor(Color("Red"))
                                 }
                                 
                             }
@@ -92,12 +92,13 @@ struct DishDetail: View {
                             Label("Delete", systemImage: "trash")
                         }
                         .padding()
-                        .foregroundColor(Color(red: 0.1059, green: 0.251, blue: 0.5098).opacity(0.61))
-                        .background(Color(red: 0.7569, green: 0.898, blue: 1).opacity(0.61))
+                        .foregroundColor(Color(red: 0.9686, green: 0.2039, blue: 0.1922).opacity(0.65))
+//                        .background(Color(red: 0.7569, green: 0.898, blue: 1).opacity(0.61))
+                        .background(Color(red: 0.9569, green: 0.4941, blue: 0.4863).opacity(0.50))
                         .cornerRadius(20)
                         .confirmationDialog("", isPresented: $alert) {
-                            Button("Confirm") {
-                                DataController().deleteSingleFood(id: dish.dishId, context: moc)
+                            Button("Confirm", role:  .destructive) {
+                                DataController().deleteDish(dishId: dish.dishId, context: moc)
                                 dismiss()
                             }
                         }

@@ -45,10 +45,11 @@ struct FoodDetail: View {
 //                    .strokeBorder(Color.black,lineWidth: 5)
 //                    .background(Circle().foregroundColor(Color("\(FoodImgFunc.selectColor(food.expiryDate))")))
 //                    .frame(width: 190, height: 190)
-                RemainingCircle(value: $remaining.wrappedValue,
+//                $remaining.wrappedValue
+                RemainingCircle(value: remaining,
                                 maxValue: self.max,
-                                style: .dotted,
-                                foregroundColor: .green,
+                                style: .line,
+                                foregroundColor: Color("Green"),
                                 lineWidth: 8)
                             .frame(height: 190)
                 Image("\(FoodImgFunc.selectImg(food.name, food.category))")
@@ -60,7 +61,11 @@ struct FoodDetail: View {
             
             VStack {
                 Slider(value: $remaining, in: 0...100, step: 1)
+                    .disabled(checkExpired(expiryDate: food.expiryDate) == true)
+                //when the food is expired, slider will not be working
+                    .accentColor(Color("SecondaryColor"))
                 Text("\(Int(remaining)) % remaining")
+                    .foregroundColor(Color(.systemGray))
             }
             .padding([.leading, .trailing], 50)
 
@@ -98,7 +103,7 @@ struct FoodDetail: View {
                 // Delete/Remove this food
                 HStack {
                     Spacer()
-                    if checkExpired(expiryDate: food.expiryDate) == false{
+                    if checkExpired(expiryDate: food.expiryDate) == false && remaining > 0.0{
                         Button() {
                             alert = true
                         } label: {
@@ -111,11 +116,12 @@ struct FoodDetail: View {
                         .cornerRadius(20)
                         .confirmationDialog("Enjoy your food", isPresented: $alert) {
                             Button("Bon appétit!") {
-                                DataController().deleteSingleFood(id: food.foodId, context: moc)
-                                dismiss()
+                                DataController().consumeFood(id: food.foodId, remaining: remaining)
+//                                DataController().deleteSingleFood(id: food.foodId, context: moc)
+//                                dismiss()
                             }
                         }
-                    } else {
+                    } else if remaining == 0 && checkExpired(expiryDate: food.expiryDate) == false || checkExpired(expiryDate: food.expiryDate) == true {
                         Button() {
                             alert = true
                         }
@@ -127,7 +133,7 @@ struct FoodDetail: View {
                         .foregroundColor(Color(red: 0.0902, green: 0.0549, blue: 0.3294).opacity(0.61))
                         .background(Color(red: 0.8706, green: 0.8392, blue: 0.9529).opacity(0.61))
                         .cornerRadius(20)
-                        .confirmationDialog("Please don't waste food next time...", isPresented: $alert) {
+                        .confirmationDialog("", isPresented: $alert) {
                             Button("Remove", role: .destructive) {
                                 DataController().deleteSingleFood(id: food.foodId, context: moc)
                                 dismiss()
@@ -155,6 +161,7 @@ struct FoodDetail: View {
             }
         Spacer()
         }
+        .onAppear{remaining = food.remaining}
         .simpleToast(isPresented: $showToast, options: toastOptions, onDismiss: {}) {
             HStack{
                Image(systemName: "checkmark")

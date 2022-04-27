@@ -84,7 +84,7 @@ struct AddFoodScreen: View {
                                 alertMessage = "Amount must be integer"
                             }
                             else {
-                                globalArr.addFoodArr.append(FoodStruct(foodId: UUID(), name: name, category: category, entryDate: formatting(currentDate: Date()), expiryDate: expiryDate, amount: Double(amount) ?? 0, unit: unit))
+                                globalArr.addFoodArr.append(FoodStruct(foodId: UUID(), name: name, category: category, entryDate: formatting(currentDate: Date()), expiryDate: expiryDate, amount: Double(amount) ?? 0, unit: unit, remaining: 100))
                                 
                                 name = ""
                                 category = "Others"

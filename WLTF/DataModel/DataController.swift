@@ -14,6 +14,7 @@ import SwiftUI
 
 class DataController: ObservableObject {
     
+    // init the container from the FoodModel which contains all the entities we need
     let container = NSPersistentContainer(name: "FoodModel")
 
     init() {
@@ -27,6 +28,7 @@ class DataController: ObservableObject {
     // save every update in CoreData
     func save(context: NSManagedObjectContext) {
         do {
+            // save the changes
             try context.save()
             print("CoreData is updated successfully")
         } catch let Error {
@@ -35,7 +37,7 @@ class DataController: ObservableObject {
     }
     
     
-    // For Fridge storage
+    //***********************For Fridge storage***********************
     
     // fetch the food data for fridge
     func fetchFoodData() -> [Food] {
@@ -46,15 +48,14 @@ class DataController: ObservableObject {
         return quicksortForExpiryDate(objects!)
     }
     
-    //quicksort
-    // I love alogrithms
-    // average complexity Big O of log n
+    // Using quicksort to sort the food array by the expiry date
     func quicksortForExpiryDate(_ objects: [Food]) -> [Food] {
         // early return
         guard objects.count > 1 else { return objects}
         let pivot = objects[0]
         let earlier = objects.suffix(from: 1).filter{$0.expiryDate! < pivot.expiryDate!}
         let later = objects.suffix(from: 1).filter{$0.expiryDate! > pivot.expiryDate!}
+        // keep doing recurion until the array is completely sorted
         return quicksortForExpiryDate(earlier) + [pivot] + quicksortForExpiryDate(later)
     }
     
@@ -65,6 +66,7 @@ class DataController: ObservableObject {
         newFood.name = name
         newFood.category = category
         newFood.amount = amount
+        newFood.remaining = 100
         newFood.unit = unit
         newFood.entryDate = entryDate
         newFood.expiryDate = expiryDate
@@ -101,9 +103,27 @@ class DataController: ObservableObject {
     }
     
     
-    // For Sticky notes on Fridge door
+    // edit the comsumed bar in the food detail screen
+    func consumeFood(id: UUID, remaining: Double) {
+        let fetchRequest: NSFetchRequest<Food>
+        fetchRequest = Food.fetchRequest()
+        fetchRequest.predicate = NSPredicate.init(format: "id == %@", id.uuidString)
+        
+        let context = container.viewContext
+        
+        do {
+            let object: [Food] = try context.fetch(fetchRequest)
+            object[0].remaining = remaining
+            save(context: context)
+        } catch let error as NSError {
+            print(error)
+        }
+    }
     
-    //separate 3 arrays (expired, 1 days left, 3 days left), so boris can add the food in the memo on the fridge door
+    
+    // ***********************For Sticky notes on Fridge door***********************
+    
+    //separate 3 arrays (expired, 1 days left, 3 days left), will be used on the sticky on the fridge door
     func fetchGoingToBeExpired() -> [[Food]] {
         let fetchRequest: NSFetchRequest<Food>
         fetchRequest = Food.fetchRequest()
@@ -116,7 +136,7 @@ class DataController: ObservableObject {
     }
     
     
-    // For Shopping list
+    // ***********************For Shopping list***********************
     
     // fetch all the To-buy item for shopping list
     func fetchShoppingData() -> [Shopping] {
@@ -144,7 +164,7 @@ class DataController: ObservableObject {
         save(context: context)
     }
     
-    // add a stored item to the shopping list
+    // add a stored item from food detail to the shopping list
     func fromDetailsAddToBuy(name: String, context: NSManagedObjectContext) {
         let toBuy = Shopping(context: context)
         toBuy.id = UUID()
@@ -185,7 +205,7 @@ class DataController: ObservableObject {
     }
     
     // check if some food are already stored in the fridge and return the amount of them to shopping list
-    // only check have or dun have, and then filter our expired
+    // show food's existence, validation check: expired food will be filtered out
     func checkIfExist(foodName: String) -> Bool{
         let fetchRequest: NSFetchRequest<Food>
         fetchRequest = Food.fetchRequest()
@@ -200,7 +220,7 @@ class DataController: ObservableObject {
         return false
     }
     
-    //update checked status
+    // update the checked status of a food in shopping list
     func updateCheckStatus(foodId: UUID, checked: NSNumber) {
         let fetchRequest: NSFetchRequest<Shopping>
         fetchRequest = Shopping.fetchRequest()
@@ -216,7 +236,7 @@ class DataController: ObservableObject {
         }
     }
     
-    //update the list item
+    // edit name or description of the item in the shopping list
     func updateShoppingListItem(foodId: String, foodName: String, description: String) {
         let fetchRequest: NSFetchRequest<Shopping>
         fetchRequest = Shopping.fetchRequest()
@@ -233,9 +253,9 @@ class DataController: ObservableObject {
         }
     }
     
-    // For receipt dishes and ingredients
+    // ***********************For receipt dishes and ingredients***********************
     
-    // fetch dish
+    // fetch all the dishes on dish main screen
     func fetchAllDishes() -> [Dishes] {
         let fetchRequest: NSFetchRequest<Dishes>
         fetchRequest = Dishes.fetchRequest()
@@ -310,7 +330,10 @@ class DataController: ObservableObject {
         
     }
     
+    // delete all the receipt
     func deleteAllDishes(context: NSManagedObjectContext) {
+        
+        // get two delete requests from dishes and ingredients
         let deleteAllDishes: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Dishes")
         let deleteAllIngredients: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Ingredients")
         
@@ -318,6 +341,7 @@ class DataController: ObservableObject {
         let deleteRequest2 = NSBatchDeleteRequest(fetchRequest: deleteAllIngredients)
         
         do {
+            // delete all data in both entities
             try container.viewContext.execute(deleteRequest1)
             try container.viewContext.execute(deleteRequest2)
             save(context: context)
@@ -350,7 +374,9 @@ class DataController: ObservableObject {
         
     }
     
-    // For settings
+    // // ***********************For the fridge name :) ***********************
+    
+    // show the name of the fridge on the fridge door
     func fetchFridgeName() -> String {
         let fetchRequest: NSFetchRequest<Fridge>
         fetchRequest = Fridge.fetchRequest()
@@ -359,6 +385,7 @@ class DataController: ObservableObject {
         do {
             
             let objects = try context.fetch(fetchRequest)
+            // when first time in use, the default name is your fridge
             return objects.isEmpty ? "Your Fridge" : objects[0].name!
             
         } catch let error as NSError{
@@ -368,6 +395,7 @@ class DataController: ObservableObject {
         return "Your Fridge"
     }
     
+    // edit the name of the fridge
     func updateFridgeName(newFridgeName: String) {
         let fetchRequest: NSFetchRequest<Fridge>
         fetchRequest = Fridge.fetchRequest()
@@ -376,12 +404,14 @@ class DataController: ObservableObject {
         let context = container.viewContext
         let objects: [Fridge] = try! context.fetch(fetchRequest)
         
+        // when first time in use, we'll add a new name
         if objects.isEmpty == true {
             let newName = Fridge(context: context)
             newName.name = newFridgeName
             save(context: context)
         } else {
             do {
+                // edit the name if it already has one
                 let newObject = try context.fetch(fetchRequest).first
                 newObject?.name = newFridgeName
                 save(context: context)

@@ -59,6 +59,8 @@ struct FoodDetail: View {
                 Group {
                     Text("Entry date")
                         .font(.title2)
+                        .fontWeight(.medium)
+                        .padding(.bottom, 1)
                     Text("\(food.entryDate)")
                         .padding(.bottom)
                 }
@@ -66,9 +68,12 @@ struct FoodDetail: View {
                 Group {
                     Text("Expiration date")
                         .font(.title2)
+                        .fontWeight(.medium)
+                        .padding(.bottom, 1)
                     VStack(alignment: .leading){
                         Text("\(formatting(currentDate: food.expiryDate))")
                         Text(calcExpiryText(date: food.expiryDate))
+//                            .padding(.bottom, 1)
                     }
                     .padding(.bottom)
                     

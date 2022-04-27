@@ -17,7 +17,7 @@ struct DishAdd: View {
     @State var ingredients: [String] = []
     @State var note: String = ""
     @State var portion: Double = 1
-    @State var dishImage: String = "meal"
+    @State var dishImage: String = "mystery"
     
     @State private var alert = false
     @State private var alertMessage = ""
@@ -101,9 +101,10 @@ struct DishAdd: View {
                         ZStack {
                             Label {
                                 Text("\(i)")
+                                    .padding(.leading)
                             } icon: {
-                                Image(systemName: "checkmark")
-                                    .foregroundColor(Color("SecondaryColor"))
+//                                Image(systemName: "checkmark")
+//                                    .foregroundColor(Color("SecondaryColor"))
                             }
 
                         }

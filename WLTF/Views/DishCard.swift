@@ -47,6 +47,7 @@ struct DishCard: View {
                     .fontWeight(.medium)
                     .foregroundColor(.black)
                     .padding(.top, 100)
+                    .frame(maxWidth: 120)
                 Image("\(image)")
                     .resizable()
                     .frame(width: 120, height: 120)

@@ -40,27 +40,33 @@ struct DishMain: View {
                 }
                 
 // Horizontal scroll
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 10) {
+                if dishArr.isEmpty {
+                    Text("You do not have any dishes yet!")
+                        .frame(height: 300)
+                } else {
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 10) {
 
-                        ForEach(dishArr, id: \.self) { i in
+                            ForEach(dishArr, id: \.self) { i in
 
-                           GeometryReader { geometry in
-                               NavigationLink {
-                                   DishDetail(dish: i)
+                               GeometryReader { geometry in
+                                   NavigationLink {
+                                       DishDetail(dish: i)
+                                   }
+                                   label: {
+                                       DishCard(title: i.dishName, image: i.dishImg, ingredients: i.ingredientArr)
+                                   }
+    //                                   .rotation3DEffect(Angle(degrees: Double(geometry.frame(in: .global).minX) / -15), axis: (x: 0, y: 10, z: 0))
                                }
-                               label: {
-                                   DishCard(title: i.dishName, image: i.dishImg, ingredients: i.ingredientArr)
-                               }
-//                                   .rotation3DEffect(Angle(degrees: Double(geometry.frame(in: .global).minX) / -15), axis: (x: 0, y: 10, z: 0))
+                               .frame(width: 250, height: 280)
                            }
-                           .frame(width: 250, height: 280)
                        }
-                   }
-//                   .padding([.leading, .trailing], 70)
-                    .padding(.leading, 80)
-                    .padding(.trailing, 50)
-                   .padding(.top, 50)
+    //                   .padding([.leading, .trailing], 70)
+                        .padding(.leading, 80)
+                        .padding(.trailing, 50)
+                       .padding(.top, 50)
+                    }
+
                 }
                 
 //                Ingredients
@@ -113,7 +119,7 @@ struct DishMain: View {
                     }
                     .alert("Delete all of your dishes", isPresented: $alert) {
                         Button("Confirm", role: .destructive) {
-                            DataController().deleteAllDishes()
+                            DataController().deleteAllDishes(context: moc)
                             moc.refreshAllObjects()
                             dishArr = []
                         }

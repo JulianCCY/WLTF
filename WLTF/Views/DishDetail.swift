@@ -40,6 +40,30 @@ struct DishDetail: View {
                 }
     //            .offset(y: 50)
                 .padding(.bottom, 40)
+                
+                HStack {
+                    Text("Portion: ")
+                        .fontWeight(.medium)
+//                        .font(.title)
+//                        .padding(.leading, 20)
+                    Text ("\(Int(dish.portion)) people")
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.leading, 35)
+                
+                VStack(alignment: .leading) {
+                    if dish.note != "" {
+                        HStack {
+                            Text("Notes: ")
+                                .fontWeight(.medium)
+                            Text("\(dish.note)")
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.leading, 35)
+
+                    }
+                }
+//                padding(.leading, 20)
 
                 VStack(alignment: .leading) {
                     Text("Ingredients")

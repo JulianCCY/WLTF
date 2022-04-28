@@ -350,28 +350,22 @@ class DataController: ObservableObject {
         }
     }
     
-    // edit dish
-    func editDish() {
+    // show notification if the ingredient remains less inside the fridge
+    func checkRemainingFromDish(name: String) -> Bool {
+        let fetchRequest: NSFetchRequest<Food>
+        fetchRequest = Food.fetchRequest()
+        fetchRequest.predicate = NSPredicate.init(format: "name == %@", name)
         
-        func addIngredientToDish(dishId: String, ingredients: [String]) {
-            
+        let context = container.viewContext
+        
+        do {
+            let objects: [Food] = try context.fetch(fetchRequest)
+            return objects[0].remaining >= 30 ? true : false
+        } catch let error as NSError {
+            print(error)
         }
         
-        func removeIngredientToDish() {
-            
-        }
-    }
-    
-    
-    
-    // check enough to cook
-    func checkIfEnoughIngredient() {
-        
-    }
-    
-    // add ingredient to shopping list
-    func addToBuyFromDish() {
-        
+        return false
     }
     
     // // ***********************For the fridge name :) ***********************

@@ -46,15 +46,38 @@ struct FoodDetail: View {
 //                    .background(Circle().foregroundColor(Color("\(FoodImgFunc.selectColor(food.expiryDate))")))
 //                    .frame(width: 190, height: 190)
 //                $remaining.wrappedValue
-                RemainingCircle(value: remaining,
-                                maxValue: self.max,
-                                style: .line,
-                                foregroundColor: Color("Green"),
-                                lineWidth: 8)
-                            .frame(height: 190)
-                Image("\(FoodImgFunc.selectImg(food.name, food.category))")
-                    .resizable()
-                    .frame(width: 140, height: 140)
+                if remaining >= 70 {
+                    RemainingCircle(value: remaining,
+                                    maxValue: self.max,
+                                    style: .line,
+                                    foregroundColor: Color("Green"),
+                                    lineWidth: 8)
+                                .frame(height: 190)
+                    Image("\(FoodImgFunc.selectImg(food.name, food.category))")
+                        .resizable()
+                        .frame(width: 140, height: 140)
+                } else if remaining >= 30 {
+                    RemainingCircle(value: remaining,
+                                    maxValue: self.max,
+                                    style: .line,
+                                    foregroundColor: .yellow,
+                                    lineWidth: 8)
+                                .frame(height: 190)
+                    Image("\(FoodImgFunc.selectImg(food.name, food.category))")
+                        .resizable()
+                        .frame(width: 140, height: 140)
+                } else {
+                    RemainingCircle(value: remaining,
+                                    maxValue: self.max,
+                                    style: .line,
+                                    foregroundColor: .red,
+                                    lineWidth: 8)
+                                .frame(height: 190)
+                    Image("\(FoodImgFunc.selectImg(food.name, food.category))")
+                        .resizable()
+                        .frame(width: 140, height: 140)
+                }
+                
             }
 //            .offset(y: 50)
             .padding(.bottom, 20)

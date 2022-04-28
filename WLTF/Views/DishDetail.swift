@@ -18,9 +18,7 @@ struct DishDetail: View {
     @State private var alertMessage = ""
     
     private func check(name: String) -> Bool {
-        if DataController().checkIfExist(foodName: name) {
-            return true
-        } else { return false }
+        return DataController().checkIfExist(foodName: name) ? true : false
     }
     
     var body: some View {
@@ -52,18 +50,32 @@ struct DishDetail: View {
                 .padding(.leading, 35)
                 
                 VStack(alignment: .leading) {
-                    if dish.note != "" {
-                        HStack {
-                            Text("Notes: ")
-                                .fontWeight(.medium)
-                            Text("\(dish.note)")
+//                    if dish.note != "" {
+//                        HStack {
+//                            Text("Notes: ")
+//                                .fontWeight(.medium)
+//                        }
+//                        .frame(maxWidth: .infinity, alignment: .leading)
+//                        .padding(.leading, 35)
+//
+//                        Text("\(dish.note)")
+//                    }
+                    HStack {
+                        Text("Notes: ")
+                            .fontWeight(.medium)
+                        if dish.note == "" {
+                            Text("Blank")
+                                .font(.subheadline)
+                                .foregroundColor(.black)
+                        } else {
+                            VStack {
+                                Text(dish.note)
+                            }
                         }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.leading, 35)
-
                     }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.leading, 35)
                 }
-//                padding(.leading, 20)
 
                 VStack(alignment: .leading) {
                     Text("Ingredients")
@@ -74,17 +86,28 @@ struct DishDetail: View {
                         
                         ZStack {
                             if check(name: i) {
-                                Label {
-                                    Text("\(i)")
-                                        .foregroundColor(Color("Green"))
-                                        .frame(height: 20)
-                                        .font(.headline)
-                                } icon: {
-                                    Image(systemName: "checkmark")
-                                        .foregroundColor(Color("Green"))
+                                if DataController().checkRemainingFromDish(name: i) {
+                                    Label {
+                                        Text("\(i)")
+                                            .foregroundColor(Color("Green"))
+                                            .frame(height: 20)
+                                            .font(.headline)
+                                    } icon: {
+                                        Image(systemName: "checkmark")
+                                            .foregroundColor(Color("Green"))
+                                    }
+                                } else {
+                                    Label {
+                                        Text("\(i) (a little left)")
+                                            .foregroundColor(.yellow)
+                                            .frame(height: 20)
+                                            .font(.headline)
+                                    } icon: {
+                                        Image(systemName: "checkmark")
+                                            .foregroundColor(.yellow)
+                                    }
                                 }
-                                
-                                
+  
                             } else {
                                 Label {
                                     Text("\(i)")

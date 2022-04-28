@@ -98,7 +98,7 @@ struct DishDetail: View {
                                     }
                                 } else {
                                     Label {
-                                        Text("\(i) (a little left)")
+                                        Text("\(i) (a little bit left)")
                                             .foregroundColor(.yellow)
                                             .frame(height: 20)
                                             .font(.headline)

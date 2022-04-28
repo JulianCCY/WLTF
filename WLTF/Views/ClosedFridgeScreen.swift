@@ -25,7 +25,7 @@ struct ClosedFridgeScreen: View {
     @State private var noteType: String = ""
     @State private var noteArr: [FoodStruct] = []
     
-//    Because of swiftui cant handle if else conditional rendering, we use stupid solutions "index out of range" swift said
+    // separate 3 color of sticky notes by expires in 1 days, 3 days and expired
     @State private var orange: Bool = false
     @State private var red: Bool = false
     @State private var purple: Bool = false
@@ -202,6 +202,9 @@ struct ClosedFridgeScreen: View {
                 .onAppear{
                     expiringFoodArr = filterArr()
                     getName()
+                    let synthesizer = AVSpeechSynthesizer()
+                    let utterance = AVSpeechUtterance(string: "Hello")
+                    synthesizer.speak(utterance)
                 }
                 .onTapGesture {
                     openDoorSound()

@@ -202,9 +202,9 @@ struct ClosedFridgeScreen: View {
                 .onAppear{
                     expiringFoodArr = filterArr()
                     getName()
-                    let synthesizer = AVSpeechSynthesizer()
-                    let utterance = AVSpeechUtterance(string: "Hello")
-                    synthesizer.speak(utterance)
+//                    let synthesizer = AVSpeechSynthesizer()
+//                    let utterance = AVSpeechUtterance(string: "Hello")
+//                    synthesizer.speak(utterance)
                 }
                 .onTapGesture {
                     openDoorSound()

@@ -42,7 +42,7 @@ struct ShoppingList: View {
     // for general alert
     @State private var alert = false
     @State private var deleteAlert = false
-    @State private var editAlert = false
+//    @State private var editAlert = false
     @State private var alertMessage = ""
     @State private var disabled = true
     
@@ -55,17 +55,22 @@ struct ShoppingList: View {
     }
     
     var body: some View {
-        NavigationView {
+//        NavigationView {
             ZStack {
-                ZStack {
+//                ZStack {
                     VStack {
-//                        Text("Grocery list")
-//                            .font(.title)
-//                            .fontWeight(.bold)
-//                            .padding([.top, .leading])
-//                            .frame(maxWidth: .infinity, alignment: .leading)
-//                            .navigationTitle("")
-//                            .navigationBarHidden(true)
+                        VStack {
+                            HStack {
+                                Text("Grocery list")
+                                    .font(.system(size: 36))
+                                    .fontWeight(.bold)
+                                    .padding(.top, 50)
+                                    .padding(.leading, 20)
+                                Spacer()
+                            }
+//                            Spacer()
+                        }
+
                         List {
                             Section {
                                 VStack {
@@ -207,43 +212,17 @@ struct ShoppingList: View {
                                         }
                                     }
                                 }
-//                                .onDelete {
-//                                    offset in
-//                                    // ghost of codewars
-//                                    let uuid =  offset.compactMap{toBuyArr[$0].foodId}[0]
-//                                    DataController().removeSingleItem(id: uuid, context: moc)
-//                                    toBuyArr = filterArr()
-//                                }
-                                
-                                
                             }
                         }
-                        .navigationBarTitle("Grocery List")
                         .listStyle(InsetListStyle())
                         .onAppear { toBuyArr = filterArr() }
                     }
-                    .toolbar{
-                        ToolbarItem(placement: .navigationBarTrailing) {
-                            Button {
-                                deleteAlert = true
-                            } label: {
-                                Label("Delete", systemImage: "trash")
-                            }
-                            .alert("Empty your grocery list?", isPresented: $deleteAlert) {
-                                Button("Yes please", role: .destructive) {
-                                    DataController().removeWholeList(context: moc)
-                                    toBuyArr = []
-                                }
-                                Button("Noooooooo", role: .cancel) { }
-                            }
-                            .disabled(toBuyArr.isEmpty)
-                        }
-                    }
+
                     VStack {
                         Spacer()
                         HStack {
                             Spacer()
-                            NavigationLink(destination: MapView()) {
+                            NavigationLink(destination: MapScreen()) {
                                 Image(systemName: "map")
                                     .font(.system(size: 30))
                                     .padding(10)
@@ -256,11 +235,33 @@ struct ShoppingList: View {
                         }
                         .padding([.trailing, .bottom])
                     }
-                }.blur(radius: editAlert ? 20 : 0)
+                    
+                    VStack {
+                        HStack {
+                            Spacer()
+                            Button {
+                                deleteAlert = true
+                            } label: {
+                                Image(systemName: "trash")
+                                    .font(.system(size: 22))
+                                    .padding(EdgeInsets(top: 12, leading: 0, bottom: 0, trailing: 15))
+                            }
+                            .alert("Empty your grocery list?", isPresented: $deleteAlert) {
+                                Button("Yes please", role: .destructive) {
+                                    DataController().removeWholeList(context: moc)
+                                    toBuyArr = []
+                                }
+                                Button("Cancel", role: .cancel) { }
+                            }
+                            .disabled(toBuyArr.isEmpty)
+                        }
+                        Spacer()
+                    }
+//                }.blur(radius: editAlert ? 20 : 0)
     //          Big Zstack
             }
 //       navigation
-        }
+//        }
         .navigationTitle("")
         .navigationBarHidden(true)
         

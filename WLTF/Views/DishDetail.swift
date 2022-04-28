@@ -39,98 +39,107 @@ struct DishDetail: View {
                         .frame(width: 140, height: 140)
                 }
     //            .offset(y: 50)
-                .padding(.bottom, 40)
+                .padding(.bottom, 20)
                 
-                HStack {
-                    Text("Portion: ")
-                        .fontWeight(.medium)
-//                        .font(.title)
-//                        .padding(.leading, 20)
-                    Text ("\(Int(dish.portion)) people")
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.leading, 35)
-                
-                VStack(alignment: .leading) {
-                    if dish.note != "" {
-                        HStack {
-                            Text("Notes: ")
-                                .fontWeight(.medium)
-                            Text("\(dish.note)")
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.leading, 35)
-
-                    }
-                }
-//                padding(.leading, 20)
-
-                VStack(alignment: .leading) {
-                    Text("Ingredients")
-                        .font(.title)
-                        .padding(.leading, 20)
-                    
-                    List(dish.ingredientArr, id: \.self) { i in
-                        
-                        ZStack {
-                            if check(name: i) {
-                                Label {
-                                    Text("\(i)")
-                                        .foregroundColor(Color("Green"))
-                                        .frame(height: 20)
-                                        .font(.headline)
-                                } icon: {
-                                    Image(systemName: "checkmark")
-                                        .foregroundColor(Color("Green"))
-                                }
-                                
-                                
-                            } else {
-                                Label {
-                                    Text("\(i)")
-                                        .frame(height: 20)
-                                        .font(.headline)
-                                        .listRowSeparator(.hidden)
-                                        .foregroundColor(Color("Red"))
-                                } icon: {
-                                    Image(systemName: "xmark")
-                                        .foregroundColor(Color("Red"))
-                                }
-                                
-                            }
-                        }
-                        .listRowSeparator(.hidden)
-                        
-                    }
-                    .listStyle(InsetListStyle())
-                        
-                    
-                    
-                    Spacer()
-                    // Delete/Remove this food
+//                ScrollView {
                     HStack {
-                        Spacer()
-                        Button() {
-                            alert = true
-                        } label: {
-                            Label("Delete", systemImage: "trash")
-                        }
-                        .padding()
-                        .foregroundColor(Color(red: 0.9686, green: 0.2039, blue: 0.1922).opacity(0.65))
-//                        .background(Color(red: 0.7569, green: 0.898, blue: 1).opacity(0.61))
-                        .background(Color(red: 0.9569, green: 0.4941, blue: 0.4863).opacity(0.50))
-                        .cornerRadius(20)
-                        .confirmationDialog("", isPresented: $alert) {
-                            Button("Confirm", role:  .destructive) {
-                                DataController().deleteDish(dishId: dish.dishId, context: moc)
-                                dismiss()
-                            }
-                        }
-                        Spacer()
+                        Text("Portion: ")
+                            .fontWeight(.medium)
+    //                        .font(.title)
+    //                        .padding(.leading, 20)
+                        Text ("\(Int(dish.portion)) people")
                     }
-                }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.leading, 35)
+                    
+                    VStack(alignment: .leading) {
+                        if dish.note != "" {
+                            HStack {
+                                VStack {
+                                    Text("Notes: ")
+                                        .fontWeight(.medium)
+                                    Spacer()
+                                }
+                                ScrollView {
+                                    VStack {
+                                        Text("\(dish.note)")
+//                                        Spacer()
+                                    }
+                                }
+                            }
+                            .frame(maxWidth: .infinity, maxHeight: 60, alignment: .leading)
+                            .padding([.leading, .trailing], 35)
+                            .padding(.vertical)
+
+                        }
+                    }
+    //                padding(.leading, 20)
+
+                    VStack(alignment: .leading) {
+                        Text("Ingredients")
+                            .font(.title)
+                            .padding(.leading, 20)
+                        
+                        List(dish.ingredientArr, id: \.self) { i in
+                            
+                            ZStack {
+                                if check(name: i) {
+                                    Label {
+                                        Text("\(i)")
+                                            .foregroundColor(Color("Green"))
+                                            .frame(height: 20)
+                                            .font(.headline)
+                                    } icon: {
+                                        Image(systemName: "checkmark")
+                                            .foregroundColor(Color("Green"))
+                                    }
+                                    
+                                    
+                                } else {
+                                    Label {
+                                        Text("\(i)")
+                                            .frame(height: 20)
+                                            .font(.headline)
+                                            .listRowSeparator(.hidden)
+                                            .foregroundColor(Color("Red"))
+                                    } icon: {
+                                        Image(systemName: "xmark")
+                                            .foregroundColor(Color("Red"))
+                                    }
+                                }
+                            }
+                            .listRowSeparator(.hidden)
+                            
+                        }
+                        .listStyle(InsetListStyle())
+                            
+                    }//Vstack
+//                }//scrollview
                 .padding()
                 .navigationBarTitle("")
+                
+                // Delete/Remove this food
+                HStack {
+                    Spacer()
+                    Button() {
+                        alert = true
+                    } label: {
+                        Label("Delete", systemImage: "trash")
+                    }
+                    .padding()
+                    .foregroundColor(Color(red: 0.9686, green: 0.2039, blue: 0.1922).opacity(0.65))
+//                        .background(Color(red: 0.7569, green: 0.898, blue: 1).opacity(0.61))
+                    .background(Color(red: 0.9569, green: 0.4941, blue: 0.4863).opacity(0.50))
+                    .cornerRadius(20)
+                    .confirmationDialog("", isPresented: $alert) {
+                        Button("Confirm", role:  .destructive) {
+                            DataController().deleteDish(dishId: dish.dishId, context: moc)
+                            dismiss()
+                        }
+                    }
+                    Spacer()
+                }
+
                 
             Spacer()
         }

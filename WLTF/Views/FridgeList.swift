@@ -7,18 +7,18 @@
 
 import SwiftUI
 
-struct FridgeList: View {
-    var body: some View {
-        NavigationView {
-            List(foodArr, id: \.name) { food in
-                FoodRow(food: food)
-            }
-        }
-    }
-}
-
-struct FridgeList_Previews: PreviewProvider {
-    static var previews: some View {
-        FridgeList()
-    }
-}
+//struct FridgeList: View {
+//    var body: some View {
+//        NavigationView {
+//            List(foodArr, id: \.name) { food in
+//                FoodRow(food: food)
+//            }
+//        }
+//    }
+//}
+//
+//struct FridgeList_Previews: PreviewProvider {
+//    static var previews: some View {
+//        FridgeList()
+//    }
+//}

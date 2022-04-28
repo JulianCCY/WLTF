@@ -9,7 +9,7 @@ import SwiftUI
 
 struct FoodRow: View {
     
-    var food: FoodStorage
+    var food: FoodStruct
     
     var body: some View {
         VStack {
@@ -27,17 +27,17 @@ struct FoodRow: View {
                     .font(.title)
             }
 //            .padding([.top, .leading, .trailing])
-            Text("\(food.expireDate)")
+            Text("\(food.expiryDate)")
         }
     }
 }
 
-struct FoodRow_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            FoodRow(food: foodArr[0])
-            FoodRow(food: foodArr[1])
-        }
+//struct FoodRow_Previews: PreviewProvider {
+//    static var previews: some View {
+//        Group {
+//            FoodRow(food: foodArr[0])
+//            FoodRow(food: foodArr[1])
+//        }
 //        .previewLayout(.fixed(width: 500, height: 100))
-    }
-}
+//    }
+//}

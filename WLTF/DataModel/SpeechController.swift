@@ -9,7 +9,8 @@ import Foundation
 import Speech
 import SwiftUI
 
-class SpeechManager {
+class SpeechController {
+    
     public var isRecording = false
     
     private var audioEngine: AVAudioEngine!
@@ -18,12 +19,19 @@ class SpeechManager {
     
     private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
     
-    func checkPermissions() {
+    // get the permission from the user
+    func speechRecognitionAuthorization() {
         SFSpeechRecognizer.requestAuthorization{ (authStatus) in
             DispatchQueue.main.async {
                 switch authStatus {
                 case .authorized:
-                    break
+                    print("Accepted")
+                case .notDetermined:
+                    print("Speech recognition is not available at this stage")
+                case .denied:
+                    print("User rejected the permission")
+                case .restricted:
+                    print("User restricted the permission for speech recognition")
                 default:
                     print("Speech recognition is not available")
                 }
@@ -31,7 +39,8 @@ class SpeechManager {
         }
     }
     
-    func start(completion: @escaping (String?) -> Void) {
+    // try to listeh user's voice
+    func listen(completion: @escaping (String?) -> Void) {
         if isRecording {
             stopRecording()
         } else {
@@ -39,6 +48,7 @@ class SpeechManager {
         }
     }
     
+    // try to record user's voice
     func startRecording(completion: @escaping (String?) -> Void) {
         guard let recognizer = SFSpeechRecognizer(), recognizer.isAvailable else {
             print("Speech recognition is not available")
@@ -80,6 +90,7 @@ class SpeechManager {
         
     }
     
+    // stop recording user's voice
     func stopRecording() {
         recognitionRequest?.endAudio()
         recognitionRequest = nil

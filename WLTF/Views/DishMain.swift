@@ -6,8 +6,13 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 struct DishMain: View {
+    
+    @State private var recording = false
+    @ObservedObject private var mic = MicController(numberOfSamples: 30)
+    private var speechManager = SpeechController()
     
     @Environment(\.managedObjectContext) var moc
     @Environment(\.dismiss) var dismiss
@@ -38,18 +43,6 @@ struct DishMain: View {
                     }
                     Spacer()
                 }
-                
-                
-                NavigationLink(destination: SpeechTest()) {
-                    // Navigate to add food screen
-                    Image(systemName: "plus")
-                        .resizable()
-                        .frame(width: 50, height: 50)
-                        .foregroundColor(Color("PrimaryColor"))
-                        .shadow(color: .gray, radius: 0.2, x: 1, y: 1)
-//                                .padding(.trailing)
-                }
-                
                 
 // Horizontal scroll
                 if dishArr.isEmpty {
@@ -104,6 +97,12 @@ struct DishMain: View {
                     Spacer()
                     HStack {
                         Spacer()
+                        Button(action: getSpeech) {
+                            Image(systemName: recording ? "stop.circle.fill" : "waveform.and.mic")
+                                .resizable()
+                                .frame(width: 50, height: 50)
+                                .foregroundColor(Color("PrimaryColor"))
+                        }
                         NavigationLink(destination: DishAdd()) {
                             // Navigate to add food screen
                             Image(systemName: "plus.square.fill")
@@ -143,10 +142,34 @@ struct DishMain: View {
             }
             
         }
-        .onAppear{dishArr = filterArr()}
+        .onAppear{
+            dishArr = filterArr()
+            speechManager.speechRecognitionAuthorization()
+        }
         .navigationTitle("")
         .navigationBarHidden(true)
     }
+    
+    private func getSpeech() {
+        if speechManager.isRecording {
+            self.recording = false
+            mic.stopMonitoring()
+            speechManager.stopRecording()
+        } else {
+            self.recording = true
+            mic.startMonitoring()
+            speechManager.listen{ (speechText) in
+                guard let text = speechText, !text.isEmpty else {
+                    self.recording = false
+                    return
+                }
+                
+                print(text)
+            }
+        }
+        speechManager.isRecording.toggle()
+    }
+    
 }
 
 struct DishMain_Previews: PreviewProvider {

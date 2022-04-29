@@ -20,7 +20,7 @@ struct ClosedFridgeScreen: View {
     @Environment(\.dismiss) var dismiss
     
     @State private var fridgeName: String = ""
-    @State private var closedFridge = true
+    @State private var navigate = false
     @State private var showNote: Bool = false
     @State private var noteType: String = ""
     @State private var noteArr: [FoodStruct] = []
@@ -87,8 +87,12 @@ struct ClosedFridgeScreen: View {
 //                    .navigationBarHidden(true)
 //                Spacer()
 //            }
-                
-                NavigationLink(destination: InsideFridgeScreen()) {
+            
+            NavigationLink(destination: InsideFridgeScreen(), isActive: $navigate) {
+                Button {
+                    playSound()
+                    navigate.toggle()
+                } label: {
                     Image("Closedfridge")
                         .resizable()
                         .frame(maxWidth: .infinity, minHeight: 625)
@@ -115,9 +119,9 @@ struct ClosedFridgeScreen: View {
                                         .fontWeight(.semibold)
                                         .foregroundColor(Color.black)
                                         .padding(.top, 70)
-//                                        .padding(.leading, 20)
+    //                                        .padding(.leading, 20)
                                         .frame(maxWidth: .infinity, alignment: .center)
-//                                        .rotation3DEffect(.degrees(10), axis: (x: 0, y: -9, z: -9))
+    //                                        .rotation3DEffect(.degrees(10), axis: (x: 0, y: -9, z: -9))
                                     
                                     Spacer()
                                 }
@@ -193,14 +197,122 @@ struct ClosedFridgeScreen: View {
                 
                             }
                         )
-//                    Navigationlink
                 }
-                .simultaneousGesture(
-                    TapGesture().onEnded{
-                        if showNote == false {
-                            playSound()
-                        }
-                    })
+            }
+            
+                
+//                NavigationLink(destination: InsideFridgeScreen()) {
+//                    Image("Closedfridge")
+//                        .resizable()
+//                        .frame(maxWidth: .infinity, minHeight: 625)
+//                        .overlay(
+//                            ZStack {
+//
+//                                VStack {
+//                                    HStack{
+//                                        Spacer()
+//                                        NavigationLink(destination: Settings()) {
+//                                            Image(systemName: "questionmark.square.fill")
+//                                                .resizable()
+//                                                .frame(width: 35, height: 35, alignment: .trailing)
+//                                                .foregroundColor(Color("PrimaryColor"))
+//                                                .padding(EdgeInsets(top: 35, leading: 0, bottom: 0, trailing: 10))
+//                                        }
+//                                    }
+//                                    Spacer()
+//                                }
+//
+//                                VStack {
+//                                    Text("\(fridgeName)")
+//                                        .font(.custom("AvenirNextCondensed-Heavy", size: 24))
+//                                        .fontWeight(.semibold)
+//                                        .foregroundColor(Color.black)
+//                                        .padding(.top, 70)
+////                                        .padding(.leading, 20)
+//                                        .frame(maxWidth: .infinity, alignment: .center)
+////                                        .rotation3DEffect(.degrees(10), axis: (x: 0, y: -9, z: -9))
+//
+//                                    Spacer()
+//                                }
+//
+//
+//                                VStack {
+//                                    Spacer()
+//
+//                                        ZStack {
+//                                            Button {
+//                                                showNote.toggle()
+//                                                noteType = "3days"
+//                                                noteArr = expiringFoodArr[2]
+//                                            } label: {
+//                                                Image("Orange note")
+//                                                    .resizable()
+//                                                    .frame(width: 100, height: 100)
+//                                                    .overlay(
+//                                                        Text("\(orangeCount)")
+//                                                            .foregroundColor(Color.black)
+//                                                            .font(.custom("Marker Felt", size: 30))
+//                                                    )
+//                                                    .rotationEffect(.degrees(-15))
+//                                            }
+//                                        }
+//                                        .offset(x: -70, y: -80)
+//                                        .opacity(orange ? 1 : 0)
+//                                        .allowsHitTesting(orange)
+//
+//                                        ZStack {
+//                                            Button {
+//                                                showNote.toggle()
+//                                                noteType = "1day"
+//                                                noteArr = expiringFoodArr[1]
+//                                            } label: {
+//                                                Image("Red note")
+//                                                    .resizable()
+//                                                    .frame(width: 100, height: 100)
+//                                                    .overlay(
+//                                                        Text("\(redCount)")
+//                                                            .foregroundColor(Color.black)
+//                                                            .font(.custom("Marker Felt", size: 30))
+//                                                    )
+//                                                    .rotationEffect(.degrees(20))
+//                                            }
+//                                        }
+//                                        .offset(x: 80, y: -140)
+//                                        .opacity(red ? 1 : 0)
+//                                        .allowsHitTesting(red)
+//
+//                                        ZStack {
+//                                            Button {
+//                                                showNote.toggle()
+//                                                noteType = "expired"
+//                                                noteArr = expiringFoodArr[0]
+//                                            } label: {
+//                                                Image("Purple note")
+//                                                    .resizable()
+//                                                    .frame(width: 100, height: 100)
+//                                                    .overlay(
+//                                                        Text("\(purpleCount)")
+//                                                            .foregroundColor(Color.black)
+//                                                            .font(.custom("Marker Felt", size: 30))
+//                                                    )
+//                                                    .rotationEffect(.degrees(-5))
+//                                            }
+//                                        }
+//                                        .offset(x: -30, y: -135)
+//                                        .opacity(purple ? 1 : 0)
+//                                        .allowsHitTesting(purple)
+//                                    }
+//
+//
+//                            }
+//                        )
+//                }//                    Navigationlink
+//                .simultaneousGesture(
+//                    TapGesture().onEnded{
+//                        if showNote == false {
+//                            playSound()
+//                        }
+//                    })
                 .navigationTitle("")
                 .navigationBarHidden(true)
                 .onAppear{

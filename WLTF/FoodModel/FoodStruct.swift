@@ -15,6 +15,7 @@ struct FoodStruct: Hashable, Codable {
     var expiryDate: Date
     var amount: Double
     var unit: String
+    var remaining: Double
 }
 
 //struct FoodStruct: Hashable {

@@ -18,9 +18,7 @@ struct DishDetail: View {
     @State private var alertMessage = ""
     
     private func check(name: String) -> Bool {
-        if DataController().checkIfExist(foodName: name) {
-            return true
-        } else { return false }
+        return DataController().checkIfExist(foodName: name) ? true : false
     }
     
     var body: some View {

@@ -25,7 +25,7 @@ struct ClosedFridgeScreen: View {
     @State private var noteType: String = ""
     @State private var noteArr: [FoodStruct] = []
     
-//    Because of swiftui cant handle if else conditional rendering, we use stupid solutions "index out of range" swift said
+    // separate 3 color of sticky notes by expires in 1 days, 3 days and expired
     @State private var orange: Bool = false
     @State private var red: Bool = false
     @State private var purple: Bool = false
@@ -39,7 +39,7 @@ struct ClosedFridgeScreen: View {
 //     this funcation transform multi d NSObject to multi d FoodStruct object
     private func filterArr() -> [[FoodStruct]] {
         expiringFoodArr = []
-        expiringFoodArr = DataController().fetchGoingToBeExpired().map{$0.map{FoodStruct(foodId: $0.id! ,name: $0.name!, category:$0.category!, entryDate:$0.entryDate!, expiryDate: $0.expiryDate!, amount: $0.amount, unit: $0.unit!)}}
+        expiringFoodArr = DataController().fetchGoingToBeExpired().map{$0.map{FoodStruct(foodId: $0.id! ,name: $0.name!, category:$0.category!, entryDate:$0.entryDate!, expiryDate: $0.expiryDate!, amount: $0.amount, unit: $0.unit!, remaining: $0.remaining)}}
         (purple, purpleCount) = (expiringFoodArr[0].isEmpty ? false : true, expiringFoodArr[0].count)
         (red, redCount) = (expiringFoodArr[1].isEmpty ? false : true, expiringFoodArr[1].count)
         (orange, orangeCount) = (expiringFoodArr[2].isEmpty ? false : true, expiringFoodArr[2].count)
@@ -202,6 +202,9 @@ struct ClosedFridgeScreen: View {
                 .onAppear{
                     expiringFoodArr = filterArr()
                     getName()
+//                    let synthesizer = AVSpeechSynthesizer()
+//                    let utterance = AVSpeechUtterance(string: "Hello")
+//                    synthesizer.speak(utterance)
                 }
                 .onTapGesture {
                     openDoorSound()

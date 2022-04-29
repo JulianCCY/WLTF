@@ -50,6 +50,7 @@ struct NotesUI: View {
                                             show.toggle()
                                         } label: {
                                             Label("Back", systemImage: "arrow.uturn.left")
+                                                .font(.custom("Marker Felt", size: 20))
                                                 .foregroundColor(Color.black)
                                         }
                                         .padding(EdgeInsets(top: 12, leading: 30, bottom: 0, trailing: 0))
@@ -68,10 +69,13 @@ struct NotesUI: View {
                                                 .frame(width: 30)
                                             VStack {
                                                 Text("\(food.name)")
+                                                    .font(.custom("Bradley Hand", size: 20))
                                                 Text("\(formattingForMemo(currentDate: food.expiryDate))")
+                                                    .font(.custom("Bradley Hand", size: 20))
                                             }
                                             Spacer()
                                             Text("\(Int(food.amount)) \(food.unit)")
+                                                .font(.custom("Bradley Hand", size: 20))
                                         }
                                     }
                                     .listRowBackground(Color.clear)

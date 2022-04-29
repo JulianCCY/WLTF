@@ -178,6 +178,7 @@
 		6A1830AE27FC4696005FF721 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				843C853E281998CD001D5AF6 /* LaunchScreen.storyboard */,
 				846A8060281BFC6D00589663 /* SpeechTest.swift */,
 				6A1AAAE327F920280084D06D /* ContentView.swift */,
 				6ADB2E8F27FCA32900A8E475 /* ClosedFridgeScreen.swift */,
@@ -203,7 +204,6 @@
 				6A0CEAB1280DB5120086938B /* TabViews.swift */,
 				8403E031280F07FC00683C76 /* AddToBuyScreen.swift */,
 				6A0CEAB82811FB9B0086938B /* EditAlert.swift */,
-				843C853E281998CD001D5AF6 /* LaunchScreen.storyboard */,
 			);
 			path = Views;
 			sourceTree = "<group>";

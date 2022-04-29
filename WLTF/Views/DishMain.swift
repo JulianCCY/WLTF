@@ -87,15 +87,15 @@ struct DishMain: View {
                         Circle()
                             .fill(Color("Green"))
                             .frame(width: 16, height: 16)
-                        Text("Ample ingredient")
-                            .font(.system(size: 14))
+                        Text("Adequate ingredient")
+                            .font(.custom("Helvetica", size: 14))
                     }
                     HStack() {
                         Circle()
                             .fill(Color("Red"))
                             .frame(width: 16, height: 16)
                         Text("Inadequate ingredient")
-                            .font(.system(size: 14))
+                            .font(.custom("Helvetica", size: 14))
                     }
                 }
                 .padding(.top, 30)

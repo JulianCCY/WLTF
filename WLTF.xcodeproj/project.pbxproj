@@ -47,6 +47,9 @@
 		8403E032280F07FC00683C76 /* AddToBuyScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8403E031280F07FC00683C76 /* AddToBuyScreen.swift */; };
 		8403E034280F16DE00683C76 /* ShoppingStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8403E033280F16DE00683C76 /* ShoppingStruct.swift */; };
 		843C853F281998CD001D5AF6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 843C853E281998CD001D5AF6 /* LaunchScreen.storyboard */; };
+		846A8061281BFC6D00589663 /* SpeechTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846A8060281BFC6D00589663 /* SpeechTest.swift */; };
+		846A8063281BFD0B00589663 /* MicManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846A8062281BFD0B00589663 /* MicManager.swift */; };
+		846A8065281C078E00589663 /* SpeechManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846A8064281C078E00589663 /* SpeechManager.swift */; };
 		846BB7D52816071A004864AE /* DishStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846BB7D42816071A004864AE /* DishStruct.swift */; };
 		846BB7DA28173DCE004864AE /* open-fridge.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 846BB7D828173DCE004864AE /* open-fridge.mp3 */; };
 		846BB7DB28173DCE004864AE /* close-fridge.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 846BB7D928173DCE004864AE /* close-fridge.mp3 */; };
@@ -120,6 +123,9 @@
 		8403E031280F07FC00683C76 /* AddToBuyScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToBuyScreen.swift; sourceTree = "<group>"; };
 		8403E033280F16DE00683C76 /* ShoppingStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingStruct.swift; sourceTree = "<group>"; };
 		843C853E281998CD001D5AF6 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		846A8060281BFC6D00589663 /* SpeechTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechTest.swift; sourceTree = "<group>"; };
+		846A8062281BFD0B00589663 /* MicManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicManager.swift; sourceTree = "<group>"; };
+		846A8064281C078E00589663 /* SpeechManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechManager.swift; sourceTree = "<group>"; };
 		846BB7D42816071A004864AE /* DishStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishStruct.swift; sourceTree = "<group>"; };
 		846BB7D828173DCE004864AE /* open-fridge.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "open-fridge.mp3"; sourceTree = "<group>"; };
 		846BB7D928173DCE004864AE /* close-fridge.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "close-fridge.mp3"; sourceTree = "<group>"; };
@@ -172,6 +178,7 @@
 		6A1830AE27FC4696005FF721 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				846A8060281BFC6D00589663 /* SpeechTest.swift */,
 				6A1AAAE327F920280084D06D /* ContentView.swift */,
 				6ADB2E8F27FCA32900A8E475 /* ClosedFridgeScreen.swift */,
 				6A0CEABC2815B74B0086938B /* Settings.swift */,
@@ -302,6 +309,8 @@
 				84D5EBEB280380F100B15054 /* TImeController.swift */,
 				848E372E281424D4004BF416 /* MapController.swift */,
 				6AA5A15A2819DD9300C2E7D8 /* MapViewModel.swift */,
+				846A8062281BFD0B00589663 /* MicManager.swift */,
+				846A8064281C078E00589663 /* SpeechManager.swift */,
 			);
 			path = DataModel;
 			sourceTree = "<group>";
@@ -449,6 +458,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6A0CEAC32816DEFA0086938B /* DishCard.swift in Sources */,
+				846A8065281C078E00589663 /* SpeechManager.swift in Sources */,
 				6A0CEABD2815B74B0086938B /* Settings.swift in Sources */,
 				6ACEBD642805916D006C93A8 /* AddListItem.swift in Sources */,
 				6AB93E6327FC88A6003D601F /* FoodDetail.swift in Sources */,
@@ -459,6 +469,7 @@
 				6ADB2E9027FCA32900A8E475 /* ClosedFridgeScreen.swift in Sources */,
 				6ADB2E9627FDE01700A8E475 /* AddFoodScreen.swift in Sources */,
 				6A0CEAB0280DB0CC0086938B /* DishMain.swift in Sources */,
+				846A8063281BFD0B00589663 /* MicManager.swift in Sources */,
 				6AA5A153281820E000C2E7D8 /* DishDetail.swift in Sources */,
 				848E372F281424D4004BF416 /* MapController.swift in Sources */,
 				6ADB2E9427FDDD9500A8E475 /* CircleImage.swift in Sources */,
@@ -467,6 +478,7 @@
 				84D5EBEA2803808100B15054 /* DataController.swift in Sources */,
 				6ADB2E9227FDDCCC00A8E475 /* InsideFridgeScreen.swift in Sources */,
 				8403E032280F07FC00683C76 /* AddToBuyScreen.swift in Sources */,
+				846A8061281BFC6D00589663 /* SpeechTest.swift in Sources */,
 				8403E034280F16DE00683C76 /* ShoppingStruct.swift in Sources */,
 				6A1AAAEB27F9202A0084D06D /* Persistence.swift in Sources */,
 				6A0CEAB2280DB5120086938B /* TabViews.swift in Sources */,
@@ -651,6 +663,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WLTF/Info.plist;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app need your location to let you see your location :)";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app need your voice to transform speech to text";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "This app need your voice to transform speech to text";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -685,6 +699,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WLTF/Info.plist;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app need your location to let you see your location :)";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app need your voice to transform speech to text";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "This app need your voice to transform speech to text";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;

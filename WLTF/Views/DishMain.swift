@@ -39,6 +39,18 @@ struct DishMain: View {
                     Spacer()
                 }
                 
+                
+                NavigationLink(destination: SpeechTest()) {
+                    // Navigate to add food screen
+                    Image(systemName: "plus")
+                        .resizable()
+                        .frame(width: 50, height: 50)
+                        .foregroundColor(Color("PrimaryColor"))
+                        .shadow(color: .gray, radius: 0.2, x: 1, y: 1)
+//                                .padding(.trailing)
+                }
+                
+                
 // Horizontal scroll
                 if dishArr.isEmpty {
                     Text("You do not have any dishes yet!")
@@ -98,7 +110,7 @@ struct DishMain: View {
                                 .resizable()
                                 .frame(width: 50, height: 50)
                                 .foregroundColor(Color("PrimaryColor"))
-                                .shadow(color: .gray, radius: 0.2, x: 1, y: 1)
+//                                .shadow(color: .gray, radius: 0.2, x: 1, y: 1)
 //                                .padding(.trailing)
                         }
                     }

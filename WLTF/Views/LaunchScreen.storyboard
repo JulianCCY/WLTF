@@ -27,16 +27,14 @@
                                 <rect key="frame" x="0.0" y="0.0" width="453" height="927"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="🇭🇰Made in Hong Kong" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5PE-of-ukh">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🇭🇰Made in Hong Kong" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5PE-of-ukh">
                                 <rect key="frame" x="121" y="841" width="178" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="WLTF" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ms1-Z6-2NF">
-                                <rect key="frame" x="78" y="336" width="258" height="115"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="WLTF" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ms1-Z6-2NF">
+                                <rect key="frame" x="78" y="341" width="258" height="115"/>
                                 <fontDescription key="fontDescription" type="system" weight="black" pointSize="96"/>
                                 <color key="textColor" red="0.17889802399787216" green="0.2646267091300073" blue="0.43458038015463918" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -44,6 +42,12 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>
                         <color key="backgroundColor" name="NormalItem"/>
+                        <constraints>
+                            <constraint firstItem="5PE-of-ukh" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" constant="121" id="7EI-9W-drr"/>
+                            <constraint firstItem="Ms1-Z6-2NF" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="CbH-Z6-8ms"/>
+                            <constraint firstItem="5PE-of-ukh" firstAttribute="bottom" secondItem="Bcu-3y-fUS" secondAttribute="bottom" id="S10-yh-cye"/>
+                            <constraint firstItem="Ms1-Z6-2NF" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="fxS-ob-WcV"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>

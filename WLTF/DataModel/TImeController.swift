@@ -13,13 +13,19 @@ func calcExpiryText(date: Date) -> String {
     let minutes = Int(date.timeIntervalSinceNow)/60
     let hours = minutes/60
     let days = hours/24
+    let months = days/30
+    let years = months/12
     
     // if expired
     if days <= 0 && hours <= 0 { return "Expired" }
-    // if less 24 hours
+    // if less than a day
     else if hours <= 24 { return "\(hours) hour(s) left" }
-    // if more than a day
-    else { return "\(days) day(s) left" }
+    // if less than a month
+    else if days <= 31 { return "Expires in \(days) day(s)"}
+    // if less than a year
+    else if months <= 12 { return "Expires in \(months) month(s)"}
+    // more than a year
+    else { return "Expires in \(years) year(s)"}
 }
 
 func calcExpiryColor(date: Date) -> String {
@@ -44,10 +50,24 @@ func formatting(currentDate: Date) -> String {
     return formattedDate
 }
 
+// formatting for memo
+func formattingForMemo(currentDate: Date) -> String {
+    let date = currentDate
+    let formattedDate = date.getFormattedDate(format: "MM/dd/yyyy") // Set output format
+    return formattedDate
+}
+
 extension Date {
    func getFormattedDate(format: String) -> String {
         let dateformat = DateFormatter()
         dateformat.dateFormat = format
         return dateformat.string(from: self)
     }
+}
+
+func checkExpired(expiryDate: Date) -> Bool {
+    let minutes = Int(expiryDate.timeIntervalSinceNow)/60
+    let hours = minutes/60
+    let days = hours/24
+    return days <= 0 && hours <= 0 ? true : false
 }

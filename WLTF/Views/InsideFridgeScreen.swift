@@ -8,186 +8,162 @@
 import SwiftUI
 import CoreData
 import Foundation
+import AVFoundation
 
 class GlobalArr: ObservableObject {
     @Published var addFoodArr: [FoodStruct] = []
-//    @Published var passingArr: [FoodStruct] = []
+    @Published var addToBuyArr: [ShoppingStruct] = []
 }
 
 struct InsideFridgeScreen: View {
 
     // Use Core Data in this file
     @Environment(\.managedObjectContext) var moc
-//    @FetchRequest(sortDescriptors: [SortDescriptor(\.expiryDate)]) var food: FetchedResults<Food>
-    @FetchRequest(sortDescriptors: [SortDescriptor(\.expiryDate)]) var allFood: FetchedResults<Food>
+    @Environment(\.dismiss) var dismiss
+//    @FetchRequest(sortDescriptors: [SortDescriptor(\.expiryDate)]) var allFood: FetchedResults<Food>
     
 //    @StateObject var globalArr = GlobalArr()
     @State var foodArr: [FoodStruct] = []
     
     @State private var alert = false
     @State private var alertMessage = ""
-
-    private func filterArr() -> [FoodStruct] {
-        foodArr = []
-        allFood.forEach { i in
-            foodArr.append(FoodStruct(foodId: i.id! ,name: i.name!, category: i.category!, entryDate: i.entryDate!, expiryDate: i.expiryDate!, amount: i.amount, unit: i.unit!))
+    
+    @State private var searchText = ""
+    
+    var searchResult: [FoodStruct] {
+        if searchText.isEmpty {
+            return foodArr
+        } else {
+            return foodArr.filter{ $0.name.contains(searchText)}
         }
-        print(foodArr)
-        return foodArr
     }
     
-//    var categoryArr = Array(Set(globalArr.foodArr.map{$0.category}))
+    init() {
+        UITableView.appearance().backgroundColor = .white
+    }
+    
+    func playSound() {
+        var filePath: String?
+        filePath = Bundle.main.path(forResource: "close-fridge", ofType: "mp3") 
+        let fileURL = URL(fileURLWithPath: filePath!)
+        var soundID:SystemSoundID = 0
+        AudioServicesCreateSystemSoundID(fileURL as CFURL, &soundID)
+        AudioServicesPlaySystemSound(soundID)
+    }
+    
+//    override func viewWillDisappear(_ animated: Bool) {
+//        super.viewWillDisappear(animated)
 //
-//    @State private var showingAddView = false
-
-//    var categoryArr = Array(Set(globalArr.foodArr.map{$0.category}))
+//        if self.isMovingFromParent {
+//            playSound()
+//        }
+//    }
+    // fetching data from the coredata
+    private func filterArr() -> [FoodStruct] {
+        foodArr = []
+        // finished expiry date sorting in DataController
+        DataController().fetchFoodData().forEach { i in
+            foodArr.append(FoodStruct(foodId: i.id! ,name: i.name!, category: i.category!, entryDate: i.entryDate!, expiryDate: i.expiryDate!, amount: i.amount, unit: i.unit!, remaining: i.remaining))
+        }
+        return foodArr
+    }
 
     let columns = [
             GridItem(.adaptive(minimum: 80))
         ]
     
     var body: some View {
-//        NavigationView {
-//                VStack(alignment: .leading) {
-//                    Text("\(Int(totalNumOfFood())) item(s)")
-//                        .foregroundColor(.gray)
-//                        .padding(.horizontal)
-//                    List {
-//                        ForEach(filterCategory(arr: food.compactMap{$0.category}), id: \.self) { f in
-//                            VStack {
-//                                Text("\(f)")
-//                                    .font(.headline)
-//                            }
-//                        }
-//                    }
-//                    .onAppear{
-//                        foodArr = filterArr()
-//                    }
-//
-//                    List {
-//                        ForEach(foodArr, id: \.self) { item in
-//                            HStack {
-//                                VStack(alignment: .leading, spacing: 6) {
-//                                    Text(item.name)
-//
-//                                    Text(item.category) +
-//                                    Text(" x \(Int(item.amount)) ") +
-//                                    Text(item.unit)
-//                                    Text(item.entryDate)
-//                                }
-//                                Spacer()
-//                                Text(calcExpiry(date: item.expireDate))
-//                                    .foregroundColor(.brown)
-//                            }
-//                        }
-//                    }
-//                }
-//                .navigationTitle("All Food")
-//                .toolbar{
-//                    ToolbarItem(placement: .navigationBarTrailing) {
-//                        HStack {
-//                            Button {
-//                                showingAddView.toggle()
-//                            } label: {
-//                                Label("Add Food", systemImage: "plus.circle")
-//                            }
-//                            Button {
-//                                DataController().deleteAllFood(context: moc)
-//                            } label: {
-//                                Label("Add Food", systemImage: "trash.circle")
-//                            }
-//                        }
-//                    }
-//                }
-//                .sheet(isPresented: $showingAddView) {
-//                    AddFoodScreen()
-//                }
-//            }
-//            .navigationViewStyle(.stack)
-//    }
-    
-    // count total num of food stored
-//    private func totalNumOfFood() -> Int {
-//            return food.count
-//    }
-    
-    // delete the food and save afer delete
-//    private func deleteFood(offsets: IndexSet) {
-//        withAnimation {
-//            offsets.map {food[$0]}.forEach(moc.delete)
-//            DataController().save(context: moc)
-//        }
-//    }
-    
-//    private func filterCategory(arr: [String]) -> [String] {
-//        if arr.isEmpty == true { return [] }
-//        var dict = Set<String>()
-//        var result: [String] = []
-//        
-//        for i in arr {
-//            if dict.contains(i) == false {
-//                dict.insert(i)
-//                result.append(i)
-//            }
-//        }
-//        return result
-//    }
-        VStack {
-            NavigationLink(destination: AddFoodScreen()) {
-                // Navigate to add food screen
-                Label("Add food into fridge", systemImage: "plus")
-            }
-//            List(globalArr.foodArr, id: \.self) { food in
-//                NavigationLink {
-//                    FoodDetail()
-//                } label: {
-//                    FoodRow(food: food)
-//                }
-//            }
-            List(Array(Set(foodArr.map{$0.category})), id: \.self) { category in
-                VStack {
-                    Text("\(category)")
-                        .font(.headline)
-                    ScrollView {
-                        LazyVGrid(columns: columns, spacing: 20) {
-                            ForEach(foodArr.filter{$0.category == category}, id: \.self) { food in
-                                NavigationLink {
-                                    FoodDetail(food: food)
+        ZStack {
+            VStack {
+                //ghost of codewar again
+                // we can sort category by expiryDate and sort the food in each category by expiryDate
+                // Using NSOrderedSet, the case of changing element position won't happen, which is better than using Set
+                List(NSOrderedSet(array: searchResult.map{$0.category}).map({$0 as! String}), id: \.self) { category in
+                    VStack {
+                        Text("\(category)")
+                            .font(.custom("Helvetica", size: 20))
+                            .fontWeight(.semibold)
+                        ScrollView {
+                            LazyVGrid(columns: columns, spacing: 20) {
+                                ForEach(searchResult.filter{$0.category == category}, id: \.self) { food in
+                                    NavigationLink {
+                                        FoodDetail(food: food)
+                                    }
+                                    label: {
+                                        FoodGrid(food: food)
+                                    }
+                                    .buttonStyle(PlainButtonStyle())
                                 }
-                                label: {
-                                    FoodGrid(food: food)
-                                }
-                                .buttonStyle(PlainButtonStyle())
                             }
+                            .padding(.horizontal)
                         }
-                        .padding(.horizontal)
+                        .frame(height: 110)
                     }
-                    .frame(maxHeight: 200)
+                    .padding([.top, .bottom])
+                    .listRowSeparator(.hidden)
+                    .frame(maxWidth: .infinity)
+                    .background(
+                        Rectangle()
+                            .fill(Color.white)
+                            .cornerRadius(10)
+                            .shadow(color: Color.gray.opacity(0.5), radius: 2, x: 0, y: 0)
+                    )
+                }
+                .listStyle(InsetListStyle())
+                .searchable(text: $searchText)
+                // Screen Header / title
+                .navigationBarTitle("All food")
+                .navigationBarBackButtonHidden(true)
+                .onAppear{
+                    foodArr = filterArr()
                 }
             }
-            // Screen Header / title
-            .navigationBarTitle("All food")
-            .onAppear{
-                foodArr = filterArr()
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button {
+                        playSound()
+                        dismiss()
+                    } label: {
+                        Image(systemName: "chevron.backward")
+                            .font(Font.system(size: 20, weight: .medium))
+                    }
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    // Top Right delete button
+                    Button {
+                        alert = true
+                    } label: {
+                        Label("Delete", systemImage: "trash")
+                    }
+                    .alert("This action will empty your fridge!", isPresented: $alert) {
+                        Button("Crystal clear", role: .destructive) {
+                            DataController().deleteAllFood(context: moc)
+                            moc.refreshAllObjects()
+                            foodArr = []
+                        }
+                        Button("Cancel", role: .cancel) { }
+                    }
+                    .disabled(foodArr.isEmpty)
+                }
+            }
+
+            VStack {
+                Spacer()
+                HStack {
+                    Spacer()
+                    NavigationLink(destination: AddFoodScreen()) {
+                        // Navigate to add food screen
+                        Image(systemName: "plus.square.fill")
+                            .resizable()
+                            .frame(width: 50, height: 50)
+                            .foregroundColor(Color("PrimaryColor"))
+                            .shadow(color: .gray, radius: 0.2, x: 1, y: 1)
+                            .padding(.trailing)
+                    }
+                }
             }
         }
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                // Top Right delete button
-                Button {
-                    alert = true
-                } label: {
-                    Label("Delete", systemImage: "trash")
-                }
-                .alert("This action will empty your fridge!", isPresented: $alert) {
-//                    Alert(title: Text("Warning"), message: Text("Are you sure you want to empty your fridge?"))
-                    Button("Crystal clear", role: .destructive) {
-                        DataController().deleteAllFood(context: moc)
-                    }
-                    Button("Cancel", role: .cancel) { }
-                }
-            }
-        }
+        .accentColor(Color("PrimaryColor"))
     }
 }
 

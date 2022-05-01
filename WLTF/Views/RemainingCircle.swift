@@ -4,6 +4,8 @@
 //
 //  Created by iosdev on 27.4.2022.
 //
+// This is the ramainingcircle wrapping the food image in FoodDetail screen
+// Mostly from online resource
 
 import SwiftUI
 
@@ -37,10 +39,7 @@ struct RemainingCircle: View {
          maxValue: Double,
          style: Stroke = .line,
          backgroundEnabled: Bool = true,
-         backgroundColor: Color = Color(UIColor(red: 245/255,
-                                                green: 245/255,
-                                                blue: 245/255,
-                                                alpha: 1.0)),
+         backgroundColor: Color = Color("Fridge"),
          foregroundColor: Color = Color.black,
          lineWidth: CGFloat = 10) {
         self.value = value
@@ -65,8 +64,6 @@ struct RemainingCircle: View {
                 .stroke(style: self.style.strokeStyle(lineWidth: self.lineWidth))
                 .foregroundColor(self.foregroundColor)
                 .rotationEffect(Angle(degrees: -90))
-//                .animation(.easeIn)
-//                .animation(.easeInOut, value: show)
         }
     }
 }

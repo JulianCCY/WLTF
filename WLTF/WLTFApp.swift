@@ -17,6 +17,7 @@ struct WLTFApp: App {
         WindowGroup {
             ContentView ()
                 .environment(\.managedObjectContext, datacontroller.container.viewContext)
+//                .environment(\.locale, .init(identifier: "fi"))
         }
     }
 }

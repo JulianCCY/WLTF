@@ -4,6 +4,10 @@
 //
 //  Created by iosdev on 5.4.2022.
 //
+// This is the food detail screen which shows the user about their food
+// Showing name, category, amount, date of entry, and date of expiry
+// User can also delete the selected food here
+// User can also add selected food to shopping list in case they want some to remind themselves to buy
 
 import SwiftUI
 import SimpleToast
@@ -11,18 +15,17 @@ import SimpleToast
 
 struct FoodDetail: View {
     
-//    @StateObject var globalArr = GlobalArr()
-    
+//    coredata
     @Environment(\.managedObjectContext) var moc
     @Environment(\.dismiss) var dismiss
     
-//    @FetchRequest(sortDescriptors: [SortDescriptor(\.expiryDate)]) var allFood: FetchedResults<Food>
-    
     let food: FoodStruct
     
+//    for the remaining circle around the food image
     @State private var remaining: Double = 0
     private let max: Double = 100
     
+//    alert and toast
     @State private var alert = false
     @State private var alertMessage = ""
     @State private var showToast = false
@@ -36,91 +39,99 @@ struct FoodDetail: View {
     )
     
     var body: some View {
-        VStack {
-            Text("\(food.name)")
-                .font(.largeTitle)
-                .bold()
-            ZStack {
-//                Circle()
-//                    .strokeBorder(Color.black,lineWidth: 5)
-//                    .background(Circle().foregroundColor(Color("\(FoodImgFunc.selectColor(food.expiryDate))")))
-//                    .frame(width: 190, height: 190)
-//                $remaining.wrappedValue
-                if remaining >= 70 {
-                    RemainingCircle(value: remaining,
-                                    maxValue: self.max,
-                                    style: .line,
-                                    foregroundColor: Color("Green"),
-                                    lineWidth: 8)
-                                .frame(height: 190)
-                    Image("\(FoodImgFunc.selectImg(food.name, food.category))")
-                        .resizable()
-                        .frame(width: 140, height: 140)
-                } else if remaining >= 30 {
-                    RemainingCircle(value: remaining,
-                                    maxValue: self.max,
-                                    style: .line,
-                                    foregroundColor: .yellow,
-                                    lineWidth: 8)
-                                .frame(height: 190)
-                    Image("\(FoodImgFunc.selectImg(food.name, food.category))")
-                        .resizable()
-                        .frame(width: 140, height: 140)
-                } else {
-                    RemainingCircle(value: remaining,
-                                    maxValue: self.max,
-                                    style: .line,
-                                    foregroundColor: .red,
-                                    lineWidth: 8)
-                                .frame(height: 190)
-                    Image("\(FoodImgFunc.selectImg(food.name, food.category))")
-                        .resizable()
-                        .frame(width: 140, height: 140)
-                }
-                
-            }
-//            .offset(y: 50)
-            .padding(.bottom, 20)
+        ZStack {
             
-            VStack {
-                Slider(value: $remaining, in: 0...100, step: 1)
-                    .disabled(checkExpired(expiryDate: food.expiryDate) == true)
-                //when the food is expired, slider will not be working
-                    .accentColor(Color(red: 0.7569, green: 0.898, blue: 1).opacity(0.61))
-                Text("\(Int(remaining)) % remaining")
-                    .foregroundColor(Color(.systemGray))
-            }
-            .padding([.leading, .trailing], 50)
-
+            Color("TertiaryColor")
+                .ignoresSafeArea()
+            
             VStack(alignment: .leading) {
-                Text("Amount")
-                    .font(.title)
-                Text("\(Int(food.amount)) \(food.unit)")
+                HStack {
+                    // food image wrapped with remaining circle status bar
+                    ZStack {
+                        if remaining >= 70 {
+                            RemainingCircle(value: remaining,
+                                            maxValue: self.max,
+                                            style: .line,
+                                            foregroundColor: Color("Green"),
+                                            lineWidth: 8)
+                                        .frame(height: 150)
+                            Image("\(FoodImgFunc.selectImg(food.name, food.category))")
+                                .resizable()
+                                .frame(width: 100, height: 100)
+                        } else if remaining >= 30 {
+                            RemainingCircle(value: remaining,
+                                            maxValue: self.max,
+                                            style: .line,
+                                            foregroundColor: .yellow,
+                                            lineWidth: 8)
+                                        .frame(height: 150)
+                            Image("\(FoodImgFunc.selectImg(food.name, food.category))")
+                                .resizable()
+                                .frame(width: 100, height: 100)
+                        } else {
+                            RemainingCircle(value: remaining,
+                                            maxValue: self.max,
+                                            style: .line,
+                                            foregroundColor: .red,
+                                            lineWidth: 8)
+                                        .frame(height: 150)
+                            Image("\(FoodImgFunc.selectImg(food.name, food.category))")
+                                .resizable()
+                                .frame(width: 100, height: 100)
+                        }
+                    } //food image zstack
                     
-                Divider()
-                
-                Group {
-                    Text("Entry date")
+                    
+                    //food name and amount
+                    VStack(alignment: .leading) {
+                        Text("\(food.name)")
+                            .font(.largeTitle)
+                            .bold()
+                            .padding(.bottom, 1)
+                        Text("Amount")
                         .font(.title2)
-                        .fontWeight(.medium)
-                        .padding(.bottom, 1)
-                    Text("\(food.entryDate)")
-                        .padding(.bottom)
+                            .fontWeight(.medium)
+                        Text("\(Int(food.amount)) \(food.unit)")
+                    }// foodname vstack
+                    .padding(.trailing, 50)
+                } // hstack
+                
+//                slider
+                VStack {
+                    Slider(value: $remaining, in: 0...100, step: 1)
+                        .disabled(checkExpired(expiryDate: food.expiryDate) == true)
+                    //when the food is expired, slider will not be working
+                        .accentColor(Color("BackgroundColor"))
+                    Text("\(Int(remaining)) % remaining")
+                        .foregroundColor(Color(.systemGray))
                 }
+                .padding([.leading, .trailing], 40)
+                .padding([.top, .bottom], 50)
                 
-                Group {
-                    Text("Expiration date")
-                        .font(.title2)
-                        .fontWeight(.medium)
-                        .padding(.bottom, 1)
-                    VStack(alignment: .leading){
-                        Text("\(formatting(currentDate: food.expiryDate))")
-                        Text(calcExpiryText(date: food.expiryDate))
-//                            .padding(.bottom, 1)
+//                dates display
+                VStack(alignment: .leading) {
+                    Group {
+                        Text("Entry date")
+                            .font(.title2)
+                            .fontWeight(.medium)
+                            .padding(.bottom, 0.2)
+                        Text("\(food.entryDate)")
+                            .padding(.bottom)
                     }
-                    .padding(.bottom)
-                    
-                }
+
+                    Group {
+                        Text("Expiration date")
+                            .font(.title2)
+                            .fontWeight(.medium)
+                            .padding(.bottom, 0.2)
+                        VStack(alignment: .leading){
+                            Text("\(formatting(currentDate: food.expiryDate))")
+                            Text(calcExpiryText(date: food.expiryDate))
+                        }
+                        .padding(.bottom)
+                    }
+                }// date vstack
+                .padding([.leading, .trailing], 50)
                 
 //                Spacer()
 //                // Delete/Remove this food
@@ -165,14 +176,15 @@ struct FoodDetail: View {
 //                    }
 //                    Spacer()
                 Spacer()
-                // Delete/Remove this food
+                
+//                consume food button
                 HStack {
                     Spacer()
                     if checkExpired(expiryDate: food.expiryDate) == false && remaining > 0{
                         Button() {
                             alert = true
                         } label: {
-                            
+
                             Label("Consumed", systemImage: "fork.knife")
                         }
                         .padding()
@@ -200,26 +212,11 @@ struct FoodDetail: View {
                         .cornerRadius(20)
                     }
                     Spacer()
-
-                }
+                }// button hstack
+                .padding(.bottom, 20)
                 
-                
-            }
-            .padding()
-            .navigationBarTitle("")
-            .toolbar{
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    // Top Right delete button
-                    Button {
-                        showToast.toggle()
-                        DataController().fromDetailsAddToBuy(name: food.name, context: moc)
-                    } label: {
-                        Label("Add to cart", systemImage: "cart.badge.plus")
-                    }
-                }
-            }
-        Spacer()
-        }
+            }// main vstack
+        } // big zstack
         .accentColor(Color("PrimaryColor"))
         .onAppear{remaining = food.remaining}
         .simpleToast(isPresented: $showToast, options: toastOptions, onDismiss: {}) {
@@ -232,15 +229,8 @@ struct FoodDetail: View {
             .foregroundColor(.black)
             .cornerRadius(5)
             .offset(y: -92)
-//            .edgesIgnoringSafeArea(.top)
         }
 
     }
 }
 
-//struct FoodDetail_Previews: PreviewProvider {
-//    static var previews: some View {
-////        FoodDetail()
-////        FoodDetail(food: globalArr.foodArr[0])
-//    }
-//}

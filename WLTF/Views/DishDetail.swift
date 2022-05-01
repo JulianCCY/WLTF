@@ -23,32 +23,39 @@ struct DishDetail: View {
     
     var body: some View {
         
-            VStack {
-                Text("\(dish.dishName)")
-                    .font(.largeTitle)
-                    .bold()
-                ZStack {
-                    Circle()
-                        .strokeBorder(Color.black,lineWidth: 5)
-                        .background(Circle().foregroundColor(Color("BackgroundColor")))
-                        .frame(width: 190, height: 190)
-                    Image("\(dish.dishImg)")
-                        .resizable()
-                        .frame(width: 140, height: 140)
-                }
-    //            .offset(y: 50)
-                .padding(.bottom, 20)
+        ZStack {
+            
+            Color("TertiaryColor")
+                .ignoresSafeArea()
+            
+            VStack(alignment: .leading) {
                 
-//                ScrollView {
-                    HStack {
-                        Text("Portion: ")
-                            .fontWeight(.medium)
-    //                        .font(.title)
-    //                        .padding(.leading, 20)
-                        Text ("\(Int(dish.portion)) people")
+                HStack {
+                    ZStack {
+                        Circle()
+                            .strokeBorder(Color.black,lineWidth: 5)
+                            .background(Circle().foregroundColor(Color("Fridge")))
+                            .frame(width: 150, height: 150)
+                        Image("\(dish.dishImg)")
+                            .resizable()
+                            .frame(width: 100, height: 100)
                     }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 35)
+                    .padding(.leading, 20)
+                    .padding(.trailing, 5)
+                    
+                    VStack(alignment: .leading) {
+                        Text("\(dish.dishName)")
+                            .font(.largeTitle)
+                            .bold()
+                        HStack {
+                            Text("Portion: ")
+                                .fontWeight(.medium)
+                            Text ("\(Int(dish.portion)) people")
+                        }
+                    }
+                    
+                } // image and name hstack
+                
                     
                     VStack(alignment: .leading) {
                         if dish.note != "" {
@@ -61,7 +68,6 @@ struct DishDetail: View {
                                 ScrollView {
                                     VStack {
                                         Text("\(dish.note)")
-//                                        Spacer()
                                     }
                                 }
                             }
@@ -71,8 +77,8 @@ struct DishDetail: View {
 
                         }
                     }
-    //                padding(.leading, 20)
-
+                
+//                ingredients list
                     VStack(alignment: .leading) {
                         Text("Ingredients")
                             .font(.title)
@@ -91,8 +97,7 @@ struct DishDetail: View {
                                         Image(systemName: "checkmark")
                                             .foregroundColor(Color("Green"))
                                     }
-                                    
-                                    
+                                                                        
                                 } else {
                                     Label {
                                         Text("\(i)")
@@ -107,6 +112,7 @@ struct DishDetail: View {
                                 }
                             }
                             .listRowSeparator(.hidden)
+                            .listRowBackground(Color("TertiaryColor"))
                             
                         }
                         .listStyle(InsetListStyle())
@@ -116,7 +122,7 @@ struct DishDetail: View {
                 .padding()
                 .navigationBarTitle("")
                 
-                // Delete/Remove this food
+                // Delete button
                 HStack {
                     Spacer()
                     Button() {
@@ -126,7 +132,6 @@ struct DishDetail: View {
                     }
                     .padding()
                     .foregroundColor(Color(red: 0.9686, green: 0.2039, blue: 0.1922).opacity(0.65))
-//                        .background(Color(red: 0.7569, green: 0.898, blue: 1).opacity(0.61))
                     .background(Color(red: 0.9569, green: 0.4941, blue: 0.4863).opacity(0.50))
                     .cornerRadius(20)
                     .confirmationDialog("", isPresented: $alert) {
@@ -137,10 +142,9 @@ struct DishDetail: View {
                     }
                     Spacer()
                 }
-
-                
             Spacer()
-        }
+        } // main v
+        } // big z
     }
 }
 

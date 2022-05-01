@@ -4,11 +4,14 @@
 //
 //  Created by iosdev on 20.4.2022.
 //
+// This is the stickynotes screen, it will be shown when user clicked one of the sticky notes on top of the closed fridge
+// This sticky note screen shows user about the items that are going to be expired with a list
 
 import SwiftUI
 
 struct NotesUI: View {
     
+//    removing the background so it wont cover the closed fridge
     func initialize(){
             UITableView.appearance().backgroundColor = .clear
             UITableViewCell.appearance().backgroundColor = .clear
@@ -19,6 +22,7 @@ struct NotesUI: View {
     @Binding var show: Bool
     @Binding var arr: [FoodStruct]
     
+//    Selecting the color of the note based on which color did the user clicked on the ClosedFridgeScreen
     private func img() -> String {
         if (note == "3days") {
             return "Orange note"
@@ -90,16 +94,9 @@ struct NotesUI: View {
                                 Spacer()
                                 
                             }
-//                            zstack
-                        }
+                        } //big zstack
                     )
             }
         }
     }
 }
-
-//struct NotesUI_Previews: PreviewProvider {
-//    static var previews: some View {
-//        NotesUI(note: "3days")
-//    }
-//}

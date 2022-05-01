@@ -12,20 +12,9 @@ import MapKit
 
 struct ShoppingList: View {
     
-//    init() {
-//        if #available(iOS 15, *) {
-//            UINavigationBar.appearance().scrollEdgeAppearance = UINavigationBarAppearance()
-//        }
-//    }
-    
-//    init() {
-//            UITabBar.appearance().backgroundColor = UIColor.white
-//    }
-    
     // access coredata in this file
     @Environment(\.managedObjectContext) var moc
     @Environment(\.dismiss) var dismiss
-//    @FetchRequest(sortDescriptors: []) var toBuyItems: FetchedResults<Shopping>
     
     // need to the shopping struct restructure the array then I sin can use
     @State var toBuyArr: [ShoppingStruct] = []
@@ -50,14 +39,16 @@ struct ShoppingList: View {
         if (checked) {
             return "CheckedItem"
         } else {
-            return "NormalItem"
+            return "BackgroundColor"
         }
     }
     
     var body: some View {
-//        NavigationView {
             ZStack {
-//                ZStack {
+
+                Color("TertiaryColor")
+                    .ignoresSafeArea()
+                
                     VStack {
                         VStack {
                             HStack {
@@ -68,7 +59,6 @@ struct ShoppingList: View {
                                     .padding(.leading, 20)
                                 Spacer()
                             }
-//                            Spacer()
                         }
 
                         List {
@@ -77,14 +67,9 @@ struct ShoppingList: View {
                                     HStack {
                                         TextField("Food name", text: $foodName)
                                             .frame(width: 125)
-        //                                    .border(Color.black, width: 1, cornerRadius(5))
                                         Spacer()
                                         TextField("Description (Optional)", text: $description)
                                     }
-        //                            .overlay(
-        //                                Capsule(style: .continuous)
-        //                                    .stroke(Color.purple, style: StrokeStyle(lineWidth: 1))
-        //                                    )
                                     .padding()
                                     
                                     Divider()
@@ -109,9 +94,9 @@ struct ShoppingList: View {
                                     .alert(isPresented: $alert) {
                                         Alert(title: Text("Invalid"), message: Text("\(alertMessage)"), dismissButton: .default(Text("Ok")))
                                     }
-                                    .foregroundColor(foodName == "" ? .gray : .blue)
+                                    .foregroundColor(foodName == "" ? .gray : Color("PrimaryColor"))
                                     Text("TO-BUY (\(toBuyArr.count))")
-                                        .foregroundColor(.gray)
+//                                        .foregroundColor(.gray)
                                     
                                     Divider()
                                     
@@ -120,7 +105,7 @@ struct ShoppingList: View {
                                             Text("Detected similar food remaining in fridge")
                                         } icon: {
                                             Image(systemName: "exclamationmark.square")
-                                                .foregroundColor(Color("SecondaryColor"))
+                                                .foregroundColor(Color("PrimaryColor"))
                                         }
                                         .font(.system(size: 12))
                                         Label {
@@ -132,8 +117,10 @@ struct ShoppingList: View {
                                         .font(.system(size: 12))
                                     }
                                 }
-                            }
+                                .listRowBackground(Color("TertiaryColor"))
+                            } // section
                             
+//                            displaying list
                             Section {
                                 ForEach(toBuyArr, id: \.self) { food in
                                     ZStack {
@@ -183,6 +170,7 @@ struct ShoppingList: View {
                                     }
                                     .padding()
                                     .listRowSeparator(.hidden)
+                                    .listRowBackground(Color("TertiaryColor"))
                                     .frame(maxWidth: .infinity)
                                     .contentShape(Rectangle())
                                     .highPriorityGesture(
@@ -193,12 +181,11 @@ struct ShoppingList: View {
                                                 toBuyArr = filterArr()})
                                         )
                                     .onTapGesture{}.onLongPressGesture(minimumDuration: 0.3) {
-                                        // edit item details
+                                        // edit item details by alert
                                         editAlertView(oldName: food.foodName, oldDescr: food.description, itemId: food.foodId.uuidString)
                                     }
                                     .background(Color(selectColour(checked: food.checked)))
                                     .cornerRadius(10)
-//                                    .shadow(color: .gray, radius: 0.2, x: 1, y: 1)
                                     .shadow(color: Color.gray.opacity(0.4), radius: 3, x: 0, y: 0)
                                     .swipeActions(edge: .trailing, allowsFullSwipe: false) {
                                         Button(role: .destructive){

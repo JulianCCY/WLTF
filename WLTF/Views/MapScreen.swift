@@ -19,7 +19,7 @@ struct MapScreen: View {
             
             MapView()
                 .environmentObject(mapData)
-                .ignoresSafeArea(.all , edges: .all)
+                .ignoresSafeArea()
             
             VStack {
                 
@@ -66,7 +66,6 @@ struct MapScreen: View {
                  
                 }
                 .padding()
-//                .offset(y: -80)
                 
                 Spacer()
                 
@@ -77,7 +76,7 @@ struct MapScreen: View {
                             .font(.title3)
                             .padding(10)
                             .foregroundColor(.white)
-                            .background(Color("SecondaryColor"))
+                            .background(Color("PrimaryColor"))
                             .clipShape(Circle())
                     })
 
@@ -85,8 +84,8 @@ struct MapScreen: View {
                         Image(systemName: mapData.mapType == .standard ? "network" : "map")
                             .font(.title3)
                             .padding(10)
-                            .foregroundColor(.white)
-                            .background(Color("SecondaryColor"))
+                            .foregroundColor(Color("SecondaryColor"))
+                            .background(Color("PrimaryColor"))
                             .clipShape(Circle())
                     })
                 }

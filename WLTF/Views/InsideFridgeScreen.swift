@@ -4,12 +4,15 @@
 //
 //  Created by iosdev on 6.4.2022.
 //
+// This is the InsideFridgeScreen, this screen show user the food they have stored in their fridge, groupped by category
+// This page is navigated from ClosedFridgeScreen and it can navigate to AddFoodScreen and FoodDetail 
 
 import SwiftUI
 import CoreData
 import Foundation
 import AVFoundation
 
+//some global array which is also needed for addfoodscreen
 class GlobalArr: ObservableObject {
     @Published var addFoodArr: [FoodStruct] = []
     @Published var addToBuyArr: [ShoppingStruct] = []
@@ -20,14 +23,15 @@ struct InsideFridgeScreen: View {
     // Use Core Data in this file
     @Environment(\.managedObjectContext) var moc
     @Environment(\.dismiss) var dismiss
-//    @FetchRequest(sortDescriptors: [SortDescriptor(\.expiryDate)]) var allFood: FetchedResults<Food>
-    
-//    @StateObject var globalArr = GlobalArr()
+
+//    food array that contains all the food fetched from coredata
     @State var foodArr: [FoodStruct] = []
     
+//    alert messages
     @State private var alert = false
     @State private var alertMessage = ""
     
+//    for searching food
     @State private var searchText = ""
     
     var searchResult: [FoodStruct] {
@@ -37,11 +41,8 @@ struct InsideFridgeScreen: View {
             return foodArr.filter{ $0.name.contains(searchText)}
         }
     }
-    
-    init() {
-        UITableView.appearance().backgroundColor = .white
-    }
-    
+        
+//    close fridge sound
     func playSound() {
         var filePath: String?
         filePath = Bundle.main.path(forResource: "close-fridge", ofType: "mp3") 
@@ -51,13 +52,6 @@ struct InsideFridgeScreen: View {
         AudioServicesPlaySystemSound(soundID)
     }
     
-//    override func viewWillDisappear(_ animated: Bool) {
-//        super.viewWillDisappear(animated)
-//
-//        if self.isMovingFromParent {
-//            playSound()
-//        }
-//    }
     // fetching data from the coredata
     private func filterArr() -> [FoodStruct] {
         foodArr = []
@@ -68,22 +62,26 @@ struct InsideFridgeScreen: View {
         return foodArr
     }
 
+//    for lazyvgrid
     let columns = [
             GridItem(.adaptive(minimum: 80))
         ]
     
     var body: some View {
         ZStack {
+            
             VStack {
                 //ghost of codewar again
                 // we can sort category by expiryDate and sort the food in each category by expiryDate
                 // Using NSOrderedSet, the case of changing element position won't happen, which is better than using Set
                 List(NSOrderedSet(array: searchResult.map{$0.category}).map({$0 as! String}), id: \.self) { category in
                     VStack {
+//                        category
                         Text("\(category)")
                             .font(.custom("Helvetica", size: 20))
                             .fontWeight(.semibold)
                         ScrollView {
+//                            grid items of food
                             LazyVGrid(columns: columns, spacing: 20) {
                                 ForEach(searchResult.filter{$0.category == category}, id: \.self) { food in
                                     NavigationLink {
@@ -104,15 +102,17 @@ struct InsideFridgeScreen: View {
                     .frame(maxWidth: .infinity)
                     .background(
                         Rectangle()
-                            .fill(Color.white)
+                            .fill(Color("Fridge"))
                             .cornerRadius(10)
                             .shadow(color: Color.gray.opacity(0.5), radius: 2, x: 0, y: 0)
                     )
+                    .listRowBackground(Color("TertiaryColor"))
                 }
                 .listStyle(InsetListStyle())
                 .searchable(text: $searchText)
-                // Screen Header / title
-                .navigationBarTitle("All food")
+                
+//                navigationbar
+                .navigationBarTitle("Fridge contents")
                 .navigationBarBackButtonHidden(true)
                 .onAppear{
                     foodArr = filterArr()
@@ -147,12 +147,12 @@ struct InsideFridgeScreen: View {
                 }
             }
 
+//            Button navigate to add food screen 
             VStack {
                 Spacer()
                 HStack {
                     Spacer()
                     NavigationLink(destination: AddFoodScreen()) {
-                        // Navigate to add food screen
                         Image(systemName: "plus.square.fill")
                             .resizable()
                             .frame(width: 50, height: 50)

@@ -4,6 +4,7 @@
 //
 //  Created by iosdev on 11.4.2022.
 //
+// This file is for functions that choosing images and color of the specific food
 
 import Foundation
 

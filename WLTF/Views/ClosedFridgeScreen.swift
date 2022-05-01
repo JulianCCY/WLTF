@@ -12,15 +12,15 @@ import AVFoundation
 
 struct ClosedFridgeScreen: View {
     
-    init() {
-            UITabBar.appearance().backgroundColor = UIColor.white
-    }
+//    init() {
+//            UITabBar.appearance().backgroundColor = UIColor.white
+//    }
     
     @Environment(\.managedObjectContext) var moc
     @Environment(\.dismiss) var dismiss
     
     @State private var fridgeName: String = ""
-    @State private var closedFridge = true
+    @State private var navigate = false
     @State private var showNote: Bool = false
     @State private var noteType: String = ""
     @State private var noteArr: [FoodStruct] = []
@@ -47,16 +47,13 @@ struct ClosedFridgeScreen: View {
         return expiringFoodArr
     }
     
-    private func openDoorSound() {
-        var player: AVAudioPlayer?
-        guard let url = Bundle.main.url(forResource: "open-fridge", withExtension: ".mp3") else {return}
-        
-        do {
-            player = try AVAudioPlayer(contentsOf: url)
-            player?.play()
-        } catch let error {
-            print("Error playing sound \(error.localizedDescription)")
-        }
+    func playSound() {
+        var filePath: String?
+        filePath = Bundle.main.path(forResource: "open-fridge", ofType: "mp3")
+        let fileURL = URL(fileURLWithPath: filePath!)
+        var soundID:SystemSoundID = 0
+        AudioServicesCreateSystemSoundID(fileURL as CFURL, &soundID)
+        AudioServicesPlaySystemSound(soundID)
     }
     
 //    Get fridge name
@@ -65,12 +62,15 @@ struct ClosedFridgeScreen: View {
     }
     
     var body: some View {      
-        ZStack {
-                NavigationLink(destination: InsideFridgeScreen()) {
+        ZStack {        
+            NavigationLink(destination: InsideFridgeScreen(), isActive: $navigate) {
+                Button {
+                    playSound()
+                    navigate.toggle()
+                } label: {
                     Image("Closedfridge")
                         .resizable()
                         .frame(maxWidth: .infinity, minHeight: 625)
-//                        .padding()
                         .overlay(
                             ZStack {
                                 
@@ -81,7 +81,7 @@ struct ClosedFridgeScreen: View {
                                             Image(systemName: "questionmark.square.fill")
                                                 .resizable()
                                                 .frame(width: 35, height: 35, alignment: .trailing)
-                                                .foregroundColor(Color("SecondaryColor"))
+                                                .foregroundColor(Color("PrimaryColor"))
                                                 .padding(EdgeInsets(top: 35, leading: 0, bottom: 0, trailing: 10))
                                         }
                                     }
@@ -90,11 +90,13 @@ struct ClosedFridgeScreen: View {
                                 
                                 VStack {
                                     Text("\(fridgeName)")
-                                        .font(.system(size: 20))
+                                        .font(.custom("AvenirNextCondensed-Heavy", size: 24))
                                         .fontWeight(.semibold)
                                         .foregroundColor(Color.black)
                                         .padding(.top, 70)
+    //                                        .padding(.leading, 20)
                                         .frame(maxWidth: .infinity, alignment: .center)
+    //                                        .rotation3DEffect(.degrees(10), axis: (x: 0, y: -9, z: -9))
                                     
                                     Spacer()
                                 }
@@ -115,7 +117,7 @@ struct ClosedFridgeScreen: View {
                                                     .overlay(
                                                         Text("\(orangeCount)")
                                                             .foregroundColor(Color.black)
-                                                            .font(.title)
+                                                            .font(.custom("Marker Felt", size: 30))
                                                     )
                                                     .rotationEffect(.degrees(-15))
                                             }
@@ -136,7 +138,7 @@ struct ClosedFridgeScreen: View {
                                                     .overlay(
                                                         Text("\(redCount)")
                                                             .foregroundColor(Color.black)
-                                                            .font(.title)
+                                                            .font(.custom("Marker Felt", size: 30))
                                                     )
                                                     .rotationEffect(.degrees(20))
                                             }
@@ -157,7 +159,7 @@ struct ClosedFridgeScreen: View {
                                                     .overlay(
                                                         Text("\(purpleCount)")
                                                             .foregroundColor(Color.black)
-                                                            .font(.title)
+                                                            .font(.custom("Marker Felt", size: 30))
                                                     )
                                                     .rotationEffect(.degrees(-5))
                                             }
@@ -170,8 +172,122 @@ struct ClosedFridgeScreen: View {
                 
                             }
                         )
-//                    Navigationlink
                 }
+            }
+            
+                
+//                NavigationLink(destination: InsideFridgeScreen()) {
+//                    Image("Closedfridge")
+//                        .resizable()
+//                        .frame(maxWidth: .infinity, minHeight: 625)
+//                        .overlay(
+//                            ZStack {
+//
+//                                VStack {
+//                                    HStack{
+//                                        Spacer()
+//                                        NavigationLink(destination: Settings()) {
+//                                            Image(systemName: "questionmark.square.fill")
+//                                                .resizable()
+//                                                .frame(width: 35, height: 35, alignment: .trailing)
+//                                                .foregroundColor(Color("PrimaryColor"))
+//                                                .padding(EdgeInsets(top: 35, leading: 0, bottom: 0, trailing: 10))
+//                                        }
+//                                    }
+//                                    Spacer()
+//                                }
+//
+//                                VStack {
+//                                    Text("\(fridgeName)")
+//                                        .font(.custom("AvenirNextCondensed-Heavy", size: 24))
+//                                        .fontWeight(.semibold)
+//                                        .foregroundColor(Color.black)
+//                                        .padding(.top, 70)
+////                                        .padding(.leading, 20)
+//                                        .frame(maxWidth: .infinity, alignment: .center)
+////                                        .rotation3DEffect(.degrees(10), axis: (x: 0, y: -9, z: -9))
+//
+//                                    Spacer()
+//                                }
+//
+//
+//                                VStack {
+//                                    Spacer()
+//
+//                                        ZStack {
+//                                            Button {
+//                                                showNote.toggle()
+//                                                noteType = "3days"
+//                                                noteArr = expiringFoodArr[2]
+//                                            } label: {
+//                                                Image("Orange note")
+//                                                    .resizable()
+//                                                    .frame(width: 100, height: 100)
+//                                                    .overlay(
+//                                                        Text("\(orangeCount)")
+//                                                            .foregroundColor(Color.black)
+//                                                            .font(.custom("Marker Felt", size: 30))
+//                                                    )
+//                                                    .rotationEffect(.degrees(-15))
+//                                            }
+//                                        }
+//                                        .offset(x: -70, y: -80)
+//                                        .opacity(orange ? 1 : 0)
+//                                        .allowsHitTesting(orange)
+//
+//                                        ZStack {
+//                                            Button {
+//                                                showNote.toggle()
+//                                                noteType = "1day"
+//                                                noteArr = expiringFoodArr[1]
+//                                            } label: {
+//                                                Image("Red note")
+//                                                    .resizable()
+//                                                    .frame(width: 100, height: 100)
+//                                                    .overlay(
+//                                                        Text("\(redCount)")
+//                                                            .foregroundColor(Color.black)
+//                                                            .font(.custom("Marker Felt", size: 30))
+//                                                    )
+//                                                    .rotationEffect(.degrees(20))
+//                                            }
+//                                        }
+//                                        .offset(x: 80, y: -140)
+//                                        .opacity(red ? 1 : 0)
+//                                        .allowsHitTesting(red)
+//
+//                                        ZStack {
+//                                            Button {
+//                                                showNote.toggle()
+//                                                noteType = "expired"
+//                                                noteArr = expiringFoodArr[0]
+//                                            } label: {
+//                                                Image("Purple note")
+//                                                    .resizable()
+//                                                    .frame(width: 100, height: 100)
+//                                                    .overlay(
+//                                                        Text("\(purpleCount)")
+//                                                            .foregroundColor(Color.black)
+//                                                            .font(.custom("Marker Felt", size: 30))
+//                                                    )
+//                                                    .rotationEffect(.degrees(-5))
+//                                            }
+//                                        }
+//                                        .offset(x: -30, y: -135)
+//                                        .opacity(purple ? 1 : 0)
+//                                        .allowsHitTesting(purple)
+//                                    }
+//
+//
+//                            }
+//                        )
+//                }//                    Navigationlink
+//                .simultaneousGesture(
+//                    TapGesture().onEnded{
+//                        if showNote == false {
+//                            playSound()
+//                        }
+//                    })
                 .navigationTitle("")
                 .navigationBarHidden(true)
                 .onAppear{
@@ -180,9 +296,6 @@ struct ClosedFridgeScreen: View {
 //                    let synthesizer = AVSpeechSynthesizer()
 //                    let utterance = AVSpeechUtterance(string: "Hello")
 //                    synthesizer.speak(utterance)
-                }
-                .onTapGesture {
-                    openDoorSound()
                 }
             .allowsHitTesting(!showNote)
 //            .edgesIgnoringSafeArea(.top)

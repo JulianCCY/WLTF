@@ -86,7 +86,7 @@ struct FoodDetail: View {
                 Slider(value: $remaining, in: 0...100, step: 1)
                     .disabled(checkExpired(expiryDate: food.expiryDate) == true)
                 //when the food is expired, slider will not be working
-                    .accentColor(Color("SecondaryColor"))
+                    .accentColor(Color(red: 0.7569, green: 0.898, blue: 1).opacity(0.61))
                 Text("\(Int(remaining)) % remaining")
                     .foregroundColor(Color(.systemGray))
             }
@@ -220,6 +220,7 @@ struct FoodDetail: View {
             }
         Spacer()
         }
+        .accentColor(Color("PrimaryColor"))
         .onAppear{remaining = food.remaining}
         .simpleToast(isPresented: $showToast, options: toastOptions, onDismiss: {}) {
             HStack{

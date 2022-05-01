@@ -14,8 +14,9 @@ struct ContentView: View {
     @State private var selection = 2
     
     init() {
-         UITabBar.appearance().barTintColor = UIColor.red
-     }
+        UITabBar.appearance().backgroundColor = UIColor(named: "LightYellow")
+        
+    }
     
     var body: some View {
 //        NavigationView {
@@ -103,10 +104,11 @@ struct ContentView: View {
                     }
                     .tag(3)
             }
-            .accentColor(Color("TabViewIcon"))
+            .accentColor(Color("PrimaryColor"))
         }
+        .accentColor(Color("PrimaryColor"))
         .onAppear{
-            UITabBar.appearance().barTintColor = UIColor(named: "Offwhite")
+//            UITabBar.appearance().barTintColor = UIColor(named: "Offwhite")
         }
 
         

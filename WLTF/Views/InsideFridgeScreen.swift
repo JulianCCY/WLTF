@@ -8,6 +8,7 @@
 import SwiftUI
 import CoreData
 import Foundation
+import AVFoundation
 
 class GlobalArr: ObservableObject {
     @Published var addFoodArr: [FoodStruct] = []
@@ -40,7 +41,23 @@ struct InsideFridgeScreen: View {
     init() {
         UITableView.appearance().backgroundColor = .white
     }
-
+    
+    func playSound() {
+        var filePath: String?
+        filePath = Bundle.main.path(forResource: "close-fridge", ofType: "mp3") 
+        let fileURL = URL(fileURLWithPath: filePath!)
+        var soundID:SystemSoundID = 0
+        AudioServicesCreateSystemSoundID(fileURL as CFURL, &soundID)
+        AudioServicesPlaySystemSound(soundID)
+    }
+    
+//    override func viewWillDisappear(_ animated: Bool) {
+//        super.viewWillDisappear(animated)
+//
+//        if self.isMovingFromParent {
+//            playSound()
+//        }
+//    }
     // fetching data from the coredata
     private func filterArr() -> [FoodStruct] {
         foodArr = []
@@ -64,7 +81,7 @@ struct InsideFridgeScreen: View {
                 List(NSOrderedSet(array: searchResult.map{$0.category}).map({$0 as! String}), id: \.self) { category in
                     VStack {
                         Text("\(category)")
-                            .font(.title2)
+                            .font(.custom("Helvetica", size: 20))
                             .fontWeight(.semibold)
                         ScrollView {
                             LazyVGrid(columns: columns, spacing: 20) {
@@ -96,11 +113,21 @@ struct InsideFridgeScreen: View {
                 .searchable(text: $searchText)
                 // Screen Header / title
                 .navigationBarTitle("All food")
+                .navigationBarBackButtonHidden(true)
                 .onAppear{
                     foodArr = filterArr()
                 }
             }
             .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button {
+                        playSound()
+                        dismiss()
+                    } label: {
+                        Image(systemName: "chevron.backward")
+                            .font(Font.system(size: 20, weight: .medium))
+                    }
+                }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     // Top Right delete button
                     Button {
@@ -136,6 +163,7 @@ struct InsideFridgeScreen: View {
                 }
             }
         }
+        .accentColor(Color("PrimaryColor"))
     }
 }
 

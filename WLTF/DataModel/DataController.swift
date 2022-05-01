@@ -104,7 +104,7 @@ class DataController: ObservableObject {
     
     
     // edit the comsumed bar in the food detail screen
-    func consumeFood(id: UUID, remaining: Double) {
+    func consumeFood(id: UUID, remaining: Double, context: NSManagedObjectContext) {
         let fetchRequest: NSFetchRequest<Food>
         fetchRequest = Food.fetchRequest()
         fetchRequest.predicate = NSPredicate.init(format: "id == %@", id.uuidString)
@@ -368,6 +368,8 @@ class DataController: ObservableObject {
         return false
     }
     
+    
+    
     // // ***********************For the fridge name :) ***********************
     
     // show the name of the fridge on the fridge door
@@ -413,5 +415,30 @@ class DataController: ObservableObject {
                 print(error)
             }
         }
+    }
+    
+    // *********************** For Speech Recognition ***********************
+    
+    // for dish recommentation
+    func dishRecommendation() -> String {
+        let dishRec = fetchAllDishes().compactMap{$0}.filter{fetchRelatedIngredient(dishId: $0.id!).map{$0.name!}.allSatisfy{checkIfExist(foodName: $0) == true}}.map{$0.dishName}
+        
+        // early return if user doesn't buy any food
+        guard fetchFoodData().count > 0 else { return "Sorry, I guess you don't have any food in the fridge, I suggest you to go for a grocery shopping"}
+        
+        // early return if user doesn't make any recipe
+        guard dishRec.count > 0 else { return "Sorry, I guess you didn't make any recipe"}
+        
+        let dish = dishRec.randomElement()!
+        
+        let ans = ["I'd recommend to cook \(String(describing: dish!))", "What about \(String(describing: dish!))? You have enough ingredient", "Would you like to have \(String(describing: dish!))"]
+        
+        return ans.randomElement()!
+    }
+    
+    // check if the user can cook some thing
+    
+    func checkCookable(dish: [String]) {
+        
     }
 }

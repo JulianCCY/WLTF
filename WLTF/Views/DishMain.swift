@@ -9,7 +9,6 @@ import SwiftUI
 import AVFoundation
 
 struct DishMain: View {
-    
     @State private var recording = false
     @ObservedObject private var mic = MicController(numberOfSamples: 30)
     private var speechManager = SpeechController()
@@ -97,7 +96,9 @@ struct DishMain: View {
                     Spacer()
                     HStack {
                         Spacer()
-                        Button(action: getSpeech) {
+                        Button() {
+                            getSpeech()
+                        } label: {
                             Image(systemName: recording ? "stop.circle.fill" : "waveform.and.mic")
                                 .resizable()
                                 .frame(width: 50, height: 50)
@@ -150,7 +151,8 @@ struct DishMain: View {
         .navigationBarHidden(true)
     }
     
-    private func getSpeech() {
+    private func getSpeech(){
+        
         if speechManager.isRecording {
             self.recording = false
             mic.stopMonitoring()
@@ -159,13 +161,13 @@ struct DishMain: View {
             self.recording = true
             mic.startMonitoring()
             speechManager.listen{ (speechText) in
-                guard let text = speechText, !text.isEmpty else {
+                guard let speech = speechText, !speech.isEmpty else {
                     self.recording = false
                     return
                 }
-                
-                print(text)
+                NLPController().speechAnalytics(userSpeech: speech)
             }
+            
         }
         speechManager.isRecording.toggle()
     }

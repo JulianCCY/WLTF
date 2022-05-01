@@ -122,11 +122,53 @@ struct FoodDetail: View {
                     
                 }
                 
+//                Spacer()
+//                // Delete/Remove this food
+//                HStack {
+//                    Spacer()
+//                    if checkExpired(expiryDate: food.expiryDate) == false && remaining != 0.0{
+//                        Button() {
+//                            alert = true
+//                        } label: {
+//
+//                            Label("Consumed", systemImage: "fork.knife")
+//                        }
+//                        .padding()
+//                        .foregroundColor(Color(red: 0.1059, green: 0.251, blue: 0.5098).opacity(0.61))
+//                        .background(Color(red: 0.7569, green: 0.898, blue: 1).opacity(0.61))
+//                        .cornerRadius(20)
+//                        .confirmationDialog("Enjoy your food", isPresented: $alert) {
+//                            Button("Bon appétit!") {
+//                                DispatchQueue.main.async {
+//                                    DataController().consumeFood(id: food.foodId, remaining: remaining, context: moc)
+//                                }
+//                            }
+//                        }
+//                    } else if remaining == 0 && checkExpired(expiryDate: food.expiryDate) == false || checkExpired(expiryDate: food.expiryDate) == true {
+//                        Button() {
+//                            alert = true
+//                        }
+//                        label: {
+//
+//                            Label("Remove", systemImage: "trash")
+//                        }
+//                        .padding()
+//                        .foregroundColor(Color(red: 0.0902, green: 0.0549, blue: 0.3294).opacity(0.61))
+//                        .background(Color(red: 0.8706, green: 0.8392, blue: 0.9529).opacity(0.61))
+//                        .cornerRadius(20)
+//                        .confirmationDialog("", isPresented: $alert) {
+//                            Button("Remove", role: .destructive) {
+//                                DataController().deleteSingleFood(id: food.foodId, context: moc)
+//                                dismiss()
+//                            }
+//                        }
+//                    }
+//                    Spacer()
                 Spacer()
                 // Delete/Remove this food
                 HStack {
                     Spacer()
-                    if checkExpired(expiryDate: food.expiryDate) == false && remaining > 0.0{
+                    if checkExpired(expiryDate: food.expiryDate) == false && remaining > 0{
                         Button() {
                             alert = true
                         } label: {
@@ -137,31 +179,25 @@ struct FoodDetail: View {
                         .foregroundColor(Color(red: 0.1059, green: 0.251, blue: 0.5098).opacity(0.61))
                         .background(Color(red: 0.7569, green: 0.898, blue: 1).opacity(0.61))
                         .cornerRadius(20)
-                        .confirmationDialog("Enjoy your food", isPresented: $alert) {
-                            Button("Bon appétit!") {
-                                DataController().consumeFood(id: food.foodId, remaining: remaining)
-//                                DataController().deleteSingleFood(id: food.foodId, context: moc)
-//                                dismiss()
+                        .confirmationDialog("Are you sure", isPresented: $alert){
+                            Button("consume", role: .destructive){
+                                DataController().consumeFood(id: food.foodId, remaining: remaining, context: moc)
                             }
                         }
-                    } else if remaining == 0 && checkExpired(expiryDate: food.expiryDate) == false || checkExpired(expiryDate: food.expiryDate) == true {
+                        
+                    } else if remaining == 0 || checkExpired(expiryDate: food.expiryDate) == true {
                         Button() {
-                            alert = true
+//                            alert = true
+                            DataController().deleteSingleFood(id: food.foodId, context: moc)
+                            dismiss()
                         }
                         label: {
-                            
                             Label("Remove", systemImage: "trash")
                         }
                         .padding()
                         .foregroundColor(Color(red: 0.0902, green: 0.0549, blue: 0.3294).opacity(0.61))
                         .background(Color(red: 0.8706, green: 0.8392, blue: 0.9529).opacity(0.61))
                         .cornerRadius(20)
-                        .confirmationDialog("", isPresented: $alert) {
-                            Button("Remove", role: .destructive) {
-                                DataController().deleteSingleFood(id: food.foodId, context: moc)
-                                dismiss()
-                            }
-                        }
                     }
                     Spacer()
 

@@ -66,31 +66,6 @@ struct ClosedFridgeScreen: View {
     
     var body: some View {      
         ZStack {
-//            VStack {
-//                HStack{
-//                    Spacer()
-//                    NavigationLink(destination: Settings()) {
-//                        Image(systemName: "gearshape")
-//                            .resizable()
-//                            .frame(width: 25, height: 25, alignment: .trailing)
-//                            .foregroundColor(Color("SecondaryColor"))
-//                            .padding()
-//                    }
-//                }
-//                Spacer()
-//            }
-            
-//            VStack {
-//                Text("Name of your fridge")
-//                    .font(.title)
-//                    .fontWeight(.bold)
-//                    .padding(EdgeInsets(top: 30, leading: 20, bottom: 0, trailing: 0))
-//                    .frame(maxWidth: .infinity, alignment: .leading)
-//                    .navigationTitle("")
-//                    .navigationBarHidden(true)
-//                Spacer()
-//            }
-                
                 NavigationLink(destination: InsideFridgeScreen()) {
                     Image("Closedfridge")
                         .resizable()

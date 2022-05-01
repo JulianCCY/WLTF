@@ -26,7 +26,11 @@ struct DishMain: View {
     var body: some View {
         
         ZStack {
-            VStack {
+            
+            Color("TertiaryColor")
+                .ignoresSafeArea()
+            
+            VStack (alignment: .leading) {
                 VStack {
                     HStack {
                         Text("What to cook?")
@@ -39,25 +43,13 @@ struct DishMain: View {
                     Spacer()
                 }
                 
-                
-                NavigationLink(destination: SpeechTest()) {
-                    // Navigate to add food screen
-                    Image(systemName: "plus")
-                        .resizable()
-                        .frame(width: 50, height: 50)
-                        .foregroundColor(Color("PrimaryColor"))
-                        .shadow(color: .gray, radius: 0.2, x: 1, y: 1)
-//                                .padding(.trailing)
-                }
-                
-                
 // Horizontal scroll
                 if dishArr.isEmpty {
                     Text("You do not have any dishes yet!")
                         .frame(height: 300)
                 } else {
                     ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 10) {
+                        HStack(spacing: 20) {
 
                             ForEach(dishArr, id: \.self) { i in
 
@@ -73,7 +65,6 @@ struct DishMain: View {
                                .frame(width: 250, height: 280)
                            }
                        }
-    //                   .padding([.leading, .trailing], 70)
                         .padding(.leading, 80)
                         .padding(.trailing, 50)
                        .padding(.top, 50)
@@ -81,8 +72,11 @@ struct DishMain: View {
 
                 }
                 
-//                Ingredients
+                Spacer()
+                
+//                Ingredients colors guide
                 VStack(alignment: .leading) {
+                    Spacer()
                     HStack() {
                         Circle()
                             .fill(Color("Green"))
@@ -98,27 +92,41 @@ struct DishMain: View {
                             .font(.custom("Helvetica", size: 14))
                     }
                 }
-                .padding(.top, 30)
+                .padding(.leading, 30)
                 
+                
+//                buttons to create dish page and speech
                 VStack {
                     Spacer()
                     HStack {
                         Spacer()
-                        NavigationLink(destination: DishAdd()) {
-                            // Navigate to add food screen
-                            Image(systemName: "plus.square.fill")
-                                .resizable()
-                                .frame(width: 50, height: 50)
-                                .foregroundColor(Color("PrimaryColor"))
-//                                .shadow(color: .gray, radius: 0.2, x: 1, y: 1)
-//                                .padding(.trailing)
+                        VStack{
+                            NavigationLink(destination: SpeechTest()) {
+                                // Navigate to add food screen
+                                Image(systemName: "mic")
+                                    .resizable()
+                                    .padding(10)
+                                    .padding([.leading, .trailing], 3)
+                                    .frame(width: 50, height: 50)
+                                    .foregroundColor(Color("TertiaryColor"))
+                                    .background(Color("PrimaryColor"))
+                                    .cornerRadius(6)
+                            }
+                            NavigationLink(destination: DishAdd()) {
+                                // Navigate to add food screen
+                                Image(systemName: "plus.square.fill")
+                                    .resizable()
+                                    .frame(width: 50, height: 50)
+                                    .foregroundColor(Color("PrimaryColor"))
+                            }
                         }
                     }
                 }
                 .padding([.trailing, .bottom])
 
-            }
+            } // main vstack
             
+//            delete all button 
             VStack {
                 HStack {
                     Spacer()
@@ -142,7 +150,7 @@ struct DishMain: View {
                 Spacer()
             }
             
-        }
+        } // big z
         .onAppear{dishArr = filterArr()}
         .navigationTitle("")
         .navigationBarHidden(true)

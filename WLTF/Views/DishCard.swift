@@ -4,6 +4,7 @@
 //
 //  Created by iosdev on 25.4.2022.
 //
+// This view is for the card displayed in DishMain, representing the dishes that the user stored
 
 import SwiftUI
 
@@ -12,9 +13,10 @@ struct DishCard: View {
     var title: String
     var image: String
     var ingredients: [String]
-    var color: String = "BackgroundColor"
+    var color: String = "Fridge"
     @State var suff: Bool = true
     
+//    Detemine the color displayed, representing sufficient or not
     private func suffColor(bool: Bool) -> String {
         if bool {
             return "Green"
@@ -23,6 +25,7 @@ struct DishCard: View {
         }
     }
     
+//    Checking if the user have corresponding ingredient in the fridge and return a bool
     private func checkSuff(arr: [String]) -> Bool {
         var check: Bool = true
         arr.forEach { i in
@@ -41,7 +44,6 @@ struct DishCard: View {
         
         ZStack {
             VStack {
-//                Spacer()
                 Text("\(title)")
                     .font(.system(size: 28))
                     .fontWeight(.medium)
@@ -59,10 +61,14 @@ struct DishCard: View {
         }
         .frame(width: 220, height: 220)
         .background(
-            Circle()
+            RoundedRectangle(cornerRadius: 10)
                 .fill(Color("\(color)"))
-//                .frame(width: 230, height: 230)
+                .frame(width: 250, height: 250)
                 .shadow(color: Color.gray.opacity(0.2), radius: 10, x: 0, y: 0)
+//            Circle()
+//                .fill(Color("\(color)"))
+////                .frame(width: 230, height: 230)
+//                .shadow(color: Color.gray.opacity(0.2), radius: 10, x: 0, y: 0)
         )
         .onAppear{
             suff = checkSuff(arr: ingredients)

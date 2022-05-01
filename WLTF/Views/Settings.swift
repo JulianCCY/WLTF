@@ -4,6 +4,8 @@
 //
 //  Created by iosdev on 24.4.2022.
 //
+// This is the setting page, also known as the guidelines, can be navigated from ClosedFridgeScreen
+// This page can modify the fridge name, switch the language, and show the user about our app's functionalities
 
 import SwiftUI
 
@@ -32,8 +34,12 @@ struct Settings: View {
     var body: some View {
         
         ZStack {
+            
+            Color("TertiaryColor")
+                .ignoresSafeArea()
+            
             VStack {
-//                Naming
+//                Naming the fridge
                 HStack {
                     VStack(alignment: .leading, spacing: 2) {
                         Text("Name your fridge here!")
@@ -41,12 +47,12 @@ struct Settings: View {
                         TextField("Name of your fridge", text: $fridgeName)
                             .foregroundColor(Color(UIColor.gray))
                     }
-//                    .frame(width: 200)
                     .padding()
                     
                     Spacer()
                 }
                 
+//                language picker
                 Picker("Select language", selection: $chosenLanguage) {
                     Text("English 🇬🇧")
                         .tag(languages.english)
@@ -54,6 +60,7 @@ struct Settings: View {
                         .tag(languages.suomi)
                 }
                 .pickerStyle(SegmentedPickerStyle())
+                .colorMultiply(Color("SecondaryColor"))
                 .padding()
                 
     //            guidelines
@@ -104,14 +111,14 @@ struct Settings: View {
                                HStack {
                                    Image(systemName: "plus.rectangle")
                                        .font(.system(size: 20))
-                                       .foregroundColor(.blue)
+                                       .foregroundColor(Color("PrimaryColor"))
                                    Text("Button for adding item to list.")
                                        .font(.subheadline)
                                }
                                .padding(.bottom)
                                HStack{
                                    Text("Gray colored")
-                                       .foregroundColor(.gray)
+                                       .foregroundColor(Color(UIColor.gray))
                                        .font(.subheadline)
                                    Text(" =  input fields.")
                                        .font(.subheadline)
@@ -266,19 +273,6 @@ struct Settings: View {
                        )
                        .shadow(color: Color.gray.opacity(0.2), radius: 3, x: 1, y: 1)
                        
-                       
-                       
-                       
-                       
-                       
-    //                   ForEach(guidelines) { i in
-    //
-    ////                       GeometryReader { geometry in
-    ////                           CardView(title: card.title, image: card.image, color: card.color)
-    ////                               .rotation3DEffect(Angle(degrees: Double(geometry.frame(in: .global).minX - 50) / -30), axis: (x: 0, y: 100.0, z: 0))
-    ////                       }
-    //                       .frame(width: 250, height: 400)
-    //                   }
                    }
                    .padding([.leading, .trailing], 30)
                    .padding(.bottom, 50)
@@ -298,8 +292,7 @@ struct Settings: View {
                     Image(systemName: "checkmark.square.fill")
                         .resizable()
                         .frame(width: 50, height: 50)
-                        .foregroundColor(Color.green)
-                        .shadow(color: .gray, radius: 0.5, x: 1, y: 1)
+                        .foregroundColor(Color("PrimaryColor"))
                 }
             }
         }

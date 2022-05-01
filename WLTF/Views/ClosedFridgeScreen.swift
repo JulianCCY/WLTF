@@ -4,6 +4,8 @@
 //
 //  Created by iosdev on 5.4.2022.
 //
+// This is the ClosedFridgeScreen, one of the screen that can be navigated from the bottom navigation bar, which is also our home screen
+// This screen contains a image of fridge, a navigation to setting/guidelines, a navigation to InsideFridgeScreen and stickynotes
 
 import SwiftUI
 import CoreData
@@ -12,20 +14,19 @@ import AVFoundation
 
 struct ClosedFridgeScreen: View {
     
-//    init() {
-//            UITabBar.appearance().backgroundColor = UIColor.white
-//    }
-    
+//    Coredata
     @Environment(\.managedObjectContext) var moc
     @Environment(\.dismiss) var dismiss
     
+//    Some private variables for the screen
     @State private var fridgeName: String = ""
     @State private var navigate = false
     @State private var showNote: Bool = false
     @State private var noteType: String = ""
     @State private var noteArr: [FoodStruct] = []
     
-    // separate 3 color of sticky notes by expires in 1 days, 3 days and expired
+//    Separate 3 color of sticky notes by expiring in 1 days, 3 days and expired
+//    Bool is for togging the sticknotes appearance and count is for the numbers on the sticky notes
     @State private var orange: Bool = false
     @State private var red: Bool = false
     @State private var purple: Bool = false
@@ -47,6 +48,7 @@ struct ClosedFridgeScreen: View {
         return expiringFoodArr
     }
     
+//    sound of fridge opening when navigate to inside fridge screen
     func playSound() {
         var filePath: String?
         filePath = Bundle.main.path(forResource: "open-fridge", ofType: "mp3")
@@ -63,279 +65,131 @@ struct ClosedFridgeScreen: View {
     
     var body: some View {      
         ZStack {
-//            VStack {
-//                HStack{
-//                    Spacer()
-//                    NavigationLink(destination: Settings()) {
-//                        Image(systemName: "gearshape")
-//                            .resizable()
-//                            .frame(width: 25, height: 25, alignment: .trailing)
-//                            .foregroundColor(Color("SecondaryColor"))
-//                            .padding()
-//                    }
-//                }
-//                Spacer()
-//            }
+            Color("TertiaryColor")
+                .ignoresSafeArea()
             
-//            VStack {
-//                Text("Name of your fridge")
-//                    .font(.title)
-//                    .fontWeight(.bold)
-//                    .padding(EdgeInsets(top: 30, leading: 20, bottom: 0, trailing: 0))
-//                    .frame(maxWidth: .infinity, alignment: .leading)
-//                    .navigationTitle("")
-//                    .navigationBarHidden(true)
-//                Spacer()
-//            }
-            
-            NavigationLink(destination: InsideFridgeScreen(), isActive: $navigate) {
-                Button {
-                    playSound()
-                    navigate.toggle()
-                } label: {
-                    Image("Closedfridge")
-                        .resizable()
-                        .frame(maxWidth: .infinity, minHeight: 625)
-                        .overlay(
-                            ZStack {
-                                
-                                VStack {
-                                    HStack{
-                                        Spacer()
-                                        NavigationLink(destination: Settings()) {
-                                            Image(systemName: "questionmark.square.fill")
-                                                .resizable()
-                                                .frame(width: 35, height: 35, alignment: .trailing)
-                                                .foregroundColor(Color("PrimaryColor"))
-                                                .padding(EdgeInsets(top: 35, leading: 0, bottom: 0, trailing: 10))
-                                        }
-                                    }
-                                    Spacer()
-                                }
-                                
-                                VStack {
-                                    Text("\(fridgeName)")
-                                        .font(.custom("AvenirNextCondensed-Heavy", size: 24))
-                                        .fontWeight(.semibold)
-                                        .foregroundColor(Color.black)
-                                        .padding(.top, 70)
-    //                                        .padding(.leading, 20)
-                                        .frame(maxWidth: .infinity, alignment: .center)
-    //                                        .rotation3DEffect(.degrees(10), axis: (x: 0, y: -9, z: -9))
-                                    
-                                    Spacer()
-                                }
-                                
-                                
-                                VStack {
-                                    Spacer()
-
-                                        ZStack {
-                                            Button {
-                                                showNote.toggle()
-                                                noteType = "3days"
-                                                noteArr = expiringFoodArr[2]
-                                            } label: {
-                                                Image("Orange note")
-                                                    .resizable()
-                                                    .frame(width: 100, height: 100)
-                                                    .overlay(
-                                                        Text("\(orangeCount)")
-                                                            .foregroundColor(Color.black)
-                                                            .font(.custom("Marker Felt", size: 30))
-                                                    )
-                                                    .rotationEffect(.degrees(-15))
-                                            }
-                                        }
-                                        .offset(x: -70, y: -80)
-                                        .opacity(orange ? 1 : 0)
-                                        .allowsHitTesting(orange)
-
-                                        ZStack {
-                                            Button {
-                                                showNote.toggle()
-                                                noteType = "1day"
-                                                noteArr = expiringFoodArr[1]
-                                            } label: {
-                                                Image("Red note")
-                                                    .resizable()
-                                                    .frame(width: 100, height: 100)
-                                                    .overlay(
-                                                        Text("\(redCount)")
-                                                            .foregroundColor(Color.black)
-                                                            .font(.custom("Marker Felt", size: 30))
-                                                    )
-                                                    .rotationEffect(.degrees(20))
-                                            }
-                                        }
-                                        .offset(x: 80, y: -140)
-                                        .opacity(red ? 1 : 0)
-                                        .allowsHitTesting(red)
-                                    
-                                        ZStack {
-                                            Button {
-                                                showNote.toggle()
-                                                noteType = "expired"
-                                                noteArr = expiringFoodArr[0]
-                                            } label: {
-                                                Image("Purple note")
-                                                    .resizable()
-                                                    .frame(width: 100, height: 100)
-                                                    .overlay(
-                                                        Text("\(purpleCount)")
-                                                            .foregroundColor(Color.black)
-                                                            .font(.custom("Marker Felt", size: 30))
-                                                    )
-                                                    .rotationEffect(.degrees(-5))
-                                            }
-                                        }
-                                        .offset(x: -30, y: -135)
-                                        .opacity(purple ? 1 : 0)
-                                        .allowsHitTesting(purple)
-                                    }
-
-                
-                            }
-                        )
+//            Guideline icon & navigation to settings page
+            VStack {
+                HStack{
+                    Spacer()
+                    NavigationLink(destination: Settings()) {
+                        Image(systemName: "questionmark.square.fill")
+                            .resizable()
+                            .frame(width: 35, height: 35, alignment: .trailing)
+                            .foregroundColor(Color("PrimaryColor"))
+                            .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 10))
+                    }
                 }
+                Spacer()
             }
-            
                 
-//                NavigationLink(destination: InsideFridgeScreen()) {
-//                    Image("Closedfridge")
-//                        .resizable()
-//                        .frame(maxWidth: .infinity, minHeight: 625)
-//                        .overlay(
-//                            ZStack {
-//
-//                                VStack {
-//                                    HStack{
-//                                        Spacer()
-//                                        NavigationLink(destination: Settings()) {
-//                                            Image(systemName: "questionmark.square.fill")
-//                                                .resizable()
-//                                                .frame(width: 35, height: 35, alignment: .trailing)
-//                                                .foregroundColor(Color("PrimaryColor"))
-//                                                .padding(EdgeInsets(top: 35, leading: 0, bottom: 0, trailing: 10))
-//                                        }
-//                                    }
-//                                    Spacer()
-//                                }
-//
-//                                VStack {
-//                                    Text("\(fridgeName)")
-//                                        .font(.custom("AvenirNextCondensed-Heavy", size: 24))
-//                                        .fontWeight(.semibold)
-//                                        .foregroundColor(Color.black)
-//                                        .padding(.top, 70)
-////                                        .padding(.leading, 20)
-//                                        .frame(maxWidth: .infinity, alignment: .center)
-////                                        .rotation3DEffect(.degrees(10), axis: (x: 0, y: -9, z: -9))
-//
-//                                    Spacer()
-//                                }
-//
-//
-//                                VStack {
-//                                    Spacer()
-//
-//                                        ZStack {
-//                                            Button {
-//                                                showNote.toggle()
-//                                                noteType = "3days"
-//                                                noteArr = expiringFoodArr[2]
-//                                            } label: {
-//                                                Image("Orange note")
-//                                                    .resizable()
-//                                                    .frame(width: 100, height: 100)
-//                                                    .overlay(
-//                                                        Text("\(orangeCount)")
-//                                                            .foregroundColor(Color.black)
-//                                                            .font(.custom("Marker Felt", size: 30))
-//                                                    )
-//                                                    .rotationEffect(.degrees(-15))
-//                                            }
-//                                        }
-//                                        .offset(x: -70, y: -80)
-//                                        .opacity(orange ? 1 : 0)
-//                                        .allowsHitTesting(orange)
-//
-//                                        ZStack {
-//                                            Button {
-//                                                showNote.toggle()
-//                                                noteType = "1day"
-//                                                noteArr = expiringFoodArr[1]
-//                                            } label: {
-//                                                Image("Red note")
-//                                                    .resizable()
-//                                                    .frame(width: 100, height: 100)
-//                                                    .overlay(
-//                                                        Text("\(redCount)")
-//                                                            .foregroundColor(Color.black)
-//                                                            .font(.custom("Marker Felt", size: 30))
-//                                                    )
-//                                                    .rotationEffect(.degrees(20))
-//                                            }
-//                                        }
-//                                        .offset(x: 80, y: -140)
-//                                        .opacity(red ? 1 : 0)
-//                                        .allowsHitTesting(red)
-//
-//                                        ZStack {
-//                                            Button {
-//                                                showNote.toggle()
-//                                                noteType = "expired"
-//                                                noteArr = expiringFoodArr[0]
-//                                            } label: {
-//                                                Image("Purple note")
-//                                                    .resizable()
-//                                                    .frame(width: 100, height: 100)
-//                                                    .overlay(
-//                                                        Text("\(purpleCount)")
-//                                                            .foregroundColor(Color.black)
-//                                                            .font(.custom("Marker Felt", size: 30))
-//                                                    )
-//                                                    .rotationEffect(.degrees(-5))
-//                                            }
-//                                        }
-//                                        .offset(x: -30, y: -135)
-//                                        .opacity(purple ? 1 : 0)
-//                                        .allowsHitTesting(purple)
-//                                    }
-//
-//
-//                            }
-//                        )
-//                }//                    Navigationlink
-//                .simultaneousGesture(
-//                    TapGesture().onEnded{
-//                        if showNote == false {
-//                            playSound()
-//                        }
-//                    })
-                .navigationTitle("")
-                .navigationBarHidden(true)
-                .onAppear{
-                    expiringFoodArr = filterArr()
-                    getName()
-//                    let synthesizer = AVSpeechSynthesizer()
-//                    let utterance = AVSpeechUtterance(string: "Hello")
-//                    synthesizer.speak(utterance)
-                }
+//                FridgeImage
+                NavigationLink(destination: InsideFridgeScreen(), isActive: $navigate) {
+                    Button {
+                        playSound()
+                        navigate.toggle()
+                    } label: {
+                        Image("Fridge")
+                            .resizable()
+                            .scaledToFit()
+                            .padding(.bottom)
+                            .overlay(
+                                ZStack {
+                                    
+                    //                Fridgename
+                                    HStack {
+                                        Spacer()
+                                        Text("\(fridgeName)")
+                                            .font(.custom("AvenirNextCondensed-Heavy", size: 24))
+                                            .fontWeight(.semibold)
+                                            .foregroundColor(Color.black)
+                                            .offset(y: -80)
+                                            .frame(maxWidth: .infinity, alignment: .center)
+                                        Spacer()
+                                    }
+    
+//                                    sticky notes
+                                    VStack {
+                                        Spacer()
+    
+                                            ZStack {
+                                                Button {
+                                                    showNote.toggle()
+                                                    noteType = "3days"
+                                                    noteArr = expiringFoodArr[2]
+                                                } label: {
+                                                    Image("Orange note")
+                                                        .resizable()
+                                                        .frame(width: 70, height: 70)
+                                                        .overlay(
+                                                            Text("\(orangeCount)")
+                                                                .foregroundColor(Color.black)
+                                                                .font(.custom("Marker Felt", size: 30))
+                                                        )
+                                                        .rotationEffect(.degrees(-15))
+                                                }
+                                            }
+                                            .offset(x: -60, y: -50)
+                                            .opacity(orange ? 1 : 0)
+                                            .allowsHitTesting(orange)
+    
+                                            ZStack {
+                                                Button {
+                                                    showNote.toggle()
+                                                    noteType = "1day"
+                                                    noteArr = expiringFoodArr[1]
+                                                } label: {
+                                                    Image("Red note")
+                                                        .resizable()
+                                                        .frame(width: 70, height: 70)
+                                                        .overlay(
+                                                            Text("\(redCount)")
+                                                                .foregroundColor(Color.black)
+                                                                .font(.custom("Marker Felt", size: 30))
+                                                        )
+                                                        .rotationEffect(.degrees(20))
+                                                }
+                                            }
+                                            .offset(x: 55, y: -70)
+                                            .opacity(red ? 1 : 0)
+                                            .allowsHitTesting(red)
+    
+                                            ZStack {
+                                                Button {
+                                                    showNote.toggle()
+                                                    noteType = "expired"
+                                                    noteArr = expiringFoodArr[0]
+                                                } label: {
+                                                    Image("Purple note")
+                                                        .resizable()
+                                                        .frame(width: 70, height: 70)
+                                                        .overlay(
+                                                            Text("\(purpleCount)")
+                                                                .foregroundColor(Color.black)
+                                                                .font(.custom("Marker Felt", size: 30))
+                                                        )
+                                                        .rotationEffect(.degrees(-5))
+                                                }
+                                            }
+                                            .offset(x: -40, y: -65)
+                                            .opacity(purple ? 1 : 0)
+                                            .allowsHitTesting(purple)
+                                        }
+                                }
+                            ) // overlay
+                    } // label
+                } // navigation link          
+            .navigationTitle("")
+            .navigationBarHidden(true)
+            .onAppear{
+                expiringFoodArr = filterArr()
+                getName()
+            }
             .allowsHitTesting(!showNote)
-//            .edgesIgnoringSafeArea(.top)
             
             NotesUI(note: $noteType, show: $showNote, arr: $noteArr)
-            
-//            zstack
-        }
+        }// zstack
         
         
     }
 }
-
-//struct ClosedFridgeScreen_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ClosedFridgeScreen()
-//    }
-//}

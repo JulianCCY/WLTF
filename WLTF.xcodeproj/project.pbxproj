@@ -25,6 +25,8 @@
 		6A1AAB0227F9202A0084D06D /* WLTFUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1AAB0127F9202A0084D06D /* WLTFUITests.swift */; };
 		6A1AAB0427F9202A0084D06D /* WLTFUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1AAB0327F9202A0084D06D /* WLTFUITestsLaunchTests.swift */; };
 		6A94FAC42817040800127728 /* DishAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A94FAC32817040800127728 /* DishAdd.swift */; };
+		6A9AE2AB281E3B7000133707 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6A9AE2AD281E3B7000133707 /* Localizable.strings */; };
+		6A9AE2B0281E3C6800133707 /* LanguageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9AE2AF281E3C6800133707 /* LanguageController.swift */; };
 		6AA5A153281820E000C2E7D8 /* DishDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA5A152281820E000C2E7D8 /* DishDetail.swift */; };
 		6AA5A15528198E2E00C2E7D8 /* RemainingCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA5A15428198E2E00C2E7D8 /* RemainingCircle.swift */; };
 		6AA5A1572819DBBB00C2E7D8 /* MapScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA5A1562819DBBB00C2E7D8 /* MapScreen.swift */; };
@@ -93,6 +95,9 @@
 		6A1AAB0127F9202A0084D06D /* WLTFUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLTFUITests.swift; sourceTree = "<group>"; };
 		6A1AAB0327F9202A0084D06D /* WLTFUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLTFUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		6A94FAC32817040800127728 /* DishAdd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishAdd.swift; sourceTree = "<group>"; };
+		6A9AE2AC281E3B7000133707 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6A9AE2AE281E3BAD00133707 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6A9AE2AF281E3C6800133707 /* LanguageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageController.swift; sourceTree = "<group>"; };
 		6AA5A152281820E000C2E7D8 /* DishDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishDetail.swift; sourceTree = "<group>"; };
 		6AA5A15428198E2E00C2E7D8 /* RemainingCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemainingCircle.swift; sourceTree = "<group>"; };
 		6AA5A1562819DBBB00C2E7D8 /* MapScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapScreen.swift; sourceTree = "<group>"; };
@@ -219,6 +224,7 @@
 		6A1AAAE027F920280084D06D /* WLTF */ = {
 			isa = PBXGroup;
 			children = (
+				6A9AE2A8281E3ABF00133707 /* Localizations */,
 				6A0CEAB3280DCB2F0086938B /* Info.plist */,
 				84D5EBE528037D6700B15054 /* DataModel */,
 				6A1830AE27FC4696005FF721 /* Views */,
@@ -258,6 +264,14 @@
 			path = WLTFUITests;
 			sourceTree = "<group>";
 		};
+		6A9AE2A8281E3ABF00133707 /* Localizations */ = {
+			isa = PBXGroup;
+			children = (
+				6A9AE2AD281E3B7000133707 /* Localizable.strings */,
+			);
+			path = Localizations;
+			sourceTree = "<group>";
+		};
 		846BB7D728173D26004864AE /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
@@ -284,6 +298,7 @@
 				6AA5A15A2819DD9300C2E7D8 /* MapController.swift */,
 				846A8062281BFD0B00589663 /* MicManager.swift */,
 				846A8064281C078E00589663 /* SpeechManager.swift */,
+				6A9AE2AF281E3C6800133707 /* LanguageController.swift */,
 			);
 			path = DataModel;
 			sourceTree = "<group>";
@@ -377,6 +392,7 @@
 			knownRegions = (
 				en,
 				Base,
+				fi,
 			);
 			mainGroup = 6A1AAAD527F920280084D06D;
 			packageReferences = (
@@ -402,6 +418,7 @@
 				843C853F281998CD001D5AF6 /* LaunchScreen.storyboard in Resources */,
 				6A1AAAE627F9202A0084D06D /* Assets.xcassets in Resources */,
 				84D5EBE4280354BB00B15054 /* categoryData.json in Resources */,
+				6A9AE2AB281E3B7000133707 /* Localizable.strings in Resources */,
 				846BB7DA28173DCE004864AE /* open-fridge.mp3 in Resources */,
 				84D5EBE228034C2500B15054 /* unitData.json in Resources */,
 				846BB7DB28173DCE004864AE /* close-fridge.mp3 in Resources */,
@@ -457,6 +474,7 @@
 				6AA5A15B2819DD9300C2E7D8 /* MapController.swift in Sources */,
 				6A94FAC42817040800127728 /* DishAdd.swift in Sources */,
 				6A1AAAE227F920280084D06D /* WLTFApp.swift in Sources */,
+				6A9AE2B0281E3C6800133707 /* LanguageController.swift in Sources */,
 				6A0CEAAE280DB0690086938B /* ShoppingList.swift in Sources */,
 				84D5EBEC280380F100B15054 /* TImeController.swift in Sources */,
 				6ACEBD6028045989006C93A8 /* FoodImgFunc.swift in Sources */,
@@ -495,6 +513,18 @@
 			targetProxy = 6A1AAAFE27F9202A0084D06D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		6A9AE2AD281E3B7000133707 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6A9AE2AC281E3B7000133707 /* en */,
+				6A9AE2AE281E3BAD00133707 /* fi */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		6A1AAB0527F9202A0084D06D /* Debug */ = {

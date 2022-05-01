@@ -9,25 +9,28 @@
 
 import SwiftUI
 
-enum languages {
-    case english, suomi
+enum languages: String {
+    case english = "en"
+    case suomi = "fi"
 }
 
 struct Settings: View {
     
     @Environment(\.managedObjectContext) var moc
     @Environment(\.dismiss) var dismiss
+//    @Environment(\.locale, .init(identifier: lang))
     
     @State private var fridgeName: String = DataController().fetchFridgeName()
     @State private var chosenLanguage: languages = languages.english
     @State private var guidelines: [String] = ["General", "Home", "Adding items", "Grocery list", "Dishes"]
+    @State private var lang = "en"
     
     var language: String {
         switch chosenLanguage {
           case .english:
-              return "English 🇬🇧"
+              return "en"
           case .suomi:
-              return "Suomi 🇫🇮"
+              return "fi"
         }
     }
     
@@ -42,7 +45,7 @@ struct Settings: View {
 //                Naming the fridge
                 HStack {
                     VStack(alignment: .leading, spacing: 2) {
-                        Text("Name your fridge here!")
+                        Text(LocalizedStringKey("Name your fridge here!"))
                             .font(.headline)
                         TextField("Name of your fridge", text: $fridgeName)
                             .foregroundColor(Color(UIColor.gray))
@@ -281,7 +284,7 @@ struct Settings: View {
                 
                 
             }
-            .navigationBarTitle("Settings")
+            .navigationBarTitle(LocalizedStringKey("Settings"))
                         
             VStack {
                 Spacer()
@@ -296,8 +299,7 @@ struct Settings: View {
                 }
             }
         }
-        
-        
+        .environment(\.locale, .init(identifier: chosenLanguage.rawValue))
         
         
     }

@@ -104,26 +104,19 @@ struct DishMain: View {
                     Spacer()
                     HStack {
                         Spacer()
-              //          Button() {
-           //                 getSpeech()
-          //              } label: {
-          //                  Image(systemName: recording ? "stop.circle.fill" : "waveform.and.mic")
-            //                    .resizable()
-          //                      .frame(width: 50, height: 50)
-         //                       .foregroundColor(Color("PrimaryColor"))
-         //               }
                         VStack{
-                            NavigationLink(destination: SpeechTest()) {
-                                // Navigate to add food screen
-                                Image(systemName: "mic")
-                                    .resizable()
-                                    .padding(10)
-                                    .padding([.leading, .trailing], 3)
-                                    .frame(width: 50, height: 50)
-                                    .foregroundColor(Color("TertiaryColor"))
-                                    .background(Color("PrimaryColor"))
-                                    .cornerRadius(6)
-                            }
+                            Button() {
+                                 getSpeech()
+                             } label: {
+                                 Image(systemName: recording ? "stop.circle.fill" : "waveform.and.mic")
+                                     .resizable()
+                                     .padding(10)
+                                     .padding([.leading, .trailing], 3)
+                                     .frame(width: 50, height: 50)
+                                     .foregroundColor(Color("TertiaryColor"))
+                                     .background(Color("PrimaryColor"))
+                                     .cornerRadius(6)
+                             }
                             NavigationLink(destination: DishAdd()) {
                                 // Navigate to add food screen
                                 Image(systemName: "plus.square.fill")

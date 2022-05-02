@@ -429,6 +429,10 @@ class DataController: ObservableObject {
         // early return if user doesn't make any recipe
         guard dishRec.count > 0 else { return "Sorry, I guess you didn't make any recipe"}
         
+        if dishRec.count == 1 {
+            return "I guess you only can cook \(dishRec[0]!), you don't have any choice"
+        }
+        
         let dish = dishRec.randomElement()!
         
         let ans = ["I'd recommend to cook \(String(describing: dish!))", "What about \(String(describing: dish!))? You have enough ingredient", "Would you like to have \(String(describing: dish!))"]
@@ -437,8 +441,16 @@ class DataController: ObservableObject {
     }
     
     // check if the user can cook some thing
-    
-    func checkCookable(dish: [String]) {
+    func checkCookable(dish: String) {
+        // yup, you have enough ingredient to cook
+        // Sorry, ingredient is missing / are missing
         
+        // early return if user doesn't buy any food
+        
+        // early return if user doesn't make any recipe
+        
+        // yes
+        
+        // no, tell users the missing ingredient(s)
     }
 }

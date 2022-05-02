@@ -4,11 +4,14 @@
 //
 //  Created by iosdev on 25.4.2022.
 //
+// This is the DishAdd screen, user can create their own dish here
+// Navigated from DishMain
 
 import SwiftUI
 
 struct DishAdd: View {
     
+//    coredata
     @Environment(\.managedObjectContext) var managedObjectContext
     @Environment(\.dismiss) var dismiss
     
@@ -22,19 +25,31 @@ struct DishAdd: View {
     @State private var alert = false
     @State private var alertMessage = ""
     
+//    for selecting images
     @State var imageArr:[String] = ["mystery", "dinner", "smallbowl", "bigbowl", "smallplate", "bigplate", "pan", "wok", "vegan", "cookbook", "cookingbook"]
-
-    private func deleteItem(offsets: IndexSet) {
-        withAnimation {
-            ingredients.remove(atOffsets: offsets)
-        }
-    }
     
     private func chooseImage(img: String) -> String {
         if img == dishImage {
             return "CheckedItem"
         } else {
             return "Fridge"
+        }
+    }
+    
+//    on delete ingredient
+    private func deleteItem(offsets: IndexSet) {
+        withAnimation {
+            ingredients.remove(atOffsets: offsets)
+        }
+    }
+    
+//    environment locale cannot localize picker text, that's why we need a funcition
+    private func translate(input: String) -> String {
+        if input == "fi" {
+            return "Luoda ruokalaji"
+        }
+        else {
+            return "Create a dish"
         }
     }
     
@@ -47,12 +62,12 @@ struct DishAdd: View {
             VStack {
                 List {
                     Section {
-                        TextField("Name of your dish", text: $dishName)
+                        TextField("dish_name", text: $dishName)
                             .font(.system(size: 24))
-                        TextField("Notes", text: $note)
+                        TextField("notes", text: $note)
                         VStack {
                             Slider(value: $portion, in: 1...20, step: 1)
-                            Text("Serving \(Int(portion)) people")
+                            Text("serving \(Int(portion)) people")
                         }
 
                     }
@@ -60,11 +75,11 @@ struct DishAdd: View {
 
                     Section {
                         HStack {
-                            TextField("Ingredient", text: $ingredient)
+                            TextField("ingredient", text: $ingredient)
                             Button {
                                 if (ingredient == "") {
                                     alert = true
-                                    alertMessage = "No ingredient"
+                                    alertMessage = "no_ingredient"
                                 }
                                 else {
                                     ingredients.append(ingredient)
@@ -77,7 +92,7 @@ struct DishAdd: View {
                             .buttonStyle(BorderlessButtonStyle())
                             .frame(width: 100, height: 20, alignment: .center)
                             .alert(isPresented: $alert) {
-                                Alert(title: Text("Invalid"), message: Text("\(alertMessage)"), dismissButton: .default(Text("Ok")))
+                                Alert(title: Text("invalid"), message: Text("\(alertMessage)"), dismissButton: .default(Text("ok")))
                             }
                             .foregroundColor(ingredient == "" ? .gray : Color("PrimaryColor"))
                         }
@@ -111,7 +126,6 @@ struct DishAdd: View {
                                 Rectangle()
                                     .fill(Color("Fridge"))
                                     .cornerRadius(10)
-//                                    .shadow(color: Color.gray.opacity(0.5), radius: 2, x: 0, y: 0)
                             )
                         }
                         .onDelete(perform: deleteItem)
@@ -120,7 +134,7 @@ struct DishAdd: View {
                     
     //                List
                 }
-                .navigationBarTitle("Create a dish")
+                .navigationBarTitle("\(translate(input: UserDefaults.standard.string(forKey: "lang") ?? "en"))")
                 
                 HStack {
                     Spacer()
@@ -167,17 +181,17 @@ struct DishAdd: View {
                     
                 } label: {
                     //button one
-                    Label("Confirm", systemImage: "checkmark")
+                    Label("confirm", systemImage: "checkmark")
                 }
                 .disabled(dishName.isEmpty)
                 .alert(isPresented: $alert) {
-                    Alert(title: Text("Invalid"), message: Text("\(alertMessage)"), dismissButton: .default(Text("Ok")))
+                    Alert(title: Text("invalid"), message: Text("\(alertMessage)"), dismissButton: .default(Text("ok")))
                 }
             
                 
             } // vstack
         } // big z
-
+        .environment(\.locale, .init(identifier: UserDefaults.standard.string(forKey: "lang") ?? "en"))
     }
 }
 

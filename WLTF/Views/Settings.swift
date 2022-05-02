@@ -275,13 +275,12 @@ struct Settings: View {
                    }
                    .padding([.leading, .trailing], 30)
                    .padding(.bottom, 50)
-                }
-
-                
-                
-            }
+                } // scrollview
+                .ignoresSafeArea(.keyboard)
+            } // main vstack
             .navigationBarTitle("\(translate(input: chosenLanguage))")
-                        
+                    
+//            save button
             VStack {
                 Spacer()
                 Button{

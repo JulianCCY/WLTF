@@ -4,6 +4,8 @@
 //
 //  Created by iosdev on 26.4.2022.
 //
+// This is DishDetail screen, displaying individual dish details
+// Navigated from DishMain
 
 import SwiftUI
 
@@ -48,7 +50,7 @@ struct DishDetail: View {
                             .font(.largeTitle)
                             .bold()
                         HStack {
-                            Text("Portion: ")
+                            Text("portion:")
                                 .fontWeight(.medium)
                             Text ("\(Int(dish.portion)) people")
                         }
@@ -61,7 +63,7 @@ struct DishDetail: View {
                         if dish.note != "" {
                             HStack {
                                 VStack {
-                                    Text("Notes: ")
+                                    Text("notes: ")
                                         .fontWeight(.medium)
                                     Spacer()
                                 }
@@ -80,7 +82,7 @@ struct DishDetail: View {
                 
 //                ingredients list
                     VStack(alignment: .leading) {
-                        Text("Ingredients")
+                        Text("ingredients")
                             .font(.title)
                             .padding(.leading, 20)
                         
@@ -128,14 +130,14 @@ struct DishDetail: View {
                     Button() {
                         alert = true
                     } label: {
-                        Label("Delete", systemImage: "trash")
+                        Label("delete", systemImage: "trash")
                     }
                     .padding()
                     .foregroundColor(Color(red: 0.9686, green: 0.2039, blue: 0.1922).opacity(0.65))
                     .background(Color(red: 0.9569, green: 0.4941, blue: 0.4863).opacity(0.50))
                     .cornerRadius(20)
                     .confirmationDialog("", isPresented: $alert) {
-                        Button("Confirm", role:  .destructive) {
+                        Button("confirm", role:  .destructive) {
                             DataController().deleteDish(dishId: dish.dishId, context: moc)
                             dismiss()
                         }
@@ -145,11 +147,6 @@ struct DishDetail: View {
             Spacer()
         } // main v
         } // big z
+        .environment(\.locale, .init(identifier: UserDefaults.standard.string(forKey: "lang") ?? "en"))
     }
 }
-
-//struct DishDetail_Previews: PreviewProvider {
-//    static var previews: some View {
-//        DishDetail()
-//    }
-//}

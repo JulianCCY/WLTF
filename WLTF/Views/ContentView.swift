@@ -26,7 +26,6 @@ struct ContentView: View {
         UINavigationBar.appearance().standardAppearance = navBarAppearance
         UINavigationBar.appearance().compactAppearance = navBarAppearance
     }
- 
     
     var body: some View {
  
@@ -36,19 +35,19 @@ struct ContentView: View {
                 DishMain()
                     .tabItem {
                         Image(systemName: "magazine")
-                        Text("Menu")
+                        Text("menu")
                     }
                     .tag(1)
                 ClosedFridgeScreen()
                     .tabItem {
                         Image(systemName: "house")
-                        Text("Home")
+                        Text("home")
                     }
                     .tag(2)
                 ShoppingList()
                     .tabItem {
                         Image(systemName: "cart")
-                        Text("Grocery")
+                        Text("grocery")
                     }
                     .tag(3)
             }

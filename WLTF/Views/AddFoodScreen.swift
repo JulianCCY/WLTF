@@ -40,6 +40,25 @@ struct AddFoodScreen: View {
         }
     }
     
+//    environment locale cannot localize navigation bar title, that's why we need a funcition
+    private func translate(input: String) -> String {
+        if input == "fi" {
+            return "Lisää ruokaa"
+        }
+        else {
+            return "Add food"
+        }
+    }
+//    environment locale cannot localize picker text, that's why we need a funcition
+    private func translatePicker(input: String) -> String {
+        if input == "fi" {
+            return "Milloin se vanhenee?"
+        }
+        else {
+            return "When will it expire?"
+        }
+    }
+    
     var body: some View {
         ZStack {
             
@@ -53,7 +72,7 @@ struct AddFoodScreen: View {
                     Section {
                         VStack {
                             HStack {
-                                TextField("Food name", text: $name)
+                                TextField("food_name", text: $name)
                                 
                                 Spacer()
 
@@ -67,7 +86,7 @@ struct AddFoodScreen: View {
                                 Spacer()
                                     .frame(width: 50)
                                 Group {
-                                    TextField("Amount", text: $amount)
+                                    TextField("amount", text: $amount)
                                         .frame(width: 70)
                                         .keyboardType(.numberPad)
                                     Picker("Unit", selection: $unit) {
@@ -82,7 +101,7 @@ struct AddFoodScreen: View {
                                 .frame(width: 50, alignment: .trailing)
                             }
                             .padding([.top, .leading, .trailing])
-                            DatePicker("When will it expire?", selection: $expiryDate, in: Date.now.addingTimeInterval(86400)..., displayedComponents: .date)
+                            DatePicker("\(translatePicker(input: UserDefaults.standard.string(forKey: "lang") ?? "en"))", selection: $expiryDate, in: Date.now.addingTimeInterval(86400)..., displayedComponents: .date)
                                 .foregroundColor(.gray)
                                 .padding(.horizontal)
                             
@@ -91,10 +110,10 @@ struct AddFoodScreen: View {
                             Button {
                                 if (name == "") {
                                     alert = true
-                                    alertMessage = "Empty name"
+                                    alertMessage = "empty_name"
                                 } else if (Int(amount) == 0 || amount == "") {
                                     alert = true
-                                    alertMessage = "Amount must be integer"
+                                    alertMessage = "amount_integer"
                                 }
                                 else {
                                     globalArr.addFoodArr.append(FoodStruct(foodId: UUID(), name: name, category: category, entryDate: formatting(currentDate: Date()), expiryDate: expiryDate, amount: Double(amount) ?? 0, unit: unit, remaining: 100))
@@ -113,7 +132,7 @@ struct AddFoodScreen: View {
                             .buttonStyle(BorderlessButtonStyle())
                             .frame(width: 100, height: 20, alignment: .center)
                             .alert(isPresented: $alert) {
-                                Alert(title: Text("Invalid"), message: Text("\(alertMessage)"), dismissButton: .default(Text("Ok")))
+                                Alert(title: Text("invalid"), message: Text("\(alertMessage)"), dismissButton: .default(Text("ok")))
                             }
                             .foregroundColor(name == "" ? .gray : Color("PrimaryColor"))
                         }
@@ -125,25 +144,25 @@ struct AddFoodScreen: View {
                         ForEach(globalArr.addFoodArr, id: \.self) { i in
                             VStack {
                                 HStack {
-                                    Text("Name:")
+                                    Text("name:")
                                         .fontWeight(.semibold)
                                     Text(i.name)
                                 }
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 HStack {
-                                    Text("Category:")
+                                    Text("category:")
                                         .fontWeight(.semibold)
                                     Text(i.category)
                                 }
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 HStack {
-                                    Text("Amount:")
+                                    Text("amount:")
                                         .fontWeight(.semibold)
                                     Text("\(String(Int(i.amount))) \(i.unit)")
                                 }
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 HStack {
-                                    Text("Expiration:")
+                                    Text("expiration:")
                                         .fontWeight(.semibold)
                                     Text("\(formatting(currentDate: i.expiryDate))")
                                 }
@@ -169,7 +188,7 @@ struct AddFoodScreen: View {
                 Button {
                     if globalArr.addFoodArr.isEmpty == true {
                         alert = true
-                        alertMessage = "The Adding List is Empty"
+                        alertMessage = "add_list_empty"
                         
                     } else {
                         globalArr.addFoodArr.forEach { item in
@@ -185,17 +204,19 @@ struct AddFoodScreen: View {
                     }
                     
                 } label: {
-                    Label("Confirm", systemImage: "checkmark")
+                    Label("confirm", systemImage: "checkmark")
                 }
                 .disabled(globalArr.addFoodArr.isEmpty)
                 .alert(isPresented: $alert) {
-                    Alert(title: Text("Invalid"), message: Text("\(alertMessage)"), dismissButton: .default(Text("Ok")))
+                    Alert(title: Text("invalid"), message: Text("\(alertMessage)"), dismissButton: .default(Text("ok")))
                 }
             } // main vstack
             
         }// big z
+        .environment(\.locale, .init(identifier: UserDefaults.standard.string(forKey: "lang") ?? "en"))
         // Screen Title
-        .navigationBarTitle("Add food")
+        .navigationBarTitle("\(translate(input: UserDefaults.standard.string(forKey: "lang") ?? "en"))")
+        
     }    
 }
 

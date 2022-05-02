@@ -5,6 +5,10 @@
   Created by iosdev on 1.5.2022.
   
 */
+//tab bar
+"menu" = "valikosta";
+"home" = "jääkaappi";
+"grocery" = "ostoksilla";
 
 //sticknotes
 "back" = "Takaisin";
@@ -23,3 +27,53 @@
 "consumed" = "Kulutettu";
 "remove" = "Poista";
 "added_to_list" = "Lisätty listalle";
+
+//add food screen
+"food_name" = "Ruoan nimi";
+"when_expire?" = "Milloin se vanhenee?";
+"empty_name" = "Tyhjä nimi";
+"amount_integer" = "Summan on oltava kokonaisluku";
+"invalid" = "Virheellinen";
+"ok" = "Okei";
+"name:" = "Nimi:";
+"category:" = "Kategoria:";
+"amount:" = "Määrä:";
+"expiration:" = "Vanheneminen:";
+"add_list_empty" = "Lista on tyhjä";
+"confirm" = "Vahvistaa";
+
+//shopping list
+"grocery_list" = "Ostoslista";
+"description" = "Kuvaus (Valinnainen)";
+"empty_food_name" = "Ruokanimi tyhjä";
+"to_buy (%lld)" = "Ostaa (%lld)";
+"detected" = "Jääkaapissa havaittiin samanlaista ruokaa jäljellä";
+"double_tab" = "Tarkista kohde kaksoisnapauttamalla";
+"note:" = "Huomautus:";
+"blank" = "tyhjä";
+"empty_grocery_list?" = "Tyhjentääkö ruokalistasi?";
+"yes_please" = "Kyllä ​​kiitos";
+"cancel" = "Peruuttaa";
+"edit_item" = "Syötä uusi ruoan nimi ja kuvaus";
+
+//dish main
+"cook?" = "Mitä kokata?";
+"no_dish" = "Sinulla ei ole vielä ruokia!";
+"enough" = "Riittävä ainesosa";
+"not_enough" = "Riittämätön ainesosa";
+"delete_all_dishes" = "Poista kaikki ruokasi";
+
+//dish add
+"dish_name" = "Aterian nimi";
+"notes" = "Huomautukset";
+"serving %lld people" = "Palvelee %lld henkilöä";
+"ingredient" = "Ainesosa";
+"no_ingredient" = "Ei ainesosaa";
+"please_name_dish" = "Nimeä ruokasi";
+
+//dish detail
+"portion:" = "Annoksia:";
+"%lld people" = "%lld hengelle";
+"notes: " = "Huomautus: ";
+"ingredients" = "Ainesosia";
+"delete" = "Poistaa";

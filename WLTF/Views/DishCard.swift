@@ -65,10 +65,6 @@ struct DishCard: View {
                 .fill(Color("\(color)"))
                 .frame(width: 250, height: 250)
                 .shadow(color: Color.gray.opacity(0.2), radius: 10, x: 0, y: 0)
-//            Circle()
-//                .fill(Color("\(color)"))
-////                .frame(width: 230, height: 230)
-//                .shadow(color: Color.gray.opacity(0.2), radius: 10, x: 0, y: 0)
         )
         .onAppear{
             suff = checkSuff(arr: ingredients)
@@ -76,9 +72,3 @@ struct DishCard: View {
         
     }
 }
-
-//struct DishCard_Previews: PreviewProvider {
-//    static var previews: some View {
-//        DishCard()
-//    }
-//}

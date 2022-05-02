@@ -4,6 +4,13 @@
 //
 //  Created by iosdev on 18.4.2022.
 //
+// This is the shopping list, renamed to grocery list in our app
+// This screen is one of the three screens that can be navigated from tab view
+// User can add items to their grocery list, reminding them what to buy in the market
+// User can edit their items by holding the item
+// User can check or uncheck the item by double tapping
+// This screen can navigate to map view to find nearby markets
+// Mapview implemented
 
 import SwiftUI
 import Foundation
@@ -52,7 +59,7 @@ struct ShoppingList: View {
                     VStack {
                         VStack {
                             HStack {
-                                Text("Grocery list")
+                                Text("grocery_list")
                                     .font(.system(size: 36))
                                     .fontWeight(.bold)
                                     .padding(.top, 50)
@@ -65,10 +72,10 @@ struct ShoppingList: View {
                             Section {
                                 VStack {
                                     HStack {
-                                        TextField("Food name", text: $foodName)
+                                        TextField("food_name", text: $foodName)
                                             .frame(width: 125)
                                         Spacer()
-                                        TextField("Description (Optional)", text: $description)
+                                        TextField("description", text: $description)
                                     }
                                     .padding()
                                     
@@ -77,7 +84,7 @@ struct ShoppingList: View {
                                     Button() {
                                         if foodName == "" {
                                             alert = true
-                                            alertMessage = "Empty Food name"
+                                            alertMessage = "empty_food_name"
                                         } else {
                                             DataController().addToBuy(name: foodName, descr: description, context: moc)
                                             toBuyArr = filterArr()
@@ -92,24 +99,24 @@ struct ShoppingList: View {
                                     .frame(width: 100, height: 20, alignment: .center)
                                     .disabled(foodName == "")
                                     .alert(isPresented: $alert) {
-                                        Alert(title: Text("Invalid"), message: Text("\(alertMessage)"), dismissButton: .default(Text("Ok")))
+                                        Alert(title: Text("invalid"), message: Text("\(alertMessage)"), dismissButton: .default(Text("ok")))
                                     }
                                     .foregroundColor(foodName == "" ? .gray : Color("PrimaryColor"))
-                                    Text("TO-BUY (\(toBuyArr.count))")
-//                                        .foregroundColor(.gray)
+                                    
+                                    Text("to_buy (\(toBuyArr.count))")
                                     
                                     Divider()
                                     
                                     VStack(alignment: .leading) {
                                         Label {
-                                            Text("Detected similar food remaining in fridge")
+                                            Text("detected")
                                         } icon: {
                                             Image(systemName: "exclamationmark.square")
                                                 .foregroundColor(Color("PrimaryColor"))
                                         }
                                         .font(.system(size: 12))
                                         Label {
-                                            Text("Double tab to check your item")
+                                            Text("double_tab")
                                         } icon: {
                                             Image(systemName: "checkmark")
                                                 .foregroundColor(Color.green)
@@ -128,12 +135,12 @@ struct ShoppingList: View {
                                             Text(food.foodName)
                                                 .fontWeight(.bold)
                                                 .font(.title2)
-                                            Text("Note:")
+                                            Text("note:")
                                                 .fontWeight(.semibold)
                                                 .padding(.top, 5)
                                             HStack {
                                                 if (food.description == "") {
-                                                    Text("Blank")
+                                                    Text("blank")
                                                         .font(.subheadline)
                                                         .foregroundColor(.black)
                                                 } else {
@@ -233,25 +240,23 @@ struct ShoppingList: View {
                                     .font(.system(size: 22))
                                     .padding(EdgeInsets(top: 12, leading: 0, bottom: 0, trailing: 15))
                             }
-                            .alert("Empty your grocery list?", isPresented: $deleteAlert) {
-                                Button("Yes please", role: .destructive) {
+                            .alert("empty_grocery_list?", isPresented: $deleteAlert) {
+                                Button("yes_please", role: .destructive) {
                                     DataController().removeWholeList(context: moc)
                                     toBuyArr = []
                                 }
-                                Button("Cancel", role: .cancel) { }
+                                Button("cancel", role: .cancel) { }
                             }
                             .disabled(toBuyArr.isEmpty)
                         }
                         Spacer()
                     }
-//                }.blur(radius: editAlert ? 20 : 0)
     //          Big Zstack
             }
-//       navigation
-//        }
+//       navigation title
         .navigationTitle("")
         .navigationBarHidden(true)
-        
+        .environment(\.locale, .init(identifier: UserDefaults.standard.string(forKey: "lang") ?? "en"))
     }
     
     // transform objects to useable array
@@ -267,20 +272,18 @@ struct ShoppingList: View {
     func editAlertView(oldName: String, oldDescr: String, itemId: String) {
         let screen = UIApplication.shared.connectedScenes.first as? UIWindowScene
         
-//        let editAlert = UIAlertController(title: "Error", message: "Food name can't be Empty", preferredStyle: .alert)
-        
-        let alert = UIAlertController(title: "Edit", message: "please input new food name and description", preferredStyle: .alert)
+        let alert = UIAlertController(title: "\(translateTitle(input: UserDefaults.standard.string(forKey: "lang") ?? "en"))", message: "\(translateEdit(input: UserDefaults.standard.string(forKey: "lang") ?? "en"))", preferredStyle: .alert)
         alert.addTextField { foodName in
             foodName.placeholder = "\(oldName)"
             alert.textFields![0].text! = oldName
         }
         
         alert.addTextField { description in
-            description.placeholder = "Description (Optional)"
+            description.placeholder = "\(translateDescription(input: UserDefaults.standard.string(forKey: "lang") ?? "en"))"
             alert.textFields![1].text! = oldDescr
         }
         
-        let submitEdit = UIAlertAction(title: "Confirm", style: .default) { (_) in
+        let submitEdit = UIAlertAction(title: "\(translateConfirm(input: UserDefaults.standard.string(forKey: "lang") ?? "en"))", style: .default) { (_) in
             itemName = alert.textFields![0].text! == "" ? oldName : alert.textFields![0].text!
             itemDetails = alert.textFields![1].text! == "" ? "" : alert.textFields![1].text!
             
@@ -288,7 +291,7 @@ struct ShoppingList: View {
             toBuyArr = filterArr()
         }
         
-        let cancelEdit = UIAlertAction(title: "Cancel", style: .destructive) { (_) in }
+        let cancelEdit = UIAlertAction(title: "\(translateCancel(input: UserDefaults.standard.string(forKey: "lang") ?? "en"))", style: .destructive) { (_) in }
         
         alert.addAction(submitEdit)
         alert.addAction(cancelEdit)
@@ -305,5 +308,53 @@ struct ShoppingList: View {
 struct ShoppingList_Previews: PreviewProvider {
     static var previews: some View {
         ShoppingList()
+    }
+}
+
+// Functions for translating the strings in edit alert...
+
+//    environment locale cannot localize edit alert, that's why we need a funcition
+private func translateTitle(input: String) -> String {
+    if input == "fi" {
+        return "Muokata"
+    }
+    else {
+        return "Edit"
+    }
+}
+
+private func translateEdit(input: String) -> String {
+    if input == "fi" {
+        return "Syötä uusi ruoan nimi ja kuvaus"
+    }
+    else {
+        return "Please input new food name and description"
+    }
+}
+
+private func translateDescription(input: String) -> String {
+    if input == "fi" {
+        return "Kuvaus (Valinnainen)"
+    }
+    else {
+        return "Description (Optional)"
+    }
+}
+
+private func translateConfirm(input: String) -> String {
+    if input == "fi" {
+        return "Vahvistaa"
+    }
+    else {
+        return "Confirm"
+    }
+}
+
+private func translateCancel(input: String) -> String {
+    if input == "fi" {
+        return "Peruuttaa"
+    }
+    else {
+        return "Cancel"
     }
 }

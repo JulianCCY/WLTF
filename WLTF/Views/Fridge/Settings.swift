@@ -21,6 +21,8 @@ struct Settings: View {
 //    using userdefaults for language selection
     @AppStorage("lang") private var chosenLanguage: String = "en"
     
+    @State private var keyboardHeight: CGFloat = 0
+    
 //    environment locale cannot localize navigation bar title, that's why we need a funcition
     private func translate(input: String) -> String {
         if input == "en" {
@@ -45,6 +47,7 @@ struct Settings: View {
                             .font(.headline)
                         TextField("Name of your fridge", text: $fridgeName)
                             .foregroundColor(Color(UIColor.gray))
+                            
                     }
                     .padding()
                     

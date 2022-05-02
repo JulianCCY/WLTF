@@ -154,16 +154,14 @@ struct FoodDetail: View {
                         .background(Color(red: 0.7569, green: 0.898, blue: 1).opacity(0.61))
                         .cornerRadius(20)
                         .confirmationDialog("Are you sure", isPresented: $alert){
-                            Button("consume", role: .destructive){
+                            Button("Consume", role: .destructive){
                                 DataController().consumeFood(id: food.foodId, remaining: remaining, context: moc)
                             }
                         }
                         
                     } else if remaining == 0 || checkExpired(expiryDate: food.expiryDate) == true {
                         Button() {
-//                            alert = true
-                            DataController().deleteSingleFood(id: food.foodId, context: moc)
-                            dismiss()
+                            alert = true
                         }
                         label: {
                             Label("remove", systemImage: "trash")
@@ -172,6 +170,12 @@ struct FoodDetail: View {
                         .foregroundColor(Color(red: 0.0902, green: 0.0549, blue: 0.3294).opacity(0.61))
                         .background(Color(red: 0.8706, green: 0.8392, blue: 0.9529).opacity(0.61))
                         .cornerRadius(20)
+                        .confirmationDialog("Are you sure", isPresented: $alert){
+                            Button("Remove", role: .destructive){
+                                DataController().deleteSingleFood(id: food.foodId, context: moc)
+                                dismiss()
+                            }
+                        }
                     }
                     Spacer()
                 }// button hstack

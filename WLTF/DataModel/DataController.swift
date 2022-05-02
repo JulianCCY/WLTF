@@ -470,8 +470,11 @@ class DataController: ObservableObject {
         
         let dishId = object![0].id
         
+        // if user has all the ingredients and all of them are sufficient
         if fetchRelatedIngredient(dishId: dishId!).compactMap({$0.name}).allSatisfy({checkIfExist(foodName: $0) == true && checkRemainingFromDish(name: $0) == true}) {
             return "Yup, you have enough ingredient to cook it!"
+        
+        // if user has all ingredients needed, but one or some of them is(are) not sufficient (remaining less than 30%)
         } else if fetchRelatedIngredient(dishId: dishId!).compactMap({$0.name}).allSatisfy({checkIfExist(foodName: $0) == true}) {
             let warningItem = fetchRelatedIngredient(dishId: dishId!).compactMap({$0.name}).filter{checkRemainingFromDish(name: $0) == false}
             
@@ -480,9 +483,12 @@ class DataController: ObservableObject {
             if warningItem.count > 2 {
                 return "You have all the ingredients you need, but it may not be enough for you to cook, so please check again"
             }
+            
+        // if user doesn't have all the ingredients needed
         } else if fetchRelatedIngredient(dishId: dishId!).compactMap({$0.name}).allSatisfy({checkIfExist(foodName: $0) == false}){
             return "Sorry, you don't have all the ingredients you need, I suggest you go for a grocery shopping or cook something else"
             
+        // if user doesn't have one or some of the ingrdients
         } else if fetchRelatedIngredient(dishId: dishId!).compactMap({$0.name}).allSatisfy({checkIfExist(foodName: $0) == true}) == false {
             let missingItem = fetchRelatedIngredient(dishId: dishId!).compactMap({$0.name}).filter{checkIfExist(foodName: $0) == false}
             
@@ -497,7 +503,7 @@ class DataController: ObservableObject {
         return "Sorry, I don't know, um.....I can't help"
     }
     
-    
+    // check if the fridge is empty
     private func checkFridgeEmpty() -> Bool{
         let fetchRequest: NSFetchRequest<Food>
         fetchRequest = Food.fetchRequest()

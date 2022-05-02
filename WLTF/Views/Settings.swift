@@ -50,6 +50,7 @@ struct Settings: View {
                     
                     Spacer()
                 }
+                .ignoresSafeArea(.keyboard)
                 
 //                language picker
                 Picker("Select language", selection: $chosenLanguage) {

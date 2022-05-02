@@ -4,6 +4,7 @@
 //
 //  Created by iosdev on 5.4.2022.
 //
+// Structure of food object
 
 import Foundation
 
@@ -17,12 +18,3 @@ struct FoodStruct: Hashable, Codable {
     var unit: String
     var remaining: Double
 }
-
-//struct FoodStruct: Hashable {
-//    var name: String
-//    var category: String
-//    var entryDate: String
-//    var expireDate: Date
-//    var amount: Double
-//    var unit: String
-//}

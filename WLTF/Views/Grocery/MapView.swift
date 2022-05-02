@@ -32,6 +32,7 @@ struct MapView: UIViewRepresentable {
         
     }
     
+//    Mapview pin
     class Coordinator: NSObject, MKMapViewDelegate {
         
         private func mapView(_ mapView: MapView, viewfor annotation: MKAnnotation) -> MKAnnotationView? {

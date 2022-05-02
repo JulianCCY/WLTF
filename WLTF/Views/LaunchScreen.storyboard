@@ -58,7 +58,7 @@
     <resources>
         <image name="loadingScreen" width="533.33331298828125" height="386"/>
         <namedColor name="NormalItem">
-            <color red="0.18485350060583505" green="0.9569479696843276" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.18404605804863453" green="0.89524527526246966" blue="0.9696819421016809" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

@@ -167,21 +167,9 @@
 			children = (
 				843C853E281998CD001D5AF6 /* LaunchScreen.storyboard */,
 				6A1AAAE327F920280084D06D /* ContentView.swift */,
-				6ADB2E8F27FCA32900A8E475 /* ClosedFridgeScreen.swift */,
-				6A0CEABC2815B74B0086938B /* Settings.swift */,
-				6A0CEAB42810340B0086938B /* NotesUI.swift */,
-				6ADB2E9127FDDCCC00A8E475 /* InsideFridgeScreen.swift */,
-				6AB93E6227FC88A6003D601F /* FoodDetail.swift */,
-				6AA5A15428198E2E00C2E7D8 /* RemainingCircle.swift */,
-				6ADB2E9527FDE01700A8E475 /* AddFoodScreen.swift */,
-				6A0CEAAD280DB0690086938B /* ShoppingList.swift */,
-				6ADB2E9727FE090500A8E475 /* FoodGrid.swift */,
-				6A0CEAAF280DB0CC0086938B /* DishMain.swift */,
-				6A0CEAC22816DEFA0086938B /* DishCard.swift */,
-				6A94FAC32817040800127728 /* DishAdd.swift */,
-				6AA5A152281820E000C2E7D8 /* DishDetail.swift */,
-				6AA5A1562819DBBB00C2E7D8 /* MapScreen.swift */,
-				6A1830A027FB8DA9005FF721 /* MapView.swift */,
+				6A9AE2B128205FEC00133707 /* Fridge */,
+				6A9AE2B32820602B00133707 /* Dish */,
+				6A9AE2B22820600500133707 /* Grocery */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -269,6 +257,42 @@
 				6A9AE2AD281E3B7000133707 /* Localizable.strings */,
 			);
 			path = Localizations;
+			sourceTree = "<group>";
+		};
+		6A9AE2B128205FEC00133707 /* Fridge */ = {
+			isa = PBXGroup;
+			children = (
+				6ADB2E9727FE090500A8E475 /* FoodGrid.swift */,
+				6ADB2E8F27FCA32900A8E475 /* ClosedFridgeScreen.swift */,
+				6A0CEABC2815B74B0086938B /* Settings.swift */,
+				6A0CEAB42810340B0086938B /* NotesUI.swift */,
+				6ADB2E9127FDDCCC00A8E475 /* InsideFridgeScreen.swift */,
+				6AB93E6227FC88A6003D601F /* FoodDetail.swift */,
+				6AA5A15428198E2E00C2E7D8 /* RemainingCircle.swift */,
+				6ADB2E9527FDE01700A8E475 /* AddFoodScreen.swift */,
+			);
+			path = Fridge;
+			sourceTree = "<group>";
+		};
+		6A9AE2B22820600500133707 /* Grocery */ = {
+			isa = PBXGroup;
+			children = (
+				6A0CEAAD280DB0690086938B /* ShoppingList.swift */,
+				6AA5A1562819DBBB00C2E7D8 /* MapScreen.swift */,
+				6A1830A027FB8DA9005FF721 /* MapView.swift */,
+			);
+			path = Grocery;
+			sourceTree = "<group>";
+		};
+		6A9AE2B32820602B00133707 /* Dish */ = {
+			isa = PBXGroup;
+			children = (
+				6A0CEAAF280DB0CC0086938B /* DishMain.swift */,
+				6A0CEAC22816DEFA0086938B /* DishCard.swift */,
+				6A94FAC32817040800127728 /* DishAdd.swift */,
+				6AA5A152281820E000C2E7D8 /* DishDetail.swift */,
+			);
+			path = Dish;
 			sourceTree = "<group>";
 		};
 		846BB7D728173D26004864AE /* Sounds */ = {

@@ -4,6 +4,7 @@
 //
 //  Created by Chan Chung Yin on 19/4/2022.
 //
+// Structure of Shopping list item object
 
 import Foundation
 

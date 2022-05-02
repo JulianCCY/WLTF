@@ -8,6 +8,7 @@
 import Foundation
 import AVFoundation
 import NaturalLanguage
+import CoreML
 
 // This controller is to get what did the user say, and then do the response
 
@@ -16,8 +17,10 @@ class NLPController {
     // perform a low level speech analytics
     // try to understand what does the speech means
     func speechAnalytics(userSpeech: String) {
-        let recommendationKeywords = ["What can", "What should", "recommend", "recommendation", "idea", "suggest", "suggestion", "any", "anything"]
-        let checkIfICanCookKeywords = ["Can I cook", "Do I have enough ingredient"]
+        let recommendationKeywords = ["What can", "What should", "recommend", "recommendation", "idea", "suggest", "suggestion", "any", "anything", "advice"]
+        let checkIfICanCookKeywords = ["Can I cook", "Can I", "Do you think", "Do I", "make", "cook"]
+//        let WLTF = "what's left the fridge"
+//        let greet = "how are you"
         
         // early return if users said unrelated sentence
         guard recommendationKeywords.contains(where: {userSpeech.contains($0)})
@@ -27,31 +30,40 @@ class NLPController {
         }
         
         // we need to know if the user speech contains some keywords and find the meaning similarity
+        // NLP word embedding: calculate the similarity between two sentence
         if recommendationSimilarity(text: userSpeech) <= 0.95 && recommendationKeywords.contains(where: {userSpeech.contains($0)}) {
+            //What do you recommend to cook?
+            // What can I cook?
+            // What should I cook?
+            // Do you have any suggestion
+            // Do you have any advice on what I should cook?
             speechResponse(message: DataController().dishRecommendation())
-        } else {
-            speechResponse(message: "Sorry, I don't understand, could you try again?")
         }
         
         
         
         // check if user has enough ingredient to cook something
         // I wanna let user to ask more than one dish
-        if checkIfICanCookKeywords.contains(where: {userSpeech.contains($0)}) {
+        if checkCanICookSimilarity(text: userSpeech) <= 1.3 && checkIfICanCookKeywords.contains(where: {userSpeech.contains($0)}) {
             // ask can I cook something
             // e.g can I cook an egg?
-            // yup, you have enough ingredient to cook
-            // Sorry, ingredient is missing / are missing
-            var dishArr = [String]()
-            let tagger = NLTagger(tagSchemes: [.lexicalClass])
+            
+            var dishName = [String]()
+            
+            let model = try! NLModel(contentsOf: Bundle.main.url(forResource: "foodTag", withExtension: "mlmodelc")!)
+            let tagger = NLTagger(tagSchemes: [.nameType])
+            
+            tagger.setModels([model], forTagScheme: .nameType)
             tagger.string = userSpeech
-            let options: NLTagger.Options = [.omitPunctuation, .omitWhitespace]
-            tagger.enumerateTags(in: userSpeech.startIndex..<userSpeech.endIndex, unit: .word, scheme: .lexicalClass, options: options) { tag, tokenRange in
-                if tag == .noun {
-                    dishArr.append("\(userSpeech[tokenRange])")
+            
+            tagger.enumerateTags(in: userSpeech.startIndex..<userSpeech.endIndex, unit: .word, scheme: .nameType, options: .omitWhitespace) { tag, tokenRange in
+                if tag!.rawValue == "FOOD" && ["ingredients", "ingredient"].contains(userSpeech[tokenRange].lowercased()) == false{
+                    dishName.append("\(userSpeech[tokenRange])")
                 }
                 return true
             }
+            
+            DataController().checkCookable(dish: dishName.joined(separator: " ").lowercased())
         }
     }
     
@@ -94,7 +106,7 @@ class NLPController {
         if let sentenceEmbedding = NLEmbedding.sentenceEmbedding(for: .english) {
             let distance = sentenceEmbedding.distance(between: text, and: "What do you recommend to cook?")
             similarity = Double(distance.description)!
-            print(similarity)
+//            print(similarity)
         }
         return similarity
     }
@@ -102,7 +114,7 @@ class NLPController {
     private func checkCanICookSimilarity(text: String) -> Double {
         var similarity = 0.0
         if let sentenceEmbedding = NLEmbedding.sentenceEmbedding(for: .english) {
-            let distance = sentenceEmbedding.distance(between: text, and: "Can I cook this?")
+            let distance = sentenceEmbedding.distance(between: text, and: "Do I have enough ingredient to cook?")
             similarity = Double(distance.description)!
             print(similarity)
         }

@@ -4,56 +4,62 @@
 //
 //  Created by iosdev on 24.4.2022.
 //
+// This is the setting page, also known as the guidelines, can be navigated from ClosedFridgeScreen
+// This page can modify the fridge name, switch the language, and show the user about our app's functionalities
 
 import SwiftUI
 
-enum languages {
-    case english, suomi
-}
-
 struct Settings: View {
     
+//    coredata
     @Environment(\.managedObjectContext) var moc
     @Environment(\.dismiss) var dismiss
     
     @State private var fridgeName: String = DataController().fetchFridgeName()
-    @State private var chosenLanguage: languages = languages.english
     @State private var guidelines: [String] = ["General", "Home", "Adding items", "Grocery list", "Dishes"]
     
-    var language: String {
-        switch chosenLanguage {
-          case .english:
-              return "English 🇬🇧"
-          case .suomi:
-              return "Suomi 🇫🇮"
+//    using userdefaults for language selection
+    @AppStorage("lang") private var chosenLanguage: String = "en"
+    
+//    environment locale cannot localize navigation bar title, that's why we need a funcition
+    private func translate(input: String) -> String {
+        if input == "en" {
+            return "Settings"
+        } else {
+            return "Asetukset"
         }
     }
     
     var body: some View {
         
         ZStack {
+            
+            Color("TertiaryColor")
+                .ignoresSafeArea()
+            
             VStack {
-//                Naming
+//                Naming the fridge
                 HStack {
                     VStack(alignment: .leading, spacing: 2) {
-                        Text("Name your fridge here!")
+                        Text("name_your_fridge")
                             .font(.headline)
                         TextField("Name of your fridge", text: $fridgeName)
                             .foregroundColor(Color(UIColor.gray))
                     }
-//                    .frame(width: 200)
                     .padding()
                     
                     Spacer()
                 }
                 
+//                language picker
                 Picker("Select language", selection: $chosenLanguage) {
                     Text("English 🇬🇧")
-                        .tag(languages.english)
+                        .tag("en")
                     Text("Suomi 🇫🇮")
-                        .tag(languages.suomi)
+                        .tag("fi")
                 }
                 .pickerStyle(SegmentedPickerStyle())
+                .colorMultiply(Color("Fridge"))
                 .padding()
                 
     //            guidelines
@@ -63,7 +69,7 @@ struct Settings: View {
     //                   general
                        ZStack {
                            VStack(alignment: .leading) {
-                               Text("General in WLTF")
+                               Text("general")
                                    .font(.title2)
                                    .fontWeight(.semibold)
                                Spacer()
@@ -104,14 +110,14 @@ struct Settings: View {
                                HStack {
                                    Image(systemName: "plus.rectangle")
                                        .font(.system(size: 20))
-                                       .foregroundColor(.blue)
+                                       .foregroundColor(Color("PrimaryColor"))
                                    Text("Button for adding item to list.")
                                        .font(.subheadline)
                                }
                                .padding(.bottom)
                                HStack{
                                    Text("Gray colored")
-                                       .foregroundColor(.gray)
+                                       .foregroundColor(Color(UIColor.gray))
                                        .font(.subheadline)
                                    Text(" =  input fields.")
                                        .font(.subheadline)
@@ -266,29 +272,15 @@ struct Settings: View {
                        )
                        .shadow(color: Color.gray.opacity(0.2), radius: 3, x: 1, y: 1)
                        
-                       
-                       
-                       
-                       
-                       
-    //                   ForEach(guidelines) { i in
-    //
-    ////                       GeometryReader { geometry in
-    ////                           CardView(title: card.title, image: card.image, color: card.color)
-    ////                               .rotation3DEffect(Angle(degrees: Double(geometry.frame(in: .global).minX - 50) / -30), axis: (x: 0, y: 100.0, z: 0))
-    ////                       }
-    //                       .frame(width: 250, height: 400)
-    //                   }
                    }
                    .padding([.leading, .trailing], 30)
                    .padding(.bottom, 50)
-                }
-
-                
-                
-            }
-            .navigationBarTitle("Settings")
-                        
+                } // scrollview
+                .ignoresSafeArea(.keyboard)
+            } // main vstack
+            .navigationBarTitle("\(translate(input: chosenLanguage))")
+                    
+//            save button
             VStack {
                 Spacer()
                 Button{
@@ -298,15 +290,11 @@ struct Settings: View {
                     Image(systemName: "checkmark.square.fill")
                         .resizable()
                         .frame(width: 50, height: 50)
-                        .foregroundColor(Color.green)
-                        .shadow(color: .gray, radius: 0.5, x: 1, y: 1)
+                        .foregroundColor(Color("PrimaryColor"))
                 }
             }
-        }
-        
-        
-        
-        
+        } // big z
+        .environment(\.locale, .init(identifier: chosenLanguage))
     }
 }
 

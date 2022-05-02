@@ -4,6 +4,10 @@
 //
 //  Created by iosdev on 18.4.2022.
 //
+// This is the DishMain screen, one of the screens that can navigate by tabview
+// This screen displays list of dishes that created by the user
+// User can see do they have ingredients for the dish
+// Speech recongnition implemented
 
 import SwiftUI
 import AVFoundation
@@ -30,10 +34,14 @@ struct DishMain: View {
     var body: some View {
         
         ZStack {
-            VStack {
+            
+            Color("TertiaryColor")
+                .ignoresSafeArea()
+            
+            VStack (alignment: .leading) {
                 VStack {
                     HStack {
-                        Text("What to cook?")
+                        Text("cook?")
                             .font(.system(size: 36))
                             .fontWeight(.bold)
                             .padding(.top, 50)
@@ -45,11 +53,11 @@ struct DishMain: View {
                 
 // Horizontal scroll
                 if dishArr.isEmpty {
-                    Text("You do not have any dishes yet!")
+                    Text("no_dish")
                         .frame(height: 300)
                 } else {
                     ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 10) {
+                        HStack(spacing: 20) {
 
                             ForEach(dishArr, id: \.self) { i in
 
@@ -60,65 +68,72 @@ struct DishMain: View {
                                    label: {
                                        DishCard(title: i.dishName, image: i.dishImg, ingredients: i.ingredientArr)
                                    }
-    //                                   .rotation3DEffect(Angle(degrees: Double(geometry.frame(in: .global).minX) / -15), axis: (x: 0, y: 10, z: 0))
                                }
                                .frame(width: 250, height: 280)
                            }
                        }
-    //                   .padding([.leading, .trailing], 70)
                         .padding(.leading, 80)
                         .padding(.trailing, 50)
-                       .padding(.top, 50)
+                        .padding(.top, 50)
                     }
 
                 }
                 
-//                Ingredients
+                Spacer()
+                
+//                Ingredients colors guide
                 VStack(alignment: .leading) {
                     HStack() {
                         Circle()
                             .fill(Color("Green"))
                             .frame(width: 16, height: 16)
-                        Text("Adequate ingredient")
+                        Text("enough")
                             .font(.custom("Helvetica", size: 14))
                     }
                     HStack() {
                         Circle()
                             .fill(Color("Red"))
                             .frame(width: 16, height: 16)
-                        Text("Inadequate ingredient")
+                        Text("not_enough")
                             .font(.custom("Helvetica", size: 14))
                     }
+                    Spacer()
                 }
-                .padding(.top, 30)
+                .padding([.top,.leading], 30)
                 
+                
+//                buttons to create dish page and speech
                 VStack {
                     Spacer()
                     HStack {
                         Spacer()
-                        Button() {
-                            getSpeech()
-                        } label: {
-                            Image(systemName: recording ? "stop.circle.fill" : "waveform.and.mic")
-                                .resizable()
-                                .frame(width: 50, height: 50)
-                                .foregroundColor(Color("PrimaryColor"))
-                        }
-                        NavigationLink(destination: DishAdd()) {
-                            // Navigate to add food screen
-                            Image(systemName: "plus.square.fill")
-                                .resizable()
-                                .frame(width: 50, height: 50)
-                                .foregroundColor(Color("PrimaryColor"))
-//                                .shadow(color: .gray, radius: 0.2, x: 1, y: 1)
-//                                .padding(.trailing)
+                        VStack{
+                            Button() {
+                                 getSpeech()
+                             } label: {
+                                 Image(systemName: recording ? "stop.circle.fill" : "waveform.and.mic")
+                                     .resizable()
+                                     .padding(10)
+                                     .frame(width: 50, height: 50)
+                                     .foregroundColor(Color("TertiaryColor"))
+                                     .background(Color("PrimaryColor"))
+                                     .cornerRadius(6)
+                             }
+                            NavigationLink(destination: DishAdd()) {
+                                // Navigate to add food screen
+                                Image(systemName: "plus.square.fill")
+                                    .resizable()
+                                    .frame(width: 50, height: 50)
+                                    .foregroundColor(Color("PrimaryColor"))
+                            }
                         }
                     }
                 }
                 .padding([.trailing, .bottom])
 
-            }
+            } // main vstack
             
+//            delete all button 
             VStack {
                 HStack {
                     Spacer()
@@ -129,26 +144,26 @@ struct DishMain: View {
                             .font(.system(size: 22))
                             .padding(EdgeInsets(top: 12, leading: 0, bottom: 0, trailing: 15))
                     }
-                    .alert("Delete all of your dishes", isPresented: $alert) {
-                        Button("Confirm", role: .destructive) {
+                    .alert("delete_all_dishes", isPresented: $alert) {
+                        Button("confirm", role: .destructive) {
                             DataController().deleteAllDishes(context: moc)
                             moc.refreshAllObjects()
                             dishArr = []
                         }
-                        Button("Cancel", role: .cancel) { }
+                        Button("cancel", role: .cancel) { }
                     }
                     .disabled(dishArr.isEmpty)
                 }
                 Spacer()
             }
-            
-        }
+        } // big z
         .onAppear{
             dishArr = filterArr()
             speechManager.speechRecognitionAuthorization()
         }
         .navigationTitle("")
         .navigationBarHidden(true)
+        .environment(\.locale, .init(identifier: UserDefaults.standard.string(forKey: "lang") ?? "en"))
     }
     
     private func getSpeech(){

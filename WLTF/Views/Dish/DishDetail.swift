@@ -89,16 +89,27 @@ struct DishDetail: View {
                             
                             ZStack {
                                 if check(name: i) {
-                                    Label {
-                                        Text("\(i)")
-                                            .foregroundColor(Color("Green"))
-                                            .frame(height: 20)
-                                            .font(.headline)
-                                    } icon: {
-                                        Image(systemName: "checkmark")
-                                            .foregroundColor(Color("Green"))
+                                    if DataController().checkRemainingFromDish(name: i) {
+                                        Label {
+                                            Text("\(i)")
+                                                .foregroundColor(Color("Green"))
+                                                .frame(height: 20)
+                                                .font(.headline)
+                                        } icon: {
+                                            Image(systemName: "checkmark")
+                                                .foregroundColor(Color("Green"))
+                                        }
+                                    } else {
+                                        Label {
+                                            Text("\(i) (a little left)")
+                                                .foregroundColor(Color("Yellow"))
+                                                .frame(height: 20)
+                                                .font(.headline)
+                                        } icon: {
+                                            Image(systemName: "checkmark")
+                                                .foregroundColor(Color("Yellow"))
+                                        }
                                     }
-                                                                        
                                 } else {
                                     Label {
                                         Text("\(i)")

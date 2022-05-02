@@ -127,9 +127,7 @@ struct InsideFridgeScreen: View {
 //                navigationbar
                 .navigationBarTitle("\(translate(input: UserDefaults.standard.string(forKey: "lang") ?? "en"))")
                 .navigationBarBackButtonHidden(true)
-                .onAppear{
-                    foodArr = filterArr()
-                }
+                .onAppear{foodArr = filterArr()}
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {

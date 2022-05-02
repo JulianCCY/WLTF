@@ -41,7 +41,7 @@ struct DishMain: View {
             VStack (alignment: .leading) {
                 VStack {
                     HStack {
-                        Text("cook?")
+                        Text("What to cook?")
                             .font(.system(size: 36))
                             .fontWeight(.bold)
                             .padding(.top, 50)

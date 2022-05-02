@@ -4,23 +4,12 @@
 //
 //  Created by iosdev on 4.4.2022.
 //
+// MapView shown in MapScreen
 
 import SwiftUI
 import MapKit
 
 struct MapView: UIViewRepresentable {
-    
-//    @StateObject private var mapViewModel = MapViewModel()
-////    mapViewModel.pointOfInterest = MKPointOfInterestFilter.excludingAll
-//
-//    var body: some View {
-//        Map(coordinateRegion: $mapViewModel.region, showsUserLocation: true)
-//            .ignoresSafeArea()
-////            .accentColor(Color("Secondary"))
-//            .onAppear{
-//                mapViewModel.checkIfLocationServicesIsEnabled()
-//            }
-//    }
     
     @EnvironmentObject var mapData: MapViewModel
     

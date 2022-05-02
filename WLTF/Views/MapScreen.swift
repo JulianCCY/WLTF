@@ -4,6 +4,8 @@
 //
 //  Created by iosdev on 27.4.2022.
 //
+// This is the map screen, navigated from ShoppingList(GroceryList)
+// User can search places with the search bar on top
 
 import SwiftUI
 import CoreLocation
@@ -71,14 +73,17 @@ struct MapScreen: View {
                 
                 VStack {
                     
-                    Button(action: mapData.findYourself, label: {
+                    Button{
+                        mapData.requestLocation()
+                        mapData.findYourself()
+                    } label: {
                         Image(systemName: "location.fill")
                             .font(.title3)
                             .padding(10)
                             .foregroundColor(.white)
                             .background(Color("PrimaryColor"))
                             .clipShape(Circle())
-                    })
+                    }
 
                     Button(action: mapData.updateMapType, label: {
                         Image(systemName: mapData.mapType == .standard ? "network" : "map")
@@ -93,9 +98,6 @@ struct MapScreen: View {
                 .padding()
             }
             .navigationBarTitle("", displayMode: .inline)
-
-//            .navigationBarHidden(true)
-            
         }
         .onAppear(perform: {
             locationManager.delegate = mapData
@@ -118,7 +120,6 @@ struct MapScreen: View {
                 }
             }
         })
-//        .preferredColorScheme(.dark)
     }
 }
 

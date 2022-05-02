@@ -58,7 +58,6 @@ struct DishDetail: View {
                     
                 } // image and name hstack
                 
-                    
                     VStack(alignment: .leading) {
                         if dish.note != "" {
                             HStack {

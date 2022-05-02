@@ -4,6 +4,7 @@
 //
 //  Created by iosdev on 27.4.2022.
 //
+// MapViewModel for mapkit
 
 import SwiftUI
 import MapKit
@@ -17,6 +18,13 @@ class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var mapType: MKMapType = .standard
     @Published var searchText = ""
     @Published var locations: [LocationStruct] = []
+    
+    let locationManager = CLLocationManager()
+    
+    override init() {
+           super.init()
+           locationManager.delegate = self
+       }
     
 //    focus user position
     func findYourself() {
@@ -68,14 +76,19 @@ class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         mapView.removeAnnotations(mapView.annotations)
         mapView.addAnnotation(pointAnnotation)
         
-        let coordinateRegion = MKCoordinateRegion(center: coordinate, latitudinalMeters: 3000, longitudinalMeters: 3000)
+        let coordinateRegion = MKCoordinateRegion(center: coordinate, latitudinalMeters: 1800, longitudinalMeters: 1800)
         mapView.setRegion(coordinateRegion, animated: true)
         mapView.setVisibleMapRect(mapView.visibleMapRect, animated: true)
     }
     
+//    request user location
+    func requestLocation() {
+        locationManager.requestLocation()
+    }
+    
 //    checking user authorization status and request user location if permitted
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        
+
         switch manager.authorizationStatus {
         case .denied:
             permissionDenined.toggle()
@@ -90,20 +103,20 @@ class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     
 //   catch fail error
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        
         print(error.localizedDescription)
     }
     
 //    displaying user location
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
-        guard let location = locations.first else {return}
-        
-        self.region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 5000, longitudinalMeters: 5000)
-        
-        self.mapView.setRegion(self.region, animated: true)
-        
-        self.mapView.setVisibleMapRect(self.mapView.visibleMapRect, animated: true)
+        if let location = locations.first?.coordinate {
+            
+            self.region = MKCoordinateRegion(center: location, latitudinalMeters: 2500, longitudinalMeters: 2500)
+            
+            self.mapView.setRegion(self.region, animated: true)
+            
+            self.mapView.setVisibleMapRect(self.mapView.visibleMapRect, animated: true)
+
+        }
     }
-    
 }

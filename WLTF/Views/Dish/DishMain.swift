@@ -81,55 +81,65 @@ struct DishMain: View {
                 
                 Spacer()
                 
-//                Ingredients colors guide
-                VStack(alignment: .leading) {
-                    HStack() {
+//                speechbutton
+                HStack{
+                    Spacer()
+                    ZStack {
                         Circle()
-                            .fill(Color("Green"))
-                            .frame(width: 16, height: 16)
-                        Text("enough")
-                            .font(.custom("Helvetica", size: 14))
-                    }
-                    HStack() {
-                        Circle()
-                            .fill(Color("Red"))
-                            .frame(width: 16, height: 16)
-                        Text("not_enough")
-                            .font(.custom("Helvetica", size: 14))
+                            .fill(Color("Fridge"))
+                            .frame(width: 110, height: 110)
+                            .shadow(color: Color.gray.opacity(0.5), radius: 5, x: 0, y: 0)
+                        Button() {
+                             getSpeech()
+                         } label: {
+                             Image(systemName: recording ? "stop.circle.fill" : "waveform.and.mic")
+                                 .resizable()
+                                 .padding(20)
+                                 .frame(width: 100, height: 100)
+                                 .foregroundColor(Color("TertiaryColor"))
+                                 .background(Color("PrimaryColor"))
+                                 .clipShape(Circle())
+                                 .shadow(color: Color.gray.opacity(0.5), radius: 5, x: 0, y: 0)
+                         }
                     }
                     Spacer()
                 }
-                .padding([.top,.leading], 30)
                 
-                
-//                buttons to create dish page and speech
+//                screen bottom -- colors reminder and button
                 VStack {
                     Spacer()
                     HStack {
-                        Spacer()
-                        VStack{
-                            Button() {
-                                 getSpeech()
-                             } label: {
-                                 Image(systemName: recording ? "stop.circle.fill" : "waveform.and.mic")
-                                     .resizable()
-                                     .padding(10)
-                                     .frame(width: 50, height: 50)
-                                     .foregroundColor(Color("TertiaryColor"))
-                                     .background(Color("PrimaryColor"))
-                                     .cornerRadius(6)
-                             }
-                            NavigationLink(destination: DishAdd()) {
-                                // Navigate to add food screen
-                                Image(systemName: "plus.square.fill")
-                                    .resizable()
-                                    .frame(width: 50, height: 50)
-                                    .foregroundColor(Color("PrimaryColor"))
+    //                Ingredients colors guide
+                        VStack(alignment: .leading) {
+                            HStack() {
+                                Circle()
+                                    .fill(Color("Green"))
+                                    .frame(width: 16, height: 16)
+                                Text("enough")
+                                    .font(.custom("Helvetica", size: 14))
                             }
+                            HStack() {
+                                Circle()
+                                    .fill(Color("Red"))
+                                    .frame(width: 16, height: 16)
+                                Text("not_enough")
+                                    .font(.custom("Helvetica", size: 14))
+                            }
+                        }
+                        
+                        Spacer()
+
+    //                buttons to create dish page
+                        NavigationLink(destination: DishAdd()) {
+                            // Navigate to add food screen
+                            Image(systemName: "plus.square.fill")
+                                .resizable()
+                                .frame(width: 50, height: 50)
+                                .foregroundColor(Color("PrimaryColor"))
                         }
                     }
                 }
-                .padding([.trailing, .bottom])
+                .padding([.leading, .trailing, .bottom])
 
             } // main vstack
             

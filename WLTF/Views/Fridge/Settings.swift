@@ -16,7 +16,6 @@ struct Settings: View {
     @Environment(\.dismiss) var dismiss
     
     @State private var fridgeName: String = DataController().fetchFridgeName()
-    @State private var guidelines: [String] = ["General", "Home", "Adding items", "Grocery list", "Dishes"]
     
 //    using userdefaults for language selection
     @AppStorage("lang") private var chosenLanguage: String = "en"
@@ -37,21 +36,16 @@ struct Settings: View {
             Color("TertiaryColor")
                 .ignoresSafeArea()
             
-            VStack {
+            VStack(alignment: .leading) {
 //                Naming the fridge
-                HStack {
-                    VStack(alignment: .leading, spacing: 2) {
-                        Text("name_your_fridge")
-                            .font(.headline)
-                        TextField("Name of your fridge", text: $fridgeName)
-                            .foregroundColor(Color(UIColor.gray))
-                    }
-                    .padding()
-                    
-                    Spacer()
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("name_your_fridge")
+                        .font(.headline)
+                    TextField("Name of your fridge", text: $fridgeName)
+                        .foregroundColor(Color(UIColor.gray))
                 }
-                .ignoresSafeArea(.keyboard)
-                
+                .padding()
+            
 //                language picker
                 Picker("Select language", selection: $chosenLanguage) {
                     Text("English 🇬🇧")
@@ -80,12 +74,12 @@ struct Settings: View {
                                        .fill(Color("NormalItem"))
                                        .frame(width: 50, height: 50)
                                        .rotationEffect(.degrees(-3))
-                                   Text("Normal items will be shown with this blue color.")
+                                   Text("normal_item")
                                        .font(.subheadline)
                                }
                                HStack {
                                    Spacer()
-                                   Text("Color of items that will be expired in 3 days.")
+                                   Text("3_days_item")
                                        .font(.subheadline)
                                    RoundedRectangle(cornerRadius: 10)
                                        .fill(Color("3daysItem"))
@@ -97,11 +91,11 @@ struct Settings: View {
                                        .fill(Color("1dayItem"))
                                        .frame(width: 50, height: 50)
                                        .rotationEffect(.degrees(5))
-                                   Text("Color of items that will be expired within 1 day.")
+                                   Text("1_day_item")
                                        .font(.subheadline)
                                }
                                HStack {
-                                   Text("Color of items that are expired.")
+                                   Text("expired_item")
                                        .font(.subheadline)
                                    RoundedRectangle(cornerRadius: 10)
                                        .fill(Color("ExpiredItem"))
@@ -112,15 +106,15 @@ struct Settings: View {
                                    Image(systemName: "plus.rectangle")
                                        .font(.system(size: 20))
                                        .foregroundColor(Color("PrimaryColor"))
-                                   Text("Button for adding item to list.")
+                                   Text("add_button")
                                        .font(.subheadline)
                                }
                                .padding(.bottom)
                                HStack{
-                                   Text("Gray colored")
+                                   Text("gray_colored")
                                        .foregroundColor(Color(UIColor.gray))
                                        .font(.subheadline)
-                                   Text(" =  input fields.")
+                                   Text("input_fields")
                                        .font(.subheadline)
                                }
                            }
@@ -138,11 +132,11 @@ struct Settings: View {
 //                   home
                   ZStack {
                       VStack(alignment: .leading) {
-                          Text("Home page")
+                          Text("home_page")
                               .font(.title2)
                               .fontWeight(.semibold)
                           
-                          Text("When fridge is closed")
+                          Text("closed_fridge")
                               .font(.title3)
                               .fontWeight(.medium)
                               .padding(.top, 10)
@@ -173,14 +167,13 @@ struct Settings: View {
                                       )
                                       .rotationEffect(.degrees(3))
                               }
-                              Text("Number of items that are expiring according to color.")
+                              Text("sticky_note_number")
                                   .font(.subheadline)
                           }
                           HStack {
                               Spacer()
-                              Text("Tab on fridge door to open your fridge.")
+                              Text("tap_on_fridge")
                                   .font(.subheadline)
-//                                  .frame(width: 280)
                               Spacer()
                               Image(systemName: "hand.point.left")
                                   .font(.system(size: 20))
@@ -190,7 +183,7 @@ struct Settings: View {
                           
                           Spacer()
                           
-                          Text("When fridge is opened")
+                          Text("opened_fridge")
                               .font(.title3)
                               .fontWeight(.medium)
                           
@@ -198,13 +191,13 @@ struct Settings: View {
                               Image(systemName: "hand.draw")
                                   .font(.system(size: 20))
                                   .frame(alignment: .trailing)
-                              Text("Pull downwards to use search bar.")
+                              Text("search_bar")
                                   .font(.subheadline)
                           }
                           .padding(.top, 2)
                           
                           HStack {
-                              Text("Click on it to add food.")
+                              Text("click_to_add_food")
                                   .font(.subheadline)
                                   .padding(.leading, 40)
                               Image(systemName: "plus.square.fill")
@@ -231,7 +224,7 @@ struct Settings: View {
 //                       grocery list
                        ZStack {
                            VStack(alignment: .leading) {
-                               Text("Grocery list")
+                               Text("grocery_list")
                                    .font(.title2)
                                    .fontWeight(.semibold)
                                    .frame(maxWidth: .infinity, alignment: .leading)
@@ -240,14 +233,14 @@ struct Settings: View {
                                    Image(systemName: "checkmark")
                                        .foregroundColor(Color.green)
                                        .font(.system(size: 20))
-                                   Text("Double tap to check item.")
+                                   Text("double_tab")
                                        .font(.subheadline)
                                }
                                .padding(.top, 5)
                                .padding(.leading, 20)
                                
                                HStack {
-                                   Text("Swipe left to delete item.")
+                                   Text("swipe_delete")
                                        .font(.subheadline)
                                    Image(systemName: "hand.draw")
                                }
@@ -256,7 +249,7 @@ struct Settings: View {
                                
                                HStack {
                                    Image(systemName: "hand.point.right")
-                                   Text("Hold item to edit it.")
+                                   Text("hold_edit")
                                        .font(.subheadline)
                                }
                                .padding(.top, 2)
@@ -273,11 +266,86 @@ struct Settings: View {
                        )
                        .shadow(color: Color.gray.opacity(0.2), radius: 3, x: 1, y: 1)
                        
-                   }
+//                       Dishes
+                     ZStack {
+                         VStack(alignment: .leading) {
+                             Text("dish")
+                                 .font(.title2)
+                                 .fontWeight(.semibold)
+                                 .padding(.bottom, 40)
+                             
+                             HStack {
+                                 Circle()
+                                     .fill(Color("Green"))
+                                     .frame(width: 16, height: 16)
+                                 Text("represent_adequate")
+                                     .font(.subheadline)
+                             }
+                             .padding(.leading, 10)
+                             HStack {
+                                 Circle()
+                                     .fill(Color("Red"))
+                                     .frame(width: 16, height: 16)
+                                 Text("represent_inadequate")
+                                     .font(.subheadline)
+                             }
+                             
+                             HStack {
+                                 Text("click_create_dish")
+                                     .font(.subheadline)
+                                     .padding(.leading, 40)
+                                 Image(systemName: "plus.square.fill")
+                                     .resizable()
+                                     .frame(width: 40, height: 40)
+                                     .foregroundColor(Color("PrimaryColor"))
+                                     .shadow(color: .gray, radius: 0.2, x: 1, y: 1)
+                                     .rotationEffect(.degrees(4))
+                                     .padding(.leading)
+                             }
+                             .padding(.bottom, 50)
+                             
+                             HStack {
+                                 Image(systemName: "waveform.and.mic")
+                                     .resizable()
+                                     .padding(10)
+                                     .frame(width: 50, height: 50)
+                                     .foregroundColor(Color("TertiaryColor"))
+                                     .background(Color("PrimaryColor"))
+                                     .clipShape(Circle())
+                                     .shadow(color: .gray, radius: 0.2, x: 1, y: 1)
+                                     .rotationEffect(.degrees(-6))
+                                 Text("click_speech")
+                                     .font(.subheadline)
+                                     .padding(.leading, 40)
+                             }
+                             .frame(maxWidth: .infinity)
+                             .padding(.bottom, 10)
+                             
+                             HStack {
+                                 Spacer()
+                                 VStack {
+                                     Text("\"What do you recommend to cook?\"")
+                                     Text("\"Can I cook (dishname)?\"")
+                                 }
+                                 .font(.subheadline)
+                                 Spacer()
+                             }
+                             
+                         }
+                         .padding()
+                     }
+                     .cornerRadius(10)
+                     .frame(width: 325, height: 400)
+                     .background(
+                          RoundedRectangle(cornerRadius: 5)
+                              .fill(Color("BackgroundColor"))
+                     )
+                     .shadow(color: Color.gray.opacity(0.2), radius: 3, x: 1, y: 1)
+                       
+                   } // hstack
                    .padding([.leading, .trailing], 30)
                    .padding(.bottom, 50)
                 } // scrollview
-                .ignoresSafeArea(.keyboard)
             } // main vstack
             .navigationBarTitle("\(translate(input: chosenLanguage))")
                     

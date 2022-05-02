@@ -9,28 +9,24 @@
 
 import SwiftUI
 
-enum languages: String {
-    case english = "en"
-    case suomi = "fi"
-}
-
 struct Settings: View {
     
+//    coredata
     @Environment(\.managedObjectContext) var moc
     @Environment(\.dismiss) var dismiss
-//    @Environment(\.locale, .init(identifier: lang))
     
     @State private var fridgeName: String = DataController().fetchFridgeName()
-    @State private var chosenLanguage: languages = languages.english
     @State private var guidelines: [String] = ["General", "Home", "Adding items", "Grocery list", "Dishes"]
-    @State private var lang = "en"
     
-    var language: String {
-        switch chosenLanguage {
-          case .english:
-              return "en"
-          case .suomi:
-              return "fi"
+//    using userdefaults for language selection
+    @AppStorage("lang") private var chosenLanguage: String = "en"
+    
+//    environment locale cannot localize navigation bar title, that's why we need a funcition
+    private func translate(input: String) -> String {
+        if input == "en" {
+            return "Settings"
+        } else {
+            return "Asetukset"
         }
     }
     
@@ -45,7 +41,7 @@ struct Settings: View {
 //                Naming the fridge
                 HStack {
                     VStack(alignment: .leading, spacing: 2) {
-                        Text(LocalizedStringKey("Name your fridge here!"))
+                        Text("name_your_fridge")
                             .font(.headline)
                         TextField("Name of your fridge", text: $fridgeName)
                             .foregroundColor(Color(UIColor.gray))
@@ -58,12 +54,12 @@ struct Settings: View {
 //                language picker
                 Picker("Select language", selection: $chosenLanguage) {
                     Text("English 🇬🇧")
-                        .tag(languages.english)
+                        .tag("en")
                     Text("Suomi 🇫🇮")
-                        .tag(languages.suomi)
+                        .tag("fi")
                 }
                 .pickerStyle(SegmentedPickerStyle())
-                .colorMultiply(Color("SecondaryColor"))
+                .colorMultiply(Color("Fridge"))
                 .padding()
                 
     //            guidelines
@@ -73,7 +69,7 @@ struct Settings: View {
     //                   general
                        ZStack {
                            VStack(alignment: .leading) {
-                               Text("General in WLTF")
+                               Text("general")
                                    .font(.title2)
                                    .fontWeight(.semibold)
                                Spacer()
@@ -284,7 +280,7 @@ struct Settings: View {
                 
                 
             }
-            .navigationBarTitle(LocalizedStringKey("Settings"))
+            .navigationBarTitle("\(translate(input: chosenLanguage))")
                         
             VStack {
                 Spacer()
@@ -298,10 +294,8 @@ struct Settings: View {
                         .foregroundColor(Color("PrimaryColor"))
                 }
             }
-        }
-        .environment(\.locale, .init(identifier: chosenLanguage.rawValue))
-        
-        
+        } // big z
+        .environment(\.locale, .init(identifier: chosenLanguage))
     }
 }
 

@@ -67,8 +67,21 @@ struct InsideFridgeScreen: View {
             GridItem(.adaptive(minimum: 80))
         ]
     
+//    environment locale cannot localize navigation bar title, that's why we need a funcition
+    private func translate(input: String) -> String {
+        if input == "fi" {
+            return "Jääkaapin sisältö"
+        }
+        else {
+            return "Fridge contents"
+        }
+    }
+    
     var body: some View {
         ZStack {
+            
+            Color("TertiaryColor")
+                .ignoresSafeArea()
             
             VStack {
                 //ghost of codewar again
@@ -112,7 +125,7 @@ struct InsideFridgeScreen: View {
                 .searchable(text: $searchText)
                 
 //                navigationbar
-                .navigationBarTitle("Fridge contents")
+                .navigationBarTitle("\(translate(input: UserDefaults.standard.string(forKey: "lang") ?? "en"))")
                 .navigationBarBackButtonHidden(true)
                 .onAppear{
                     foodArr = filterArr()
@@ -164,6 +177,7 @@ struct InsideFridgeScreen: View {
             }
         }
         .accentColor(Color("PrimaryColor"))
+        .environment(\.locale, .init(identifier: UserDefaults.standard.string(forKey: "lang") ?? "en"))
     }
 }
 

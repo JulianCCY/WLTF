@@ -53,7 +53,7 @@ struct NotesUI: View {
                                         Button {
                                             show.toggle()
                                         } label: {
-                                            Label("Back", systemImage: "arrow.uturn.left")
+                                            Label("back", systemImage: "arrow.uturn.left")
                                                 .font(.custom("Marker Felt", size: 20))
                                                 .foregroundColor(Color.black)
                                         }
@@ -94,9 +94,10 @@ struct NotesUI: View {
                                 Spacer()
                                 
                             }
-                        } //big zstack
+                        } // zstack in overlay
                     )
             }
-        }
+        } //big z
+        .environment(\.locale, .init(identifier: UserDefaults.standard.string(forKey: "lang") ?? "en"))
     }
 }

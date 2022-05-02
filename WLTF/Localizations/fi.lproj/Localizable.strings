@@ -6,5 +6,20 @@
   
 */
 
-"Settings" = "Asetukset";
-"Name your fridge here!" = "Nimeä jääkaappisi!";
+//sticknotes
+"back" = "Takaisin";
+
+//settings
+"settings" = "Asetukset";
+"name_your_fridge" = "Nimeä jääkaappisi!";
+"general" = "Yleinen sisään WLTF";
+
+//food details
+"amount" = "Määrä";
+"remaining" = "jäljelle";
+"entry_date" = "Sisääntulopäivä";
+"expiry_date" = "Päättymispäivä";
+"consume" = "kuluttaa";
+"consumed" = "Kulutettu";
+"remove" = "Poista";
+"added_to_list" = "Lisätty listalle";

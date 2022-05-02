@@ -88,7 +88,7 @@ struct FoodDetail: View {
                             .font(.largeTitle)
                             .bold()
                             .padding(.bottom, 1)
-                        Text("Amount")
+                        Text("amount")
                         .font(.title2)
                             .fontWeight(.medium)
                         Text("\(Int(food.amount)) \(food.unit)")
@@ -102,8 +102,12 @@ struct FoodDetail: View {
                         .disabled(checkExpired(expiryDate: food.expiryDate) == true)
                     //when the food is expired, slider will not be working
                         .accentColor(Color("BackgroundColor"))
-                    Text("\(Int(remaining)) % remaining")
-                        .foregroundColor(Color(.systemGray))
+                    HStack {
+                        Text("\(Int(remaining)) %")
+                            .foregroundColor(Color(.systemGray))
+                        Text("remaining")
+                            .foregroundColor(Color(.systemGray))
+                    }
                 }
                 .padding([.leading, .trailing], 40)
                 .padding([.top, .bottom], 50)
@@ -111,7 +115,7 @@ struct FoodDetail: View {
 //                dates display
                 VStack(alignment: .leading) {
                     Group {
-                        Text("Entry date")
+                        Text("entry_date")
                             .font(.title2)
                             .fontWeight(.medium)
                             .padding(.bottom, 0.2)
@@ -120,7 +124,7 @@ struct FoodDetail: View {
                     }
 
                     Group {
-                        Text("Expiration date")
+                        Text("expiry_date")
                             .font(.title2)
                             .fontWeight(.medium)
                             .padding(.bottom, 0.2)
@@ -132,49 +136,7 @@ struct FoodDetail: View {
                     }
                 }// date vstack
                 .padding([.leading, .trailing], 50)
-                
-//                Spacer()
-//                // Delete/Remove this food
-//                HStack {
-//                    Spacer()
-//                    if checkExpired(expiryDate: food.expiryDate) == false && remaining != 0.0{
-//                        Button() {
-//                            alert = true
-//                        } label: {
-//
-//                            Label("Consumed", systemImage: "fork.knife")
-//                        }
-//                        .padding()
-//                        .foregroundColor(Color(red: 0.1059, green: 0.251, blue: 0.5098).opacity(0.61))
-//                        .background(Color(red: 0.7569, green: 0.898, blue: 1).opacity(0.61))
-//                        .cornerRadius(20)
-//                        .confirmationDialog("Enjoy your food", isPresented: $alert) {
-//                            Button("Bon appétit!") {
-//                                DispatchQueue.main.async {
-//                                    DataController().consumeFood(id: food.foodId, remaining: remaining, context: moc)
-//                                }
-//                            }
-//                        }
-//                    } else if remaining == 0 && checkExpired(expiryDate: food.expiryDate) == false || checkExpired(expiryDate: food.expiryDate) == true {
-//                        Button() {
-//                            alert = true
-//                        }
-//                        label: {
-//
-//                            Label("Remove", systemImage: "trash")
-//                        }
-//                        .padding()
-//                        .foregroundColor(Color(red: 0.0902, green: 0.0549, blue: 0.3294).opacity(0.61))
-//                        .background(Color(red: 0.8706, green: 0.8392, blue: 0.9529).opacity(0.61))
-//                        .cornerRadius(20)
-//                        .confirmationDialog("", isPresented: $alert) {
-//                            Button("Remove", role: .destructive) {
-//                                DataController().deleteSingleFood(id: food.foodId, context: moc)
-//                                dismiss()
-//                            }
-//                        }
-//                    }
-//                    Spacer()
+
                 Spacer()
                 
 //                consume food button
@@ -185,7 +147,7 @@ struct FoodDetail: View {
                             alert = true
                         } label: {
 
-                            Label("Consumed", systemImage: "fork.knife")
+                            Label("consumed", systemImage: "fork.knife")
                         }
                         .padding()
                         .foregroundColor(Color(red: 0.1059, green: 0.251, blue: 0.5098).opacity(0.61))
@@ -204,7 +166,7 @@ struct FoodDetail: View {
                             dismiss()
                         }
                         label: {
-                            Label("Remove", systemImage: "trash")
+                            Label("remove", systemImage: "trash")
                         }
                         .padding()
                         .foregroundColor(Color(red: 0.0902, green: 0.0549, blue: 0.3294).opacity(0.61))
@@ -230,6 +192,7 @@ struct FoodDetail: View {
             .cornerRadius(5)
             .offset(y: -92)
         }
+        .environment(\.locale, .init(identifier: UserDefaults.standard.string(forKey: "lang") ?? "en"))
 
     }
 }

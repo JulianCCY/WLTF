@@ -111,7 +111,6 @@ struct DishMain: View {
                                  Image(systemName: recording ? "stop.circle.fill" : "waveform.and.mic")
                                      .resizable()
                                      .padding(10)
-                                     .padding([.leading, .trailing], 3)
                                      .frame(width: 50, height: 50)
                                      .foregroundColor(Color("TertiaryColor"))
                                      .background(Color("PrimaryColor"))

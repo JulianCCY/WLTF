@@ -6,5 +6,21 @@
   
 */
 
-"Settings" = "Settings";
-"Name your fridge here!" = "Name your fridge here!";
+//stickynotes
+"back" = "Back";
+
+
+//settings
+"settings" = "Settings";
+"name_your_fridge" = "Name your fridge here!";
+"general" = "General in WLTF";
+
+//food details
+"amount" = "Amount";
+"remaining" = "remaining";
+"entry_date" = "Entry date";
+"expiry_date" = "Expiration date";
+"consume" = "consume";
+"consumed" = "Consumed";
+"remove" = "Remove";
+"added_to_list" = "Added to list";

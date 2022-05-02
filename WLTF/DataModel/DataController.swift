@@ -421,36 +421,88 @@ class DataController: ObservableObject {
     
     // for dish recommentation
     func dishRecommendation() -> String {
+        // get all cookable dishes (user has sufficient ingredients)
         let dishRec = fetchAllDishes().compactMap{$0}.filter{fetchRelatedIngredient(dishId: $0.id!).map{$0.name!}.allSatisfy{checkIfExist(foodName: $0) == true}}.map{$0.dishName}
         
         // early return if user doesn't buy any food
-        guard fetchFoodData().count > 0 else { return "Sorry, I guess you don't have any food in the fridge, I suggest you to go for a grocery shopping"}
+        guard fetchFoodData().count > 0 else { return "Sorry, I guess you don't have any food in the fridge, I suggest you to go for a grocery shopping" }
         
         // early return if user doesn't make any recipe
-        guard dishRec.count > 0 else { return "Sorry, I guess you didn't make any recipe"}
+        guard dishRec.count > 0 else { return "Sorry, I guess you didn't make any recipe" }
         
-        if dishRec.count == 1 {
-            return "I guess you only can cook \(dishRec[0]!), you don't have any choice"
-        }
+        // early return if user only has only one recipe or only have one cookable dish
+        // so no random is needed
+        guard dishRec.count > 1 else { return "I guess you only can cook \(dishRec[0]!), you don't have any choice" }
         
+        
+        // early return if user only has two cookable dishes, so random pick is also not needed in this case
+        guard dishRec.count > 2 else { return "You only have two choices, you can choose either \(dishRec[0]!) or \(dishRec[1]!), or maybe both of them"}
+        
+        // if number of cookable dishes > 2
         let dish = dishRec.randomElement()!
         
-        let ans = ["I'd recommend to cook \(String(describing: dish!))", "What about \(String(describing: dish!))? You have enough ingredient", "Would you like to have \(String(describing: dish!))"]
+        let ans = ["I'd recommend to cook \(String(describing: dish!))", "What about \(String(describing: dish!))? You have enough ingredient", "Would you like to have \(String(describing: dish!))", "Ummmmmmmm, let me think......, would you like to make \(String(describing: dish!))?"]
         
         return ans.randomElement()!
     }
     
     // check if the user can cook some thing
-    func checkCookable(dish: String) {
+    func checkCookable(dish: String) -> String {
         // yup, you have enough ingredient to cook
         // Sorry, ingredient is missing / are missing
         
         // early return if user doesn't buy any food
+        guard checkFridgeEmpty() == false else { return "Sorry, I guess you can't cook anything, I can't find anything you can eat in the fridge, I suggest you to go for a grocery shopping"}
         
         // early return if user doesn't make any recipe
+        guard fetchAllDishes().isEmpty == false else { return "Sorry, you don't make any recipe here, please feel free to create one"}
         
-        // yes
+        // early return if the recipe doesn't exist
+        guard fetchAllDishes().compactMap({$0.dishName?.lowercased()}).contains(dish) else { return "Sorry, I cannot find this recipe"}
         
-        // no, tell users the missing ingredient(s)
+        let dishName = fetchAllDishes().compactMap({$0.dishName}).filter{$0.lowercased() == dish}[0]
+        
+        let fetchRequest: NSFetchRequest<Dishes>
+        fetchRequest = Dishes.fetchRequest()
+        fetchRequest.predicate = NSPredicate.init(format: "dishName == %@", dishName)
+        let context = container.viewContext
+        let object = try? context.fetch(fetchRequest)
+        
+        let dishId = object![0].id
+        
+        if fetchRelatedIngredient(dishId: dishId!).compactMap({$0.name}).allSatisfy({checkIfExist(foodName: $0) == true && checkRemainingFromDish(name: $0) == true}) {
+            return "Yup, you have enough ingredient to cook it!"
+        } else if fetchRelatedIngredient(dishId: dishId!).compactMap({$0.name}).allSatisfy({checkIfExist(foodName: $0) == true}) {
+            let warningItem = fetchRelatedIngredient(dishId: dishId!).compactMap({$0.name}).filter{checkRemainingFromDish(name: $0) == false}
+            
+            if warningItem.count == 1 { return "Yup, you have all the ingredients you need, but you don't have much \(warningItem[0]) left" }
+            if warningItem.count == 2 { return "Yes, you have enough ingredients, but you don't have much \(warningItem[0]) and \(warningItem[1]) left"}
+            if warningItem.count > 2 {
+                return "You have all the ingredients you need, but it may not be enough for you to cook, so please check again"
+            }
+        } else if fetchRelatedIngredient(dishId: dishId!).compactMap({$0.name}).allSatisfy({checkIfExist(foodName: $0) == false}){
+            return "Sorry, you don't have all the ingredients you need, I suggest you go for a grocery shopping or cook something else"
+            
+        } else if fetchRelatedIngredient(dishId: dishId!).compactMap({$0.name}).allSatisfy({checkIfExist(foodName: $0) == true}) == false {
+            let missingItem = fetchRelatedIngredient(dishId: dishId!).compactMap({$0.name}).filter{checkIfExist(foodName: $0) == false}
+            
+            if missingItem.count == 1 { return "I am sorry, you are missing \(missingItem[0])"}
+            if missingItem.count == 2 { return "I am sorry, you are missing \(missingItem[0]) and \(missingItem[1])"}
+            if missingItem.count > 2 {
+                return "I am sorry, \(missingItem.prefix(missingItem.count-1).joined(separator: ", "))) and \(missingItem[missingItem.count-1])"
+            }
+            
+        }
+
+        return "Sorry, I don't know, um.....I can't help"
+    }
+    
+    
+    private func checkFridgeEmpty() -> Bool{
+        let fetchRequest: NSFetchRequest<Food>
+        fetchRequest = Food.fetchRequest()
+        let context = container.viewContext
+        let objects = try? context.fetch(fetchRequest)
+        return objects!.filter{checkExpired(expiryDate: $0.expiryDate!) == false}.count == 0 ? true : false
     }
 }

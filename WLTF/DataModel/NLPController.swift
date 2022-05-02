@@ -11,16 +11,15 @@ import NaturalLanguage
 import CoreML
 
 // This controller is to get what did the user say, and then do the response
+// This file includes using basic natural language process and a custom word tagger ML model
 
 class NLPController {
     
     // perform a low level speech analytics
     // try to understand what does the speech means
     func speechAnalytics(userSpeech: String) {
-        let recommendationKeywords = ["What can", "What should", "recommend", "recommendation", "idea", "suggest", "suggestion", "any", "anything", "advice"]
+        let recommendationKeywords = ["What can", "What should", "recommend", "idea", "suggest", "any", "anything", "advice"]
         let checkIfICanCookKeywords = ["Can I cook", "Can I", "Do you think", "Do I", "make", "cook"]
-//        let WLTF = "what's left the fridge"
-//        let greet = "how are you"
         
         // early return if users said unrelated sentence
         guard recommendationKeywords.contains(where: {userSpeech.contains($0)})
@@ -35,13 +34,11 @@ class NLPController {
             //What do you recommend to cook?
             // What can I cook?
             // What should I cook?
-            // Do you have any suggestion
+            // what do you suggest me to cook?
             // Do you have any advice on what I should cook?
             speechResponse(message: DataController().dishRecommendation())
+            return
         }
-        
-        
-        
         // check if user has enough ingredient to cook something
         // I wanna let user to ask more than one dish
         if checkCanICookSimilarity(text: userSpeech) <= 1.3 && checkIfICanCookKeywords.contains(where: {userSpeech.contains($0)}) {
@@ -63,7 +60,10 @@ class NLPController {
                 return true
             }
             
-            DataController().checkCookable(dish: dishName.joined(separator: " ").lowercased())
+            guard dishName.isEmpty == false else {speechResponse(message: "Sorry, I don't hear name of the dish, could you say it again?"); return }
+//            print(dishName.joined(separator: " ").lowercased())
+            speechResponse(message: DataController().checkCookable(dish: dishName.joined(separator: " ").lowercased()))
+            return
         }
     }
     
@@ -104,7 +104,7 @@ class NLPController {
     private func recommendationSimilarity(text: String) -> Double {
         var similarity = 0.0
         if let sentenceEmbedding = NLEmbedding.sentenceEmbedding(for: .english) {
-            let distance = sentenceEmbedding.distance(between: text, and: "What do you recommend to cook?")
+            let distance = sentenceEmbedding.distance(between: text, and: "What do you recommend me to cook?")
             similarity = Double(distance.description)!
 //            print(similarity)
         }
@@ -116,7 +116,7 @@ class NLPController {
         if let sentenceEmbedding = NLEmbedding.sentenceEmbedding(for: .english) {
             let distance = sentenceEmbedding.distance(between: text, and: "Do I have enough ingredient to cook?")
             similarity = Double(distance.description)!
-            print(similarity)
+//            print(similarity)
         }
         return similarity
     }

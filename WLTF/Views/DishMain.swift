@@ -83,7 +83,6 @@ struct DishMain: View {
                 
 //                Ingredients colors guide
                 VStack(alignment: .leading) {
-                    Spacer()
                     HStack() {
                         Circle()
                             .fill(Color("Green"))
@@ -98,8 +97,9 @@ struct DishMain: View {
                         Text("not_enough")
                             .font(.custom("Helvetica", size: 14))
                     }
+                    Spacer()
                 }
-                .padding(.leading, 30)
+                .padding([.top,.leading], 30)
                 
                 
 //                buttons to create dish page and speech

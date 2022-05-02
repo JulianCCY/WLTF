@@ -9,6 +9,28 @@
 "menu" = "valikosta";
 "home" = "jääkaappi";
 "grocery" = "ostoksilla";
+"normal_item" = "Normaalit kohteet näytetään tällä sinisellä värillä.";
+"3_days_item" = "3 päivän kuluttua vanhentuvien tuotteiden väri.";
+"1_day_item" = "Tuotteen väri, joka vanhenee 1 päivän sisällä.
+";
+"expired_item" = "Vanhentuneiden tuotteiden väri.";
+"add_button" = "Painike kohteen lisäämiseksi luetteloon.";
+"gray_colored" = "Harmaa värinen";
+"input_fields" = " = syöttökenttiä.";
+"home_page" = "Aloitusnäyttö";
+"closed_fridge" = "Kun jääkaappi on kiinni";
+"sticky_note_number" = "Niiden tuotteiden määrä, jotka vanhenevat värin mukaan.";
+"tap_on_fridge" = "Napauta jääkaappia avataksesi jääkaapin.";
+"opened_fridge" = "Kun jääkaappi avataan";
+"search_bar" = "Käytä hakupalkkia vetämällä alaspäin.";
+"click_to_add_food" = "Napsauta sitä lisätäksesi ruokaa.";
+"swipe_delete" = "Pyyhkäise vasemmalle poistaaksesi kohteen.";
+"hold_edit" = "Pidä kohdetta painettuna muokataksesi sitä";
+"dish" = "Astian näyttö";
+"represent_adequate" = "Edustaa riittäviä ainesosia.";
+"represent_inadequate" = "Edustaa riittämättömiä ainesosia.";
+"click_create_dish" = "Napsauta sitä luodaksesi ruokalajin.";
+"click_speech" = "Napsauta sitä käyttääksesi puheentunnistusta.";
 
 //sticknotes
 "back" = "Takaisin";

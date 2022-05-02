@@ -18,6 +18,27 @@
 "settings" = "Settings";
 "name_your_fridge" = "Name your fridge here!";
 "general" = "General in WLTF";
+"normal_item" = "Normal items will be shown with this blue color.";
+"3_days_item" = "Color of items that will expire in 3 days.";
+"1_day_item" = "Color of items that will expire within 1 day.";
+"expired_item" = "Color of items that are expired.";
+"add_button" = "Button for adding item to list.";
+"gray_colored" = "Gray colored";
+"input_fields" = " = input fields.";
+"home_page" = "Home page";
+"closed_fridge" = "When fridge is closed";
+"sticky_note_number" = "Number of items that are expiring according to the color.";
+"tap_on_fridge" = "Tap on fridge to open your fridge.";
+"opened_fridge" = "When fridge is opened";
+"search_bar" = "Pull downwards to use search bar.";
+"click_to_add_food" = "Click on it to add food.";
+"swipe_delete" = "Swipe left to delete item.";
+"hold_edit" = "Hold an item to edit it";
+"dish" = "Dish";
+"represent_adequate" = "Represent adequate ingredients.";
+"represent_inadequate" = "Represent inadequate ingredients.";
+"click_create_dish" = "Click on it to create dish.";
+"click_speech" = "Click on it to use speech recognition.";
 
 //food details
 "amount" = "Amount";

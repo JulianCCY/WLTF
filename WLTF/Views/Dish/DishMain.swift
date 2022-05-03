@@ -53,8 +53,12 @@ struct DishMain: View {
                 
 // Horizontal scroll
                 if dishArr.isEmpty {
-                    Text("no_dish")
-                        .frame(height: 300)
+                    HStack{
+                        Spacer()
+                        Text("no_dish")
+                        Spacer()
+                    }
+                    .frame(height: 300)
                 } else {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 20) {

@@ -101,8 +101,7 @@ struct AddFoodScreen: View {
                                 .frame(width: 50, alignment: .trailing)
                             }
                             .padding([.top, .leading, .trailing])
-//                            DatePicker("\(translatePicker(input: UserDefaults.standard.string(forKey: "lang") ?? "en"))", selection: $expiryDate, in: Date.now.addingTimeInterval(86400)..., displayedComponents: .date)
-                            DatePicker("\(translatePicker(input: UserDefaults.standard.string(forKey: "lang") ?? "en"))", selection: $expiryDate, displayedComponents: .date)
+                            DatePicker("\(translatePicker(input: UserDefaults.standard.string(forKey: "lang") ?? "en"))", selection: $expiryDate, in: Date.now.addingTimeInterval(86400)..., displayedComponents: .date)
                                 .foregroundColor(.gray)
                                 .padding(.horizontal)
                             

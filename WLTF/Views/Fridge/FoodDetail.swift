@@ -185,6 +185,17 @@ struct FoodDetail: View {
         } // big zstack
         .accentColor(Color("PrimaryColor"))
         .onAppear{remaining = food.remaining}
+        .toolbar{
+            ToolbarItem(placement: .navigationBarTrailing) {
+                // Top Right delete button
+                Button {
+                    showToast.toggle()
+                    DataController().fromDetailsAddToBuy(name: food.name, context: moc)
+                } label: {
+                    Label("Add to cart", systemImage: "cart.badge.plus")
+                }
+            }
+        }
         .simpleToast(isPresented: $showToast, options: toastOptions, onDismiss: {}) {
             HStack{
                Image(systemName: "checkmark")

@@ -1,0 +1,102 @@
+/* 
+  Localizable.strings
+  WLTF
+
+  Created by iosdev on 1.5.2022.
+  
+*/
+
+//tab bar
+"menu" = "menu";
+"home" = "home";
+"grocery" = "grocery";
+
+//stickynotes
+"back" = "Back";
+
+//settings
+"settings" = "Settings";
+"name_your_fridge" = "Name your fridge here!";
+"general" = "General in WLTF";
+"normal_item" = "Normal items will be shown with this blue color.";
+"3_days_item" = "Color of items that will expire in 3 days.";
+"1_day_item" = "Color of items that will expire within 1 day.";
+"expired_item" = "Color of items that are expired.";
+"add_button" = "Button for adding item to list.";
+"gray_colored" = "Gray colored";
+"input_fields" = " = input fields.";
+"home_page" = "Home page";
+"closed_fridge" = "When fridge is closed";
+"sticky_note_number" = "Number of items that are expiring according to the color.";
+"tap_on_fridge" = "Tap on fridge to open your fridge.";
+"opened_fridge" = "When fridge is opened";
+"search_bar" = "Pull downwards to use search bar.";
+"click_to_add_food" = "Click on it to add food.";
+"swipe_delete" = "Swipe left to delete item.";
+"hold_edit" = "Hold an item to edit it";
+"dish" = "Dish";
+"represent_adequate" = "Represent adequate ingredients.";
+"represent_inadequate" = "Represent inadequate ingredients.";
+"click_create_dish" = "Click on it to create dish.";
+"click_speech" = "Click on it to use speech recognition.";
+
+//food details
+"amount" = "Amount";
+"remaining" = "remaining";
+"entry_date" = "Entry date";
+"expiry_date" = "Expiration date";
+"consume" = "consume";
+"consumed" = "Consumed";
+"remove" = "Remove";
+"added_to_list" = "Added to list";
+
+//add food screen
+"food_name" = "Food name";
+"when_expire?" = "When will it expire?";
+"empty_name" = "Empty name";
+"amount_integer" = "Amount must be an integer";
+"invalid" = "Invalid";
+"ok" = "Ok";
+"name:" = "Name:";
+"category:" = "Category:";
+"amount:" = "Amount:";
+"expiration:" = "Expiration:";
+"add_list_empty" = "The adding list is empty";
+"confirm" = "Confirm";
+
+//shopping list
+"grocery_list" = "Grocery list";
+"description" = "Description (Optional)";
+"empty_food_name" = "Empty food name";
+"to_buy (%lld)" = "TO-BUY (%lld)";
+"detected" = "Detected similar food remaining in fridge";
+"double_tab" = "Double tap to check your item";
+"note:" = "Note:";
+"blank" = "Blank";
+"empty_grocery_list?" = "Empty your grocery list?";
+"yes_please" = "Yes please";
+"cancel" = "Cancel";
+"edit_item" = "Please input new food name and description";
+
+//dish main
+"cook?" = "What to cook?";
+"no_dish" = "You do not have any dishes yet!";
+"enough" = "Adequate ingredient";
+"not_enough" = "Inadequate ingredient";
+"delete_all_dishes" = "Delete all of your dishes";
+
+//dish add
+"dish_name" = "Name of your dish";
+"notes" = "Notes";
+"serving %lld people" = "Serving %lld people";
+"people" = "people";
+"ingredient" = "Ingredient";
+"no_ingredient" = "No ingredient";
+"please_name_dish" = "Please name your dish";
+
+//dish detail
+"portion:" = "Portion:";
+"%lld people" = "%lld people";
+"notes: " = "Notes: ";
+"ingredients" = "Ingredients";
+"delete" = "Delete";

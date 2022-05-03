@@ -4,12 +4,11 @@
 //
 //  Created by iosdev on 5.4.2022.
 //
+// Decoding Json file and forming them into foodArr
+// Used in early stage of app development
 
 import Foundation
 import CoreData
-
-
-//var foodArr: [FoodStorage] = []
 
 //var foodArr: [FoodStorage] = load("foodData.json")
 

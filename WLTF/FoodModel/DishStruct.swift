@@ -4,6 +4,7 @@
 //
 //  Created by Chan Chung Yin on 25/4/2022.
 //
+// Structure of Dish object
 
 import Foundation
 

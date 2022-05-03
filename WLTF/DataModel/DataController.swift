@@ -14,6 +14,7 @@ import SwiftUI
 
 class DataController: ObservableObject {
     
+    // init the container from the FoodModel which contains all the entities we need
     let container = NSPersistentContainer(name: "FoodModel")
 
     init() {
@@ -27,6 +28,7 @@ class DataController: ObservableObject {
     // save every update in CoreData
     func save(context: NSManagedObjectContext) {
         do {
+            // save the changes
             try context.save()
             print("CoreData is updated successfully")
         } catch let Error {
@@ -35,7 +37,7 @@ class DataController: ObservableObject {
     }
     
     
-    // For Fridge storage
+    //***********************For Fridge storage***********************
     
     // fetch the food data for fridge
     func fetchFoodData() -> [Food] {
@@ -46,15 +48,14 @@ class DataController: ObservableObject {
         return quicksortForExpiryDate(objects!)
     }
     
-    //quicksort
-    // I love alogrithms
-    // average complexity Big O of log n
+    // Using quicksort to sort the food array by the expiry date
     func quicksortForExpiryDate(_ objects: [Food]) -> [Food] {
         // early return
         guard objects.count > 1 else { return objects}
         let pivot = objects[0]
         let earlier = objects.suffix(from: 1).filter{$0.expiryDate! < pivot.expiryDate!}
         let later = objects.suffix(from: 1).filter{$0.expiryDate! > pivot.expiryDate!}
+        // keep doing recurion until the array is completely sorted
         return quicksortForExpiryDate(earlier) + [pivot] + quicksortForExpiryDate(later)
     }
     
@@ -65,6 +66,7 @@ class DataController: ObservableObject {
         newFood.name = name
         newFood.category = category
         newFood.amount = amount
+        newFood.remaining = 100
         newFood.unit = unit
         newFood.entryDate = entryDate
         newFood.expiryDate = expiryDate
@@ -101,9 +103,27 @@ class DataController: ObservableObject {
     }
     
     
-    // For Sticky notes on Fridge door
+    // edit the comsumed bar in the food detail screen
+    func consumeFood(id: UUID, remaining: Double, context: NSManagedObjectContext) {
+        let fetchRequest: NSFetchRequest<Food>
+        fetchRequest = Food.fetchRequest()
+        fetchRequest.predicate = NSPredicate.init(format: "id == %@", id.uuidString)
+        
+        let context = container.viewContext
+        
+        do {
+            let object: [Food] = try context.fetch(fetchRequest)
+            object[0].remaining = remaining
+            save(context: context)
+        } catch let error as NSError {
+            print(error)
+        }
+    }
     
-    //separate 3 arrays (expired, 1 days left, 3 days left), so boris can add the food in the memo on the fridge door
+    
+    // ***********************For Sticky notes on Fridge door***********************
+    
+    //separate 3 arrays (expired, 1 days left, 3 days left), will be used on the sticky on the fridge door
     func fetchGoingToBeExpired() -> [[Food]] {
         let fetchRequest: NSFetchRequest<Food>
         fetchRequest = Food.fetchRequest()
@@ -116,7 +136,7 @@ class DataController: ObservableObject {
     }
     
     
-    // For Shopping list
+    // ***********************For Shopping list***********************
     
     // fetch all the To-buy item for shopping list
     func fetchShoppingData() -> [Shopping] {
@@ -144,7 +164,7 @@ class DataController: ObservableObject {
         save(context: context)
     }
     
-    // add a stored item to the shopping list
+    // add a stored item from food detail to the shopping list
     func fromDetailsAddToBuy(name: String, context: NSManagedObjectContext) {
         let toBuy = Shopping(context: context)
         toBuy.id = UUID()
@@ -185,7 +205,7 @@ class DataController: ObservableObject {
     }
     
     // check if some food are already stored in the fridge and return the amount of them to shopping list
-    // only check have or dun have, and then filter our expired
+    // show food's existence, validation check: expired food will be filtered out
     func checkIfExist(foodName: String) -> Bool{
         let fetchRequest: NSFetchRequest<Food>
         fetchRequest = Food.fetchRequest()
@@ -200,7 +220,7 @@ class DataController: ObservableObject {
         return false
     }
     
-    //update checked status
+    // update the checked status of a food in shopping list
     func updateCheckStatus(foodId: UUID, checked: NSNumber) {
         let fetchRequest: NSFetchRequest<Shopping>
         fetchRequest = Shopping.fetchRequest()
@@ -216,7 +236,7 @@ class DataController: ObservableObject {
         }
     }
     
-    //update the list item
+    // edit name or description of the item in the shopping list
     func updateShoppingListItem(foodId: String, foodName: String, description: String) {
         let fetchRequest: NSFetchRequest<Shopping>
         fetchRequest = Shopping.fetchRequest()
@@ -233,9 +253,9 @@ class DataController: ObservableObject {
         }
     }
     
-    // For receipt dishes and ingredients
+    // ***********************For receipt dishes and ingredients***********************
     
-    // fetch dish
+    // fetch all the dishes on dish main screen
     func fetchAllDishes() -> [Dishes] {
         let fetchRequest: NSFetchRequest<Dishes>
         fetchRequest = Dishes.fetchRequest()
@@ -310,7 +330,10 @@ class DataController: ObservableObject {
         
     }
     
+    // delete all the receipt
     func deleteAllDishes(context: NSManagedObjectContext) {
+        
+        // get two delete requests from dishes and ingredients
         let deleteAllDishes: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Dishes")
         let deleteAllIngredients: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Ingredients")
         
@@ -318,6 +341,7 @@ class DataController: ObservableObject {
         let deleteRequest2 = NSBatchDeleteRequest(fetchRequest: deleteAllIngredients)
         
         do {
+            // delete all data in both entities
             try container.viewContext.execute(deleteRequest1)
             try container.viewContext.execute(deleteRequest2)
             save(context: context)
@@ -326,31 +350,29 @@ class DataController: ObservableObject {
         }
     }
     
-    // edit dish
-    func editDish() {
+    // show notification if the ingredient remains less inside the fridge
+    func checkRemainingFromDish(name: String) -> Bool {
+        let fetchRequest: NSFetchRequest<Food>
+        fetchRequest = Food.fetchRequest()
+        fetchRequest.predicate = NSPredicate.init(format: "name == %@", name)
         
-        func addIngredientToDish(dishId: String, ingredients: [String]) {
-            
+        let context = container.viewContext
+        
+        do {
+            let objects: [Food] = try context.fetch(fetchRequest)
+            return objects[0].remaining >= 30 ? true : false
+        } catch let error as NSError {
+            print(error)
         }
         
-        func removeIngredientToDish() {
-            
-        }
+        return false
     }
     
     
     
-    // check enough to cook
-    func checkIfEnoughIngredient() {
-        
-    }
+    // // ***********************For the fridge name :) ***********************
     
-    // add ingredient to shopping list
-    func addToBuyFromDish() {
-        
-    }
-    
-    // For settings
+    // show the name of the fridge on the fridge door
     func fetchFridgeName() -> String {
         let fetchRequest: NSFetchRequest<Fridge>
         fetchRequest = Fridge.fetchRequest()
@@ -359,6 +381,7 @@ class DataController: ObservableObject {
         do {
             
             let objects = try context.fetch(fetchRequest)
+            // when first time in use, the default name is your fridge
             return objects.isEmpty ? "Your Fridge" : objects[0].name!
             
         } catch let error as NSError{
@@ -368,6 +391,7 @@ class DataController: ObservableObject {
         return "Your Fridge"
     }
     
+    // edit the name of the fridge
     func updateFridgeName(newFridgeName: String) {
         let fetchRequest: NSFetchRequest<Fridge>
         fetchRequest = Fridge.fetchRequest()
@@ -376,12 +400,14 @@ class DataController: ObservableObject {
         let context = container.viewContext
         let objects: [Fridge] = try! context.fetch(fetchRequest)
         
+        // when first time in use, we'll add a new name
         if objects.isEmpty == true {
             let newName = Fridge(context: context)
             newName.name = newFridgeName
             save(context: context)
         } else {
             do {
+                // edit the name if it already has one
                 let newObject = try context.fetch(fetchRequest).first
                 newObject?.name = newFridgeName
                 save(context: context)
@@ -389,5 +415,100 @@ class DataController: ObservableObject {
                 print(error)
             }
         }
+    }
+    
+    // *********************** For Speech Recognition ***********************
+    
+    // for dish recommentation
+    func dishRecommendation() -> String {
+        // get all cookable dishes (user has sufficient ingredients)
+        let dishRec = fetchAllDishes().compactMap{$0}.filter{fetchRelatedIngredient(dishId: $0.id!).map{$0.name!}.allSatisfy{checkIfExist(foodName: $0) == true}}.map{$0.dishName}
+        
+        // early return if user doesn't buy any food
+        guard fetchFoodData().count > 0 else { return "Sorry, I guess you don't have any food in the fridge, I suggest you to go for a grocery shopping" }
+        
+        // early return if user doesn't make any recipe
+        guard dishRec.count > 0 else { return "Sorry, I guess you didn't make any recipe" }
+        
+        // early return if user only has only one recipe or only have one cookable dish
+        // so no random is needed
+        guard dishRec.count > 1 else { return "I guess you only can cook \(dishRec[0]!), you don't have any choice" }
+        
+        
+        // early return if user only has two cookable dishes, so random pick is also not needed in this case
+        guard dishRec.count > 2 else { return "You only have two choices, you can choose either \(dishRec[0]!) or \(dishRec[1]!), or maybe both of them"}
+        
+        // if number of cookable dishes > 2
+        let dish = dishRec.randomElement()!
+        
+        let ans = ["I'd recommend to cook \(String(describing: dish!))", "What about \(String(describing: dish!))? You have enough ingredient", "Would you like to have \(String(describing: dish!))", "Ummmmmmmm, let me think......, would you like to make \(String(describing: dish!))?"]
+        
+        return ans.randomElement()!
+    }
+    
+    // check if the user can cook some thing
+    func checkCookable(dish: String) -> String {
+        // yup, you have enough ingredient to cook
+        // Sorry, ingredient is missing / are missing
+        
+        // early return if user doesn't buy any food
+        guard checkFridgeEmpty() == false else { return "Sorry, I guess you can't cook anything, I can't find anything you can eat in the fridge, I suggest you to go for a grocery shopping"}
+        
+        // early return if user doesn't make any recipe
+        guard fetchAllDishes().isEmpty == false else { return "Sorry, you don't make any recipe here, please feel free to create one"}
+        
+        // early return if the recipe doesn't exist
+        guard fetchAllDishes().compactMap({$0.dishName?.lowercased()}).contains(dish) else { return "Sorry, I cannot find this recipe"}
+        
+        let dishName = fetchAllDishes().compactMap({$0.dishName}).filter{$0.lowercased() == dish}[0]
+        
+        let fetchRequest: NSFetchRequest<Dishes>
+        fetchRequest = Dishes.fetchRequest()
+        fetchRequest.predicate = NSPredicate.init(format: "dishName == %@", dishName)
+        let context = container.viewContext
+        let object = try? context.fetch(fetchRequest)
+        
+        let dishId = object![0].id
+        
+        // if user has all the ingredients and all of them are sufficient
+        if fetchRelatedIngredient(dishId: dishId!).compactMap({$0.name}).allSatisfy({checkIfExist(foodName: $0) == true && checkRemainingFromDish(name: $0) == true}) {
+            return "Yup, you have enough ingredient to cook it!"
+        
+        // if user has all ingredients needed, but one or some of them is(are) not sufficient (remaining less than 30%)
+        } else if fetchRelatedIngredient(dishId: dishId!).compactMap({$0.name}).allSatisfy({checkIfExist(foodName: $0) == true}) {
+            let warningItem = fetchRelatedIngredient(dishId: dishId!).compactMap({$0.name}).filter{checkRemainingFromDish(name: $0) == false}
+            
+            if warningItem.count == 1 { return "Yup, you have all the ingredients you need, but you don't have much \(warningItem[0]) left" }
+            if warningItem.count == 2 { return "Yes, you have enough ingredients, but you don't have much \(warningItem[0]) and \(warningItem[1]) left"}
+            if warningItem.count > 2 {
+                return "You have all the ingredients you need, but it may not be enough for you to cook, so please check again"
+            }
+            
+        // if user doesn't have all the ingredients needed
+        } else if fetchRelatedIngredient(dishId: dishId!).compactMap({$0.name}).allSatisfy({checkIfExist(foodName: $0) == false}){
+            return "Sorry, you don't have all the ingredients you need, I suggest you go for a grocery shopping or cook something else"
+            
+        // if user doesn't have one or some of the ingrdients
+        } else if fetchRelatedIngredient(dishId: dishId!).compactMap({$0.name}).allSatisfy({checkIfExist(foodName: $0) == true}) == false {
+            let missingItem = fetchRelatedIngredient(dishId: dishId!).compactMap({$0.name}).filter{checkIfExist(foodName: $0) == false}
+            
+            if missingItem.count == 1 { return "I am sorry, you are missing \(missingItem[0])"}
+            if missingItem.count == 2 { return "I am sorry, you are missing \(missingItem[0]) and \(missingItem[1])"}
+            if missingItem.count > 2 {
+                return "I am sorry, you don't have \(missingItem.prefix(missingItem.count-1).joined(separator: ", "))) and \(missingItem[missingItem.count-1]) in your fridge"
+            }
+            
+        }
+
+        return "Sorry, I don't know, um.....I can't help"
+    }
+    
+    // check if the fridge is empty
+    private func checkFridgeEmpty() -> Bool{
+        let fetchRequest: NSFetchRequest<Food>
+        fetchRequest = Food.fetchRequest()
+        let context = container.viewContext
+        let objects = try? context.fetch(fetchRequest)
+        return objects!.filter{checkExpired(expiryDate: $0.expiryDate!) == false}.count == 0 ? true : false
     }
 }

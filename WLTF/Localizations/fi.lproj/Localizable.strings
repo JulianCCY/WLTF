@@ -1,0 +1,101 @@
+/* 
+  Localizable.strings
+  WLTF
+
+  Created by iosdev on 1.5.2022.
+  
+*/
+//tab bar
+"menu" = "valikosta";
+"home" = "jääkaappi";
+"grocery" = "ostoksilla";
+"normal_item" = "Normaalit kohteet näytetään tällä sinisellä värillä.";
+"3_days_item" = "3 päivän kuluttua vanhentuvien tuotteiden väri.";
+"1_day_item" = "Tuotteen väri, joka vanhenee 1 päivän sisällä.
+";
+"expired_item" = "Vanhentuneiden tuotteiden väri.";
+"add_button" = "Painike kohteen lisäämiseksi luetteloon.";
+"gray_colored" = "Harmaa värinen";
+"input_fields" = " = syöttökenttiä.";
+"home_page" = "Aloitusnäyttö";
+"closed_fridge" = "Kun jääkaappi on kiinni";
+"sticky_note_number" = "Niiden tuotteiden määrä, jotka vanhenevat värin mukaan.";
+"tap_on_fridge" = "Napauta jääkaappia avataksesi jääkaapin.";
+"opened_fridge" = "Kun jääkaappi avataan";
+"search_bar" = "Käytä hakupalkkia vetämällä alaspäin.";
+"click_to_add_food" = "Napsauta sitä lisätäksesi ruokaa.";
+"swipe_delete" = "Pyyhkäise vasemmalle poistaaksesi kohteen.";
+"hold_edit" = "Pidä kohdetta painettuna muokataksesi sitä";
+"dish" = "Astian näyttö";
+"represent_adequate" = "Edustaa riittäviä ainesosia.";
+"represent_inadequate" = "Edustaa riittämättömiä ainesosia.";
+"click_create_dish" = "Napsauta sitä luodaksesi ruokalajin.";
+"click_speech" = "Napsauta sitä käyttääksesi puheentunnistusta.";
+
+//sticknotes
+"back" = "Takaisin";
+
+//settings
+"settings" = "Asetukset";
+"name_your_fridge" = "Nimeä jääkaappisi!";
+"general" = "Yleinen sisään WLTF";
+
+//food details
+"amount" = "Määrä";
+"remaining" = "jäljelle";
+"entry_date" = "Sisääntulopäivä";
+"expiry_date" = "Päättymispäivä";
+"consume" = "kuluttaa";
+"consumed" = "Kulutettu";
+"remove" = "Poista";
+"added_to_list" = "Lisätty listalle";
+
+//add food screen
+"food_name" = "Ruoan nimi";
+"when_expire?" = "Milloin se vanhenee?";
+"empty_name" = "Tyhjä nimi";
+"amount_integer" = "Summan on oltava kokonaisluku";
+"invalid" = "Virheellinen";
+"ok" = "Okei";
+"name:" = "Nimi:";
+"category:" = "Kategoria:";
+"amount:" = "Määrä:";
+"expiration:" = "Vanheneminen:";
+"add_list_empty" = "Lista on tyhjä";
+"confirm" = "Vahvistaa";
+
+//shopping list
+"grocery_list" = "Ostoslista";
+"description" = "Kuvaus (Valinnainen)";
+"empty_food_name" = "Ruokanimi tyhjä";
+"to_buy (%lld)" = "Ostaa (%lld)";
+"detected" = "Jääkaapissa havaittiin samanlaista ruokaa jäljellä";
+"double_tab" = "Tarkista kohde kaksoisnapauttamalla";
+"note:" = "Huomautus:";
+"blank" = "tyhjä";
+"empty_grocery_list?" = "Tyhjentääkö ruokalistasi?";
+"yes_please" = "Kyllä ​​kiitos";
+"cancel" = "Peruuttaa";
+"edit_item" = "Syötä uusi ruoan nimi ja kuvaus";
+
+//dish main
+"cook?" = "Mitä kokata?";
+"no_dish" = "Sinulla ei ole vielä ruokia!";
+"enough" = "Riittävä ainesosa";
+"not_enough" = "Riittämätön ainesosa";
+"delete_all_dishes" = "Poista kaikki ruokasi";
+
+//dish add
+"dish_name" = "Aterian nimi";
+"notes" = "Huomautukset";
+"serving %lld people" = "Palvelee %lld henkilöä";
+"ingredient" = "Ainesosa";
+"no_ingredient" = "Ei ainesosaa";
+"please_name_dish" = "Nimeä ruokasi";
+
+//dish detail
+"portion:" = "Annoksia:";
+"%lld people" = "%lld hengelle";
+"notes: " = "Huomautus: ";
+"ingredients" = "Ainesosia";
+"delete" = "Poistaa";

@@ -80,7 +80,7 @@ iOS Mobile Application Development - Metropolia University of Applied Sciences (
 [AVSpeechSynthesizer](https://developer.apple.com/videos/play/wwdc2018/236/)
 
 ## License
-[General Public License v3.0](https://github.com/JulianCCY/WLTF/blob/main/LICENSE)
+[AGPL-3.0 License](https://github.com/JulianCCY/WLTF/blob/main/LICENSE)
 
 ## Contributors
 [Chan Chung Yin](https://github.com/JulianCCY) : Core Data, Speech recognition, functions

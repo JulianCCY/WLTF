@@ -21,7 +21,7 @@ struct AddFoodScreen: View {
     
 //    category and units array for picker
     var cates = ["Alcohol", "Bread", "Cooked", "Dairy", "Dessert", "Drinks", "Frozen", "Fruit", "Grain", "Meat", "Processed", "Protein", "Seasoning", "Seafood", "Snacks", "Vegetables", "Others"]
-    var units = ["Bag(s)", "Bottle(s)", "Bowl(s)", "Box(es)", "Can(s)", "Cup(s)", "Pack(s)", "Piece(s)", "Plate(s)", "Pot(s)", "Serving(s)", "Milligram(s)", "Gram(s)", "Kiloram(s)", "Millilitre(s)", "Litre(s)", "Pound(s)", "Ounce(s)"]
+    var units = ["Bag(s)", "Bottle(s)", "Bowl(s)", "Box(es)", "Can(s)", "Cup(s)", "Pack(s)", "Piece(s)", "Plate(s)", "Pot(s)", "Serving(s)", "Milligram(s)", "Gram(s)", "Kilogram(s)", "Millilitre(s)", "Litre(s)", "Pound(s)", "Ounce(s)"]
 
     @State var name: String = ""
     @State var category: String = "Others"

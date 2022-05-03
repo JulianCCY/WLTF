@@ -495,7 +495,7 @@ class DataController: ObservableObject {
             if missingItem.count == 1 { return "I am sorry, you are missing \(missingItem[0])"}
             if missingItem.count == 2 { return "I am sorry, you are missing \(missingItem[0]) and \(missingItem[1])"}
             if missingItem.count > 2 {
-                return "I am sorry, \(missingItem.prefix(missingItem.count-1).joined(separator: ", "))) and \(missingItem[missingItem.count-1])"
+                return "I am sorry, you don't have \(missingItem.prefix(missingItem.count-1).joined(separator: ", "))) and \(missingItem[missingItem.count-1]) in your fridge"
             }
             
         }

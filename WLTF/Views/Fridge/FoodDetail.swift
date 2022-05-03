@@ -189,7 +189,7 @@ struct FoodDetail: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 // Top Right delete button
                 Button {
-                    showToast.toggle()
+                    showToast = true
                     DataController().fromDetailsAddToBuy(name: food.name, context: moc)
                 } label: {
                     Label("Add to cart", systemImage: "cart.badge.plus")
